@@ -1,7 +1,7 @@
 declare -A LABELS
 declare -A COMMANDS
 
-COMMANDS["reload"]="pkill -USR1 -x polybar; pkill -USR1 -x sxhkd"
+COMMANDS["reload"]="pkill -USR1 -x polybar; pkill -USR1 -x sxhkd; pkill -USR1 -x picom"
 LABELS["reload"]=""
 
 COMMANDS["n"]="alacritty -e vim ~/notes/note~"
