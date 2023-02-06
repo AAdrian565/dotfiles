@@ -30,6 +30,10 @@ alt + c
 ctrl + alt + t
 	alacritty 
 
+alt + Return
+	alacritty
+
+alt + 
 
 #
 # Laptop Function Keys
