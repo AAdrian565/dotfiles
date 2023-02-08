@@ -7,7 +7,7 @@ super + e
 super + l
 	betterlockscreen -l
 
-super + insert 
+alt + insert 
 	flameshot gui
 
 super + shift + s
@@ -33,7 +33,6 @@ ctrl + alt + t
 alt + Return
 	alacritty
 
-alt + 
 
 #
 # Laptop Function Keys
