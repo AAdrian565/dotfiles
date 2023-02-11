@@ -22,6 +22,9 @@ LABELS["Data"]=""
 COMMANDS["rofi-Emoji"]="rofi -modi emoji -show emoji"
 LABELS["rofi-Emoji"]=""
 
+COMMANDS["rofi-FontAwesome"]="bash .config/rofi/rofi-fontawesome"
+LABELS["rofi-FontAwesome"]=""
+
 COMMANDS["rofi-Wifi"]="bash .config/rofi/rofi-wifi-menu.sh"
 LABELS["rofi-Wifi"]=""
 
@@ -33,7 +36,6 @@ LABELS["rofi-Calculator"]=""
 
 COMMANDS["rofi-Clipboard"]="rofi -modi 'clipboard:greenclip print' -show clipboard"
 LABELS["rofi-Clipboard"]=""
-
 
 ################################################################################
 #
