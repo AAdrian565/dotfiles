@@ -1,17 +1,21 @@
 window:  
   opacity: 0.78
   padding:
-    x: 15
-    y: 10
+    x: 5
+    y: 5
   dimensions:
     columns: 88
     lines: 22
   dynamic_padding: true
   dynamic_title: true
+background-opacity: 5
 font:  
   size: 8
   normal:    
     family: "Noto Sans Mono"
+cursor:
+  style:
+    shape: beam
 colors:   
   primary:    
     foreground: '0xcbe3e7'  
