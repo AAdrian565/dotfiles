@@ -13,7 +13,7 @@ map C clear
 map DD delete
 map <enter> shell
 map r reload
-map RR push :rename<space>
+map RR :rename<space>
 map mf makefile
 map md mkdir
 map dr dragon
