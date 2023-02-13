@@ -1,8 +1,8 @@
 window:  
   opacity: 0.78
   padding:
-    x: 15
-    y: 10
+    x: 5
+    y: 5
   dimensions:
     columns: 88
     lines: 22
