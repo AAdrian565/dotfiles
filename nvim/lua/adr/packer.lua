@@ -24,8 +24,8 @@ return require('packer').startup(function(use)
         tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
     -- Auto comment
-    use "terrortylor/nvim-comment"
-
+    use ("terrortylor/nvim-comment")
+    use ("mhartington/formatter.nvim")
     -- Tree sitter
     use('nvim-treesitter/nvim-treesitter', {run = 'TSUpdate'})
     use('nvim-treesitter/playground')
@@ -34,10 +34,15 @@ return require('packer').startup(function(use)
     -- Undo Tree
     use("mbbill/undotree")
 
+    -- LANGUAGE SPECIFIC
     -- WEB DEV
     use("windwp/nvim-ts-autotag")
     use('mattn/emmet-vim')
-    use( 'manzeloth/live-server')
+    use('manzeloth/live-server')
+
+    -- GO LANGUAGE
+    use("fatih/vim-go" )
+
     -- LSP
     use {
         'VonHeikemen/lsp-zero.nvim',
@@ -88,4 +93,10 @@ return require('packer').startup(function(use)
         -- some optional icons
         requires = { "kyazdani42/nvim-web-devicons", opt = true }
     })
+    use {
+        'goolord/alpha-nvim',
+        config = function ()
+            require'alpha'.setup(require'alpha.themes.dashboard'.config)
+        end
+    }
 end)

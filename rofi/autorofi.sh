@@ -16,7 +16,7 @@ LABELS["wa"]=""
 COMMANDS["dc"]="discord"
 LABELS["dc"]=""
 
-COMMANDS["Data"]="alacritty -e sudo mount.ntfs-3g /dev/nvme0n1p4 /mnt/data"
+COMMANDS["Data"]="gksudo mount.ntfs-3g /dev/nvme0n1p4 /mnt/data"
 LABELS["Data"]=""
 
 COMMANDS["rofi-Emoji"]="rofi -modi emoji -show emoji"
