@@ -211,5 +211,5 @@ exec_always --no-startup-id feh --bg-scale .wallpaper/main.png
 exec_always --no-startup-id greenclip daemon
 exec_always --no-startup-id autotiling
 exec_always --no-startup-id picom -b
-# exec_always --no-startup-id unclutter
+exec_always --no-startup-id unclutter
 exec_always --no-startup-id xset -dpms && xset s off

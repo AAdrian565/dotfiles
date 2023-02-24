@@ -4,7 +4,7 @@ declare -A COMMANDS
 COMMANDS["reload"]="pkill -USR1 -x polybar; pkill -USR1 -x sxhkd;"
 LABELS["reload"]=""
 
-COMMANDS["n"]="alacritty -e vim ~/notes/note~"
+COMMANDS["n"]="alacritty -e nvim ~/notes/note~"
 LABELS["n"]=""
 
 COMMANDS["r"]="rofi -show drun"

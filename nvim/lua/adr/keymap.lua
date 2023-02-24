@@ -13,7 +13,8 @@ vim.keymap.set("n", "<leader>pa", "ggVGx\"+p<cr>")
 
 vim.keymap.set("n", "<C-e>", ":NERDTreeToggle<cr>")
 vim.keymap.set("n", "<leader>d", ":NERDTreeFind<cr>")
+vim.keymap.set("n", "<leader>sds", ":SudaWrite<cr>")
 
 vim.keymap.set("n", "<leader>rn", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("n", "<leader>f<cr>", ":Format<cr>")
+vim.keymap.set("n", "<leader>f<cr>", ":LspZeroFormat<cr>")
 vim.keymap.set("n", "<leader>U", ":UndotreeToggle<cr>")

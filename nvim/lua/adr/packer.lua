@@ -15,7 +15,13 @@ return require('packer').startup(function(use)
         -- Color theme
         use('navarasu/onedark.nvim')
         use("nvim-tree/nvim-web-devicons")
+        use("nvim-tree/nvim-tree.lua")
 
+        use ('lambdalisue/suda.vim')
+
+        --runner
+        use ('CRAG666/code_runner.nvim')
+        use ('nvim-lua/plenary.nvim')
         --tree
         use ("preservim/nerdtree")
         use('ThePrimeagen/harpoon')

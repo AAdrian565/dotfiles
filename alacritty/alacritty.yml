@@ -9,7 +9,7 @@ window:
   dynamic_padding: true
   dynamic_title: true
 font:  
-  size: 8
+  size: 12
   normal:    
     family: "Noto Sans Mono"
 colors:   
