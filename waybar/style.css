@@ -1,0 +1,131 @@
+@define-color foreground    #999999;
+@define-color border        @foreground;
+@define-color inactive      #454545;
+@define-color warning       #E97193;
+
+* {
+    font-family: FiraCode;
+}
+tooltip,
+#temperature,
+#taskbar,
+#bluetooth,
+#clock,
+#battery,
+#cpu,
+#memory,
+#backlight,
+#pulseaudio,
+#pulseaudio.microphone,
+#tray,
+#workspaces,
+#network,
+#custom-playerinfo,
+#custom-playerctl {
+    font-weight: bolder;
+    color: @foreground;
+    background-color: transparent;
+    border-radius: 10px;
+    border: 3px solid @border;
+    margin: 10px 5px 0px 5px;
+    padding: 0px 10px;
+}
+
+/* NO BORDER LEFT */
+#temperature,
+#cpu,
+#backlight {
+    margin-right: 0px;
+    padding-right: 5px;
+    border-radius: 10px 0px 0px 10px;
+    border-right: 0;
+}
+/* NO BORDER LEFT RIGHT */
+#language,
+#custom-sep {
+    margin-left: 0px;
+    margin-right: 0px;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* NO BORDER RIGHT */
+#pulseaudio.microphone,
+#pulseaudio,
+#memory {
+    margin-left: 0px;
+    padding-left: 5px;
+    border-radius: 0 10px 10px 0;
+    border-left: 0;
+}
+
+window#waybar {
+    background-color: transparent;
+}
+tooltip {
+    background-color: #0A0E12;
+}
+
+#workspaces button {
+    border: 0;
+    color: @inactive;
+    transition: all 0.2s ease;
+}
+
+#workspaces button.active{
+    color: @foreground;
+}
+
+#workspaces button:hover {
+    box-shadow: #161320 0 0 0 0px;
+    border: #101317;
+    text-shadow: #e2e0ec 0 0 0px;
+}
+
+#clock label{
+    font-size: 20px;
+}
+
+#clock {
+    margin-left: 12px;
+    font-size: 15px;
+    padding-right: 21px;
+    padding: 0px 10px;
+}
+
+#bluetooth.on{
+    color: @inactive;
+    border-color: @inactive;
+}
+
+#bluetooth.connected{
+    color: @foreground;
+    border-color: @foreground;
+}
+
+#battery.warning:not(.charging) {
+    color: #ECE0A8;
+}
+
+#battery.critical:not(.charging) {
+    color: @warning;
+    /* border-color: @warning; */
+}
+
+#pulseaudio.muted {
+    color: @warning;
+    /* border-color: @warning; */
+}
+
+#network.disconnected {
+    color: @warning;
+    /* border-color: @warning; */
+}
+
+#tray {
+    padding-left: 10px;
+    padding-right: 10px;
+}
