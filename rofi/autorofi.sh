@@ -1,6 +1,9 @@
 declare -A LABELS
 declare -A COMMANDS
 
+COMMANDS["portainer"]="docker start portainer ; brave '0.0.0.0:9000;"
+LABELS["portainer"]=""
+
 COMMANDS["reload"]="pkill -USR1 -x polybar; pkill -USR1 -x sxhkd;"
 LABELS["reload"]=""
 

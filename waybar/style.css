@@ -21,6 +21,7 @@ tooltip,
 #workspaces,
 #network,
 #custom-playerinfo,
+#custom-pacman,
 #custom-playerctl {
     font-weight: bolder;
     color: @foreground;
