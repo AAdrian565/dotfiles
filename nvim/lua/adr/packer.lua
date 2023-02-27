@@ -14,6 +14,7 @@ return require('packer').startup(function(use)
         use("tpope/vim-fugitive")
         -- Color theme
         use('navarasu/onedark.nvim')
+        use("junegunn/goyo.vim")
         use("nvim-tree/nvim-web-devicons")
         use("nvim-tree/nvim-tree.lua")
 
@@ -28,7 +29,7 @@ return require('packer').startup(function(use)
 
         -- Auto comment
         use ("terrortylor/nvim-comment")
-        use ("mhartington/formatter.nvim")
+        -- use ("mhartington/formatter.nvim")
 
         -- Tree sitter
         use('nvim-treesitter/nvim-treesitter', {run = 'TSUpdate'})
