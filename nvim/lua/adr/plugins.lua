@@ -13,22 +13,25 @@ vim.opt.rtp:prepend(lazypath)
 
 -- require('lazy').setup({})
 require('lazy').setup({
-    "tpope/vim-fugitive",
-    -- Color theme
+    -- Color theme/ decoration
     "navarasu/onedark.nvim",
     "nvim-lualine/lualine.nvim",
-    -- "nvim-tree/nvim-web-devicons",
     "nvim-tree/nvim-tree.lua",
 
+    -- Utilities
+    "tpope/vim-fugitive",
     "lambdalisue/suda.vim",
     "nvim-lua/completion-nvim",
     "kylechui/nvim-surround",
+    "mbbill/undotree",
 
     --runner
     "CRAG666/code_runner.nvim",
     "nvim-lua/plenary.nvim",
+    --games
+    "ThePrimeagen/vim-be-good",
 
-    --tree
+    --tree/ navigation
     "preservim/nerdtree",
     "ThePrimeagen/harpoon",
 
@@ -41,15 +44,14 @@ require('lazy').setup({
     "nvim-treesitter/playground",
     "nvim-treesitter/nvim-treesitter-context",
 
-    -- Undo Tree
-    "mbbill/undotree",
     -- LANGUAGE SPECIFIC
     -- WEB DEV
     "windwp/nvim-ts-autotag",
-    "mattn/emmet-vim",
+    -- "mattn/emmet-vim",
     "manzeloth/live-server",
     -- GO LANGUAGE
     "fatih/vim-go",
+
     "rstacruz/vim-closer",
     {
         'nvim-telescope/telescope.nvim',
@@ -81,7 +83,7 @@ require('lazy').setup({
         "startup-nvim/startup.nvim",
         dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
         config = function()
-            require "startup".setup()
+            require "startup".setup({theme = "greeterTheme"})
         end
     }
 })
