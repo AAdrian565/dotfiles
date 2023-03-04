@@ -22,7 +22,7 @@
   "nvim-lspconfig": { "branch": "master", "commit": "e0926b6abc84578f44fb8917d61cdee22188639e" },
   "nvim-surround": { "branch": "main", "commit": "8680311f6de05d45b010883db7cc1912b7f0d0e4" },
   "nvim-tree.lua": { "branch": "master", "commit": "1b453441f4b1a501a6251db4138cf67172d0d5d2" },
-  "nvim-treesitter": { "branch": "master", "commit": "28f84d69e3b6c26f1f7a2ef3f248a7242f36d620" },
+  "nvim-treesitter": { "branch": "master", "commit": "d4e48be88d9822d98c9194f5cc2778c9953afb66" },
   "nvim-treesitter-context": { "branch": "master", "commit": "895ec44f5c89bc67ba5440aef3d1f2efa3d59a41" },
   "nvim-ts-autotag": { "branch": "main", "commit": "fdefe46c6807441460f11f11a167a2baf8e4534b" },
   "onedark.nvim": { "branch": "master", "commit": "1fe908fb4acdcee26573e9ccde0de94ec77e5e84" },
@@ -35,5 +35,6 @@
   "vim-be-good": { "branch": "master", "commit": "c290810728a4f75e334b07dc0f3a4cdea908d351" },
   "vim-closer": { "branch": "master", "commit": "6007d9db0a35e983af246b667282606612076b07" },
   "vim-fugitive": { "branch": "master", "commit": "fa33145cc12003005b92d7e536025ed5833b9c4f" },
-  "vim-go": { "branch": "master", "commit": "b8a41085bfd67fee97ad075c6df65590ce7417a7" }
+  "vim-go": { "branch": "master", "commit": "b8a41085bfd67fee97ad075c6df65590ce7417a7" },
+  "vim-snippets": { "branch": "master", "commit": "68dfbccbe97b87ec9c80fa6d5ee144befc3f3a3b" }
 }

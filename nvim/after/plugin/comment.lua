@@ -1,5 +1,5 @@
 require('nvim_comment').setup(
-{
+  {
     -- Linters prefer comment and line to have a space in between markers
     marker_padding = true,
     -- should comment out empty or whitespace only lines
@@ -16,5 +16,5 @@ require('nvim_comment').setup(
     comment_chunk_text_object = "ic",
     -- Hook function to call before commenting takes place
     hook = nil
-}
+  }
 )
