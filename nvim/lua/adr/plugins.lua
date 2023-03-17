@@ -13,9 +13,9 @@ vim.opt.rtp:prepend(lazypath)
 
 -- require('lazy').setup({})
 require('lazy').setup({
+  "nvim-lua/plenary.nvim",
   -- Color theme/ decoration
   "navarasu/onedark.nvim",
-  "nvim-lualine/lualine.nvim",
   "nvim-tree/nvim-tree.lua",
 
   -- Utilities
@@ -23,11 +23,14 @@ require('lazy').setup({
   "lambdalisue/suda.vim",
   "nvim-lua/completion-nvim",
   "kylechui/nvim-surround",
+  "nvim-lualine/lualine.nvim",
   "mbbill/undotree",
   "honza/vim-snippets",
-  --runner
-  "CRAG666/code_runner.nvim",
-  "nvim-lua/plenary.nvim",
+  "mg979/vim-visual-multi",
+  "akinsho/toggleterm.nvim",
+  { "akinsho/toggleterm.nvim",         version = "*",     config = true },
+  "AndrewRadev/splitjoin.vim",
+
   --games
   "ThePrimeagen/vim-be-good",
 
@@ -75,7 +78,12 @@ require('lazy').setup({
       { 'saadparwaiz1/cmp_luasnip' }, -- Optional
       { 'hrsh7th/cmp-nvim-lua' }, -- Optional
       -- Snippets
-      { 'L3MON4D3/LuaSnip' }, -- Required
+      {
+        "L3MON4D3/LuaSnip",
+        version = "<CurrentMajor>.*",
+        build = "make install_jsregexp"
+      },
+      -- { 'L3MON4D3/LuaSnip' }, -- Required
       { 'rafamadriz/friendly-snippets' } -- Optional
     }
   },

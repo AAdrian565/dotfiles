@@ -1,24 +1,46 @@
+local opt = { noremap = true, silent = true }
+k = vim.keymap.set
 vim.g.mapleader = " "
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
--- vim.keymap.set("n", "n", "nzzzv")
--- vim.keymap.set("n", "N", "Nzzzv")
+-- Bacic Functionality
+k("n", "<C-h>", "<C-w>h", opt)
+k("n", "<C-j>", "<C-w>j", opt)
+k("n", "<C-k>", "<C-w>k", opt)
+k("n", "<C-l>", "<C-w>l", opt)
+k("v", "J", ":m '>+1<CR>gv=gv", opt)
+k("v", "K", ":m '<-2<CR>gv=gv", opt)
+k("n", "<C-d>", "<C-d>zz", opt)
+k("n", "<C-u>", "<C-u>zz", opt)
 
-vim.keymap.set("n", "<C-a>", "ggVG<cr>")
-vim.keymap.set("n", "<leader>ya", "ggVG\"+y<cr>")
-vim.keymap.set("n", "<leader>pa", "ggVGx\"+p<cr>")
+-- Copy paste
+k("n", "<C-a>", "ggVG<cr>", opt)
+k("n", "<leader>ya", "ggVG\"+y<cr>", opt)
+k("n", "<leader>pa", "ggVGx\"+p<cr>", opt)
 
-vim.keymap.set("n", "<C-e>", ":NERDTreeToggle<cr>")
-vim.keymap.set("n", "<leader>d", ":NERDTreeFind<cr>")
--- vim.keymap.set("n", "<leader>sds", ":SudaWrite<cr>")
-vim.keymap.set("n", "<leader>WW", ":SudaWrite<cr>")
+-- NERD Tree
+k("n", "<C-e>", ":NERDTreeToggle<cr>", opt)
+k("n", "<leader>d", ":NERDTreeFind<cr>", opt)
 
-vim.keymap.set("n", "<leader>rn", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("v", "<leader>or", ":s/\\(.*\\)/\1")
-vim.keymap.set("n", "<leader>f", ":LspZeroFormat<cr>")
-vim.keymap.set("n", "<leader>U", ":UndotreeToggle<cr>")
-vim.keymap.set("n", "<leader>lo", ":LiveServer start<cr>")
-vim.keymap.set("n", "<leader>lc", ":LiveServer stop<cr>")
+-- Terminal
+k("t", "<C-t>", "<cmd>ToggleTerm<cr>", opt)
+k("n", "<C-t>", "<cmd>ToggleTerm<cr>", opt)
+
+-- Harpoon
+k("n", "<leader>ho", ":lua require(\"harpoon.ui\").toggle_quick_menu()<cr>", opt)
+k("n", "<leader>haf", ":lua require(\"harpoon.mark\").add_file()<cr>", opt)
+k("n", "<C-H>", ":lua require(\"harpoon.ui\").nav_prev()<cr>", opt)
+k("n", "<C-L>", ":lua require(\"harpoon.ui\").nav_next()<cr>", opt)
+
+-- Utilities
+k("n", "<leader>f", ":LspZeroFormat<cr>", opt)
+k("n", "<leader>U", ":UndotreeToggle<cr>", opt)
+k("n", "<leader>lo", ":LiveServer start<cr>", opt)
+k("n", "<leader>lc", ":LiveServer stop<cr>", opt)
+k("n", "<leader>WW", ":SudaWrite<cr>", opt)
+
+k("n", "<leader>rn", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], opt)
+k("v", "<leader>or", ":s/\\(.*\\)/\1", opt)
+k("n", "<leader>q", "@q", opt)
+k("n", "<leader>w", ":set wrap!<cr>", opt)
+-- m("n", "<leader>to", ":term<cr>i", opt)
+-- m("n", "<leader>mk", ":w:make<cr>:term<cr>i./hello<cr>", opt)

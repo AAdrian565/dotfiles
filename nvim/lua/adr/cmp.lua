@@ -13,6 +13,10 @@ local check_backspace = function()
   return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
 end
 
+require("luasnip.loaders.from_snipmate").lazy_load({ paths = {"~/.config/nvim/snippets/custom"}})
+-- require("luasnip.loaders.from_snipmate").lazy_load({include = {"c"}})
+
+
 --   פּ ﯟ   some other good icons
 local kind_icons = {
   Text = "",
