@@ -30,23 +30,36 @@ require('lazy').setup({
   "akinsho/toggleterm.nvim",
   { "akinsho/toggleterm.nvim",         version = "*",     config = true },
   "AndrewRadev/splitjoin.vim",
+  {
+    "smjonas/inc-rename.nvim",
+    config = function()
+      require("inc_rename").setup()
+    end,
+  },
+  "CRAG666/code_runner.nvim",
+  -- {
+  --   "iamcco/markdown-preview.nvim",
+  --   run = function() vim.fn["mkdp#util#install"]() end,
+  -- },
+  { "iamcco/markdown-preview.nvim",
+    fun = "cd app && npm install",
+    setup = function()
+      vim.g.mkdp_filetypes = {
+        "markdown" }
+    end, ft = { "markdown" }, },
 
   --games
   "ThePrimeagen/vim-be-good",
-
   --tree/ navigation
   "preservim/nerdtree",
   "ThePrimeagen/harpoon",
-
   -- Auto comment
   "terrortylor/nvim-comment",
   "mhartington/formatter.nvim",
-
   -- Tree sitter
   { "nvim-treesitter/nvim-treesitter", build = "TSUpdate" },
   "nvim-treesitter/playground",
   "nvim-treesitter/nvim-treesitter-context",
-
   -- LANGUAGE SPECIFIC
   -- WEB DEV
   "windwp/nvim-ts-autotag",
@@ -54,7 +67,6 @@ require('lazy').setup({
   "manzeloth/live-server",
   -- GO LANGUAGE
   "fatih/vim-go",
-
   "rstacruz/vim-closer",
   {
     'nvim-telescope/telescope.nvim',

@@ -1,6 +1,9 @@
 declare -A LABELS
 declare -A COMMANDS
 
+# COMMANDS["zwd"]="clipboard='​'"
+# LABELS["zwd"]=""
+
 COMMANDS["portainer"]="docker start portainer ; brave '0.0.0.0:9000;"
 LABELS["portainer"]=""
 
