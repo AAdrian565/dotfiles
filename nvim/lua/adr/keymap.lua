@@ -23,8 +23,9 @@ k("n", "<C-e>", ":NERDTreeToggle<cr>", opt)
 k("n", "<leader>d", ":NERDTreeFind<cr>", opt)
 
 -- Terminal
-k("t", "<C-t>", "<cmd>ToggleTerm<cr>", opt)
-k("n", "<C-t>", "<cmd>ToggleTerm<cr>", opt)
+k("t", "<cr>", "<cr>", opt)
+k("t", "<C-d>", "<cmd>ToggleTerm<cr>", opt)
+k("n", "<C-d>", "<cmd>ToggleTerm<cr>", opt)
 
 -- Harpoon
 k("n", "<leader>ho", ":lua require(\"harpoon.ui\").toggle_quick_menu()<cr>", opt)
@@ -42,7 +43,6 @@ k("n", "<leader>WW", ":SudaWrite<cr>", opt)
 k("n", "<leader>rrn", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], opt)
 k("n", "<leader>rn", ":IncRename ")
 k("v", "<leader>or", ":s/\\(.*\\)/\1", opt)
-k("n", "<leader>f", "@q", opt)
 k("n", "<leader>w", ":set wrap!<cr>", opt)
 -- m("n", "<leader>to", ":term<cr>i", opt)
 -- m("n", "<leader>mk", ":w:make<cr>:term<cr>i./hello<cr>", opt)

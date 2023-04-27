@@ -27,7 +27,6 @@ require('lazy').setup({
   "mbbill/undotree",
   "honza/vim-snippets",
   "mg979/vim-visual-multi",
-  "akinsho/toggleterm.nvim",
   { "akinsho/toggleterm.nvim",         version = "*",     config = true },
   "AndrewRadev/splitjoin.vim",
   {
@@ -37,10 +36,6 @@ require('lazy').setup({
     end,
   },
   "CRAG666/code_runner.nvim",
-  -- {
-  --   "iamcco/markdown-preview.nvim",
-  --   run = function() vim.fn["mkdp#util#install"]() end,
-  -- },
   { "iamcco/markdown-preview.nvim",
     fun = "cd app && npm install",
     setup = function()
