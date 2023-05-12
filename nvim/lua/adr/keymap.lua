@@ -17,6 +17,7 @@ k("n", "<C-u>", "<C-u>zz", opt)
 k("n", "<C-a>", "ggVG<cr>", opt)
 k("n", "<leader>ya", "ggVG\"+y<cr>", opt)
 k("n", "<leader>pa", "ggVGx\"+p<cr>", opt)
+k("n", "<leader>yl", "V\"+y<cr>", opt)
 
 -- NERD Tree
 k("n", "<C-e>", ":NERDTreeToggle<cr>", opt)
