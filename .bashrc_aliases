@@ -1,0 +1,39 @@
+#
+# ~/.bashrc
+#
+
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias clock='timedatectl set-local-rtc 1'
+
+alias csvim="feh Pictures/csvim.webp"
+alias ls="ls --color=auto"
+alias vim="nvim"
+alias v="vim"
+alias ~="cd ~"
+alias home="cd ~"
+alias cls="clear"
+alias duu="du -h -d 1"
+
+alias n="cd ~/notes; vim"
+alias c="cd ~/programming/"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+alias nr="npm run"
+alias sail="./vendor/bin/sail"
+alias glaravel="composer install; cp .env.example .env; php artisan key:generate; php artisan db:seed; npm run build; sail up"
+
+alias pac="docker run -it --rm freedomben/pacvim"
+alias win="cd ~/vm ; quickemu --vm windows-10.conf"
+alias portainer="docker start portainer ;brave '0.0.0.0:9000'"
+
+alias dps="docker  ps"
+alias dpsa="docker  ps -a"
+alias dib="docker inspect bridge | grep Name"
+alias bb="docker run -itd --rm --network asgard --name bb busybox"
+alias bb="docker run -itd --rm --network docknet --name bb busybox ; docker exec -it bb sh"
+alias bbm="docker exec -it bb sh"
+alias bbd="docker stop bb"
