@@ -22,8 +22,10 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-alias nr="npm run"
 alias sail="./vendor/bin/sail"
+alias xampp="sudo /opt/lampp/lampp"
+
+alias nr="npm run"
 alias glaravel="composer install; cp .env.example .env; php artisan key:generate; php artisan db:seed; npm run build; sail up"
 
 alias pac="docker run -it --rm freedomben/pacvim"

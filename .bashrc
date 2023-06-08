@@ -8,6 +8,7 @@ if [ -f $HOME/.bashrc_aliases ]; then
     . $HOME/.bashrc_aliases
 fi
 
+
 # neofetch
 export EDITOR=nvim
 export VISUAL=nvim

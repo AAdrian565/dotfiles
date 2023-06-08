@@ -9,13 +9,13 @@
     "modules-left": [
         "wlr/workspaces",
         // "wlr/taskbar",
-        "custom/playerinfo",
+        "bluetooth",
+        "custom/playerinfo"
     ],
     "modules-center": [
         "clock"
     ],
     "modules-right": [
-        "bluetooth",
         "disk",
         "custom/pacman",
         "tray",
