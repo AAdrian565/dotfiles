@@ -18,6 +18,8 @@ require('lazy').setup({
   "navarasu/onedark.nvim",
   "nvim-tree/nvim-tree.lua",
 
+
+
   -- Utilities
   "tpope/vim-fugitive",
   "lambdalisue/suda.vim",
@@ -59,7 +61,7 @@ require('lazy').setup({
   -- WEB DEV
   "windwp/nvim-ts-autotag",
   -- "mattn/emmet-vim",
-  "manzeloth/live-server",
+  -- "manzeloth/live-server",
   -- GO LANGUAGE
   "fatih/vim-go",
   "rstacruz/vim-closer",
@@ -110,4 +112,7 @@ require('lazy').setup({
       require "startup".setup({ theme = "greeterTheme" })
     end
   }
+})
+require("nvim-tree").setup({
+  on_attach = on_attach,
 })
