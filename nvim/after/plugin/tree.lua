@@ -18,11 +18,6 @@ require("nvim-tree").setup({
   },
   view = {
     width = 30,
-    mappings = {
-      list = {
-        { key = "u", action = "dir_up" },
-      },
-    },
     float = {
       enable = false,
       quit_on_focus_loss = true,

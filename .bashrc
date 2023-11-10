@@ -8,8 +8,14 @@ if [ -f $HOME/.bashrc_aliases ]; then
     . $HOME/.bashrc_aliases
 fi
 
+# NPM_PACKAGES="${HOME}/.npm-packages"
+
+export PATH="$PATH:$NPM_PACKAGES/bin"
+export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
+
 
 # neofetch
+export BROWSER=thorium-browser
 export EDITOR=nvim
 export VISUAL=nvim
 export GDK_BACKEND="wayland"
