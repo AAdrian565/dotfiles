@@ -6,8 +6,8 @@
  * Configuration For Rofi Version: 1.7.3
  **/
 /*@theme "/usr/share/rofi/themes/solarized.rasi"*/
-@theme "~/.config/rofi/launchers/type-1/style-8.rasi"
-@import "~/.config/rofi/colors/catppuccin.rasi"
+  @theme "~/.config/rofi/launchers/type-1/style-8.rasi"
+  @import "~/.config/rofi/colors/onedark.rasi"
 configuration {
 	/*---------- General setting ----------*/
 	modi: "drun,run,filebrowser,window";

@@ -1,0 +1,4 @@
+(defvar recorder_audio false)
+(defvar recorder_region false)
+(defpoll recording :interval "1s" "pgrep 'wf-recorder' > /dev/null && echo true || echo false")
+

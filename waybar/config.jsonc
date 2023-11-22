@@ -10,21 +10,21 @@
         "hyprland/workspaces",
         // "wlr/taskbar",
         "bluetooth",
-        "custom/playerinfo"
-    ],
-    "modules-center": [
-        "clock"
-    ],
-    "modules-right": [
+        "custom/playerinfo",
         "disk",
         "custom/pacman",
+    ],
+    "modules-center": [
+        "clock",
+    ],
+    "modules-right": [
         "tray",
         "cpu",
         "memory",
         "network",
         "backlight",
         "pulseaudio",
-        "battery"
+        "battery",
     ],
     "hyprland/window": {
         "format": "{}"
@@ -36,13 +36,18 @@
         "on-click": "activate",
         "format": "{icon}",
         "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "10": "10",
             "urgent": "",
-            "active": "",
+            "active": "󰣇",
             "default": ""
         }
     },
@@ -121,7 +126,7 @@
     "backlight": {
         "format": "{icon}   {percent}%",
         "format-icons": [
-            "",
+            "",
             ""
         ],
         "on-scroll-up": "brightnessctl set 10%+",
@@ -184,7 +189,7 @@
         "interval": 3600,
         // "exec": "checkupdates | wc -l",
         "exec-if": "exit 0",
-        "on-click": "alacritty --config-file ~/.config/alacritty/alacritty-waybar.yml -e sudo pacman -Syu",
+        "on-click": "$TERM sudo pacman -Syu",
         "signal": 8
     },
     "disk": {

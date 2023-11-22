@@ -21,6 +21,7 @@ require('lazy').setup({
 
 
   -- Utilities
+  "github/copilot.vim",
   "tpope/vim-fugitive",
   "lambdalisue/suda.vim",
   "nvim-lua/completion-nvim",
@@ -67,8 +68,18 @@ require('lazy').setup({
   "rstacruz/vim-closer",
   {
     'nvim-telescope/telescope.nvim',
-    version = "0.1.1",
+    version = "0.1.4",
     dependencies = { { 'nvim-lua/plenary.nvim' } }
+  },
+  -- FLUTTER
+  {
+    'akinsho/flutter-tools.nvim',
+    lazy = false,
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        'stevearc/dressing.nvim', -- optional for vim.ui.select
+    },
+    config = true,
   },
   {
     "imNel/monorepo.nvim",

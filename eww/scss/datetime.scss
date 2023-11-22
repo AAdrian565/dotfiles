@@ -1,0 +1,25 @@
+.clock {
+    border-radius: 1rem;
+    padding: 0 0.5rem;
+    transition: 0.3s;
+    font-size: 1.5rem;
+}
+
+.time {
+    // @include window;
+    margin-top: 10rem;
+    border-radius: 2rem;
+    text-shadow: 2px 2px 20px black;
+    opacity: .6;
+    font-size: 6rem;
+}
+
+.date {
+    margin-top: -1.8rem;
+    border-radius: 2rem;
+    font-size: 2rem;
+    text-shadow: 2px 2px 20px black;
+    opacity: .5;
+
+}
+

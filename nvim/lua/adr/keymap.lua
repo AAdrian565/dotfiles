@@ -3,6 +3,9 @@ local opt = { noremap = true, silent = true }
 k = vim.keymap.set
 vim.g.mapleader = " "
 
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_assume_mapped = true
+vim.api.nvim_set_keymap("i", "<C-i>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 -- Bacic Functionality
 k("n", "<C-h>", "<C-w>h", opt)
 k("n", "<C-j>", "<C-w>j", opt)
@@ -20,13 +23,13 @@ k("n", "<leader>pa", "ggVGx\"+p<cr>", opt)
 k("n", "<leader>yl", "V\"+y<cr>", opt)
 
 -- NERD Tree
-k("n", "<C-e>", ":NERDTreeToggle<cr>", opt)
-k("n", "<leader>d", ":NERDTreeFind<cr>", opt)
+k("n", "<C-s>", ":NERDTreeToggle<cr>", opt)
+k("n", "<leader>s", ":NERDTreeFind<cr>", opt)
 
 -- Terminal
 k("t", "<cr>", "<cr>", opt)
-k("t", "<C-d>", "<cmd>ToggleTerm<cr>", opt)
-k("n", "<C-d>", "<cmd>ToggleTerm<cr>", opt)
+k("t", "<C-x>", "<cmd>ToggleTerm<cr>", opt)
+k("n", "<C-x>", "<cmd>ToggleTerm<cr>", opt)
 
 -- Harpoon
 k("n", "<leader>ho", ":lua require(\"harpoon.ui\").toggle_quick_menu()<cr>", opt)

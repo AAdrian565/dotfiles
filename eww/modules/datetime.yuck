@@ -1,0 +1,14 @@
+(defwidget datetime []
+    (box :orientation "v" :space-evenly false
+        (box :orientation "h" :space-evenly false :valign "start" :halign "center"
+            (box :class "time" :orientation "h" :space-evenly false
+                (label :text {formattime(EWW_TIME, "%H:%M:%S")})
+            )
+        )
+        (box :orientation "h" :space-evenly false :valign "start" :halign "center"
+            (box :class "date" :orientation "h" :space-evenly false
+                (label :text {formattime(EWW_TIME, "%A, %d %b %Y")})
+            )
+        )
+    )
+)

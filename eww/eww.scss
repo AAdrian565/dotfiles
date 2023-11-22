@@ -1,0 +1,10 @@
+* {
+    all: unset;
+    font-family: JetBrainsMono;
+    font-weight: bold;
+}
+@import "scripts/colors/colors.scss";
+@import "scss/lib.scss";
+
+@import "scss/datetime.scss";
+@import "scss/record.scss";

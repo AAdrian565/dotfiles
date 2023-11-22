@@ -1,0 +1,26 @@
+(defwidget record []
+    (box :orientation "v" :space-evenly false :valign "center" :halign "center" :class "recorder_menu_box"
+        (label :class "recorder_menu_icon" :text "󰻃")
+        (label :class "recorder_menu_label" :text {recording ? "Stop recording?" : "Start recording?"})
+            (box :orientation "v" :class {recording ? "hide" : ""}
+                (box :orientation "h" :space-evenly true :class "recorder_menu_checkbox_box"
+                    (label :halign "start" :class "recorder_menu_checkbox_label" :text "Record audio")
+                    (checkbox :onchecked "eww update recorder_audio=true" :onunchecked "eww update recorder_audio=false" :halign "end" :class "recorder_menu_checkbox")
+                )
+                (box :orientation "h" :space-evenly true :class "recorder_menu_checkbox_box" 
+                    (label :halign "start" :class "recorder_menu_checkbox_label" :text "Select region")
+                    (checkbox :onchecked "eww update recorder_region=true" :onunchecked "eww update recorder_region=false" :halign "end" :class "recorder_menu_checkbox")
+                )
+            )
+        (box :orientation "h" :space-evenly true :class "record_menu_buttons"
+            (button 
+                :onclick "eww close record && eww update recorder_audio=false && eww update recorder_region=false"
+                :class "record_menu_button_cancel" :halign "start" "Cancel"
+            )
+            (button 
+                :onclick "eww close record && ~/dotfiles/eww/scripts/record.sh  ${recorder_audio ? '-desktopaudio' : ''} ${recorder_region ? '-region' : ''} && eww update recorder_audio=false && eww update recorder_region==false" 
+                :class "record_menu_button_start" :halign "end" {recording ? "Stop" : "Start"}
+            )
+        )
+    )
+)
