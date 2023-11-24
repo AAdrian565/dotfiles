@@ -6,6 +6,12 @@ vim.g.mapleader = " "
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
 vim.api.nvim_set_keymap("i", "<C-i>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+vim.keymap.set("n", "<leader>mo", function()
+  require("telescope").extensions.monorepo.monorepo()
+end)
+vim.keymap.set("n", "<leader>mt", function()
+  require("monorepo").toggle_project()
+end)
 -- Bacic Functionality
 k("n", "<C-h>", "<C-w>h", opt)
 k("n", "<C-j>", "<C-w>j", opt)
@@ -15,6 +21,7 @@ k("v", "J", ":m '>+1<CR>gv=gv", opt)
 k("v", "K", ":m '<-2<CR>gv=gv", opt)
 k("n", "<C-d>", "<C-d>zz", opt)
 k("n", "<C-u>", "<C-u>zz", opt)
+k("n", "<leader>rj", "<cmd>ToggleTerm<cr>d -e 'make'<cr><cmd>ToggleTerm<cr>", opt)
 
 -- Copy paste
 k("n", "<C-a>", "ggVG<cr>", opt)
@@ -26,6 +33,9 @@ k("n", "<leader>yl", "V\"+y<cr>", opt)
 k("n", "<C-s>", ":NERDTreeToggle<cr>", opt)
 k("n", "<leader>s", ":NERDTreeFind<cr>", opt)
 
+-- MONO Repo
+k("n", "<leader>maf", ":lua require('monorepo').add_project()<cr>", opt)
+k("n", "<leader>mdd", ":lua require('monorepo').remove_project()<cr>", opt)
 -- Terminal
 k("t", "<cr>", "<cr>", opt)
 k("t", "<C-x>", "<cmd>ToggleTerm<cr>", opt)

@@ -6,4 +6,11 @@ vim.keymap.set('n', '<leader>ps', function()
   builtin.setup {
     hidden = true
   }
+file_ignore_patterns = {
+  "./node_modules/*",
+  "node_modules",
+  "^node_modules/*",
+  "node_modules/*",
+  "*/.bin",
+}
 end)

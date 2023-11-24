@@ -25,7 +25,13 @@ require('lazy').setup({
   "tpope/vim-fugitive",
   "lambdalisue/suda.vim",
   "nvim-lua/completion-nvim",
-  "kylechui/nvim-surround",
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+    end
+  },
   "nvim-lualine/lualine.nvim",
   "mbbill/undotree",
   "honza/vim-snippets",
@@ -45,6 +51,15 @@ require('lazy').setup({
       vim.g.mkdp_filetypes = {
         "markdown" }
     end, ft = { "markdown" }, },
+  {
+    "imNel/monorepo.nvim",
+    config = function()
+      require("monorepo").setup({
+        -- Your config here!
+      })
+    end,
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+  },
 
   --games
   "ThePrimeagen/vim-be-good",
@@ -80,15 +95,6 @@ require('lazy').setup({
         'stevearc/dressing.nvim', -- optional for vim.ui.select
     },
     config = true,
-  },
-  {
-    "imNel/monorepo.nvim",
-    config = function()
-      require("monorepo").setup({
-        -- Your config here!
-      })
-    end,
-    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
   },
   -- LSP
   {
