@@ -17,8 +17,8 @@ export PATH=$PATH:~/Android/Sdk/cmdline-tools/latest/bin/
 export PATH=$PATH:/opt/flutter/bin
 
 # neofetch
-export BROWSER=thorium-browser
-export BROWSE=thorium-browser
+export BROWSER=firefox
+export BROWSE=firefox
 export EDITOR=nvim
 export VISUAL=nvim
 export GDK_BACKEND="wayland"

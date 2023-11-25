@@ -12,8 +12,8 @@ fish_add_path -g ~/.local/bin/
 fish_add_path -g ~/Android/Sdk/cmdline-tools/latest/bin/
 fish_add_path -g ~/Android/Sdk/emulator/
 fish_add_path -g /opt/flutter/bin/
-export BROWSER=thorium-browser
-export BROWSE=thorium-browser
+export BROWSER=firefox
+export BROWSE=firefox
 export EDITOR=nvim
 export VISUAL=nvim
 export GDK_BACKEND="wayland"
