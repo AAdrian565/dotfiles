@@ -3,9 +3,6 @@ local opt = { noremap = true, silent = true }
 k = vim.keymap.set
 vim.g.mapleader = " "
 
-vim.g.copilot_no_tab_map = true
-vim.g.copilot_assume_mapped = true
-vim.api.nvim_set_keymap("i", "<C-i>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 vim.keymap.set("n", "<leader>mo", function()
   require("telescope").extensions.monorepo.monorepo()
 end)
@@ -22,16 +19,18 @@ k("v", "K", ":m '<-2<CR>gv=gv", opt)
 k("n", "<C-d>", "<C-d>zz", opt)
 k("n", "<C-u>", "<C-u>zz", opt)
 k("n", "<leader>rj", "<cmd>ToggleTerm<cr>d -e 'make'<cr><cmd>ToggleTerm<cr>", opt)
+k("n", "-", "<CMD>Oil<CR>", opt)
 
 -- Copy paste
 k("n", "<C-a>", "ggVG<cr>", opt)
 k("n", "<leader>ya", "ggVG\"+y<cr>", opt)
-k("n", "<leader>pa", "ggVGx\"+p<cr>", opt)
+k("n", "<leader>pa", "ggVGx\"+<S-p><cr>", opt)
+k("n", "<leader>da", "ggVGx\"d<cr>", opt)
 k("n", "<leader>yl", "V\"+y<cr>", opt)
 
 -- NERD Tree
-k("n", "<C-s>", ":NERDTreeToggle<cr>", opt)
-k("n", "<leader>s", ":NERDTreeFind<cr>", opt)
+k("n", "<C-a>", ":NERDTreeToggle<cr>", opt)
+k("n", "<leader>a", ":NERDTreeFind<cr>", opt)
 
 -- MONO Repo
 k("n", "<leader>maf", ":lua require('monorepo').add_project()<cr>", opt)

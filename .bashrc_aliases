@@ -10,6 +10,8 @@ alias csvim="feh Pictures/csvim.webp"
 alias ls="ls --color=auto"
 alias vim="nvim"
 alias v="vim"
+alias tmux="tmux -2"
+
 # alias ~="cd ~"
 alias home="cd ~"
 alias cls="clear"

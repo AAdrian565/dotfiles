@@ -18,19 +18,32 @@ require('lazy').setup({
   "navarasu/onedark.nvim",
   "nvim-tree/nvim-tree.lua",
 
-
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
 
   -- Utilities
   "github/copilot.vim",
+  -- "Exafunction/codeium.vim",
   "tpope/vim-fugitive",
   "lambdalisue/suda.vim",
-  "nvim-lua/completion-nvim",
+  -- "nvim-lua/completion-nvim",
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
     config = function()
     end
+  },
+  {
+    'Wansmer/treesj',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('treesj').setup({--[[ your config ]]})
+    end,
   },
   "nvim-lualine/lualine.nvim",
   "mbbill/undotree",

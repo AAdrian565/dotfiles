@@ -14,7 +14,7 @@ super + shift + s
 	flameshot gui
 
 super + {2, 3, 5, 6, 7}
-	{code, obsidian, brave, discord, obs}
+	{code, obsidian, $BROWSER, discord, obs}
 
 super + shift + c
 	gpick -s

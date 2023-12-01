@@ -15,10 +15,13 @@ export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 export PATH=$PATH:~/.local/bin/
 export PATH=$PATH:~/Android/Sdk/cmdline-tools/latest/bin/
 export PATH=$PATH:/opt/flutter/bin
+export PATH=$PATH:~/.config/emacs/bin
 
 # neofetch
-export BROWSER=firefox
-export BROWSE=firefox
+export DISPLAY=:0.0
+export TERM=xterm-256color
+export BROWSER=thorium-browser
+export BROWSE=thorium-browser
 export EDITOR=nvim
 export VISUAL=nvim
 export GDK_BACKEND="wayland"
