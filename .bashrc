@@ -16,6 +16,7 @@ export PATH=$PATH:~/.local/bin/
 export PATH=$PATH:~/Android/Sdk/cmdline-tools/latest/bin/
 export PATH=$PATH:/opt/flutter/bin
 export PATH=$PATH:~/.config/emacs/bin
+export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 # neofetch
 export DISPLAY=:0.0

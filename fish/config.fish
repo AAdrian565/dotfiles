@@ -13,6 +13,7 @@ fish_add_path -g ~/Android/Sdk/cmdline-tools/latest/bin/
 fish_add_path -g ~/Android/Sdk/emulator/
 fish_add_path -g /opt/flutter/bin/
 fish_add_path -g ~/.config/emacs/bin
+fish_add_path -g ~/.pub-cache/bin
 export BROWSER=thorium-browser
 export BROWSE=thorium-browser
 export EDITOR=nvim
