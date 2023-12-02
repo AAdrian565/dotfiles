@@ -1,11 +1,11 @@
-.clock {
+.desktop_clock {
     border-radius: 1rem;
     padding: 0 0.5rem;
     transition: 0.3s;
     font-size: 1.5rem;
 }
 
-.time {
+.desktop_time {
     // @include window;
     margin-top: 10rem;
     border-radius: 2rem;
@@ -14,7 +14,7 @@
     font-size: 6rem;
 }
 
-.date {
+.desktop_date {
     margin-top: -1.8rem;
     border-radius: 2rem;
     font-size: 2rem;

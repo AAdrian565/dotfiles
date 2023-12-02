@@ -1,4 +1,13 @@
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces.sh")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace.sh")
+
 (defvar recorder_audio false)
 (defvar recorder_region false)
 (defpoll recording :interval "1s" "pgrep 'wf-recorder' > /dev/null && echo true || echo false")
 
+
+(defpoll battery :interval "1s" "scripts/battery.sh")
+(defpoll volume :interval ".01s" "scripts/volume.sh")
+(defpoll brightness :interval ".01s" "scripts/brightness.sh")
+(defpoll essid :interval "10s" "echo $( iwgetid -r )")
+(deflisten network :initial '{"essid": "lo", "signal": ""}' "scripts/network.sh")

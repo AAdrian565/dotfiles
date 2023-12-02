@@ -9,6 +9,18 @@
     (datetime)
 )
 
+(defwindow bar
+  :exclusive true
+  :monitor 0
+	:focusable false
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "99.5%"
+                      :height "4.5%"
+                      :anchor "top center")
+  (bar)
+)
+
 (defwindow record
     :monitor 0
     :stacking "overlay"

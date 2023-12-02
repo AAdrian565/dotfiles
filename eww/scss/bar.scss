@@ -1,0 +1,23 @@
+.bar-item + .bar-item{
+  margin-left: 1rem;
+}
+
+.bar{
+  background: none;
+  margin-top: 7.5px;
+}
+
+.bar-section{ // bordered items
+  background: none;
+  border: 4.5px solid $outline;
+  border-radius: 10px;
+  padding: 0 10px 0;
+}
+
+.workspace-item{
+  padding: 0 10px 0;
+}
+
+.workspace-item:hover{
+  background: #FFFFFF;
+}
