@@ -2,5 +2,6 @@
 
 COUNT=$(checkupdates | wc -l)
 if [ $COUNT != 0 ]; 
-  then echo $COUNT; 
+  then echo "   $COUNT"; 
 fi
+

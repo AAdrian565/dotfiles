@@ -1,14 +1,29 @@
-.bar-item + .bar-item{
-  margin-left: 1rem;
-}
-
 .bar{
-  background: none;
   margin-top: 7.5px;
 }
 
-.bar-section{ // bordered items
-  background: none;
+.noseperator + .noseperator{
+  margin-left: 1rem;
+}
+
+.separator + .separator{
+  margin-left: 1rem;
+  padding-left: 1rem;
+  border-left: 4.5 solid $outline;
+  // background: red;
+}
+
+.left-margin{
+  margin-left: 1rem;
+}
+
+.bar-item{
+  // border-bottom: 4.5 solid $outline;
+  // border: 1px solid red;
+}
+
+.bar-section{
+  // background: red;
   border: 4.5px solid $outline;
   border-radius: 10px;
   padding: 0 10px 0;
@@ -21,3 +36,4 @@
 .workspace-item:hover{
   background: #FFFFFF;
 }
+

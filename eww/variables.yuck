@@ -3,11 +3,14 @@
 
 (defvar recorder_audio false)
 (defvar recorder_region false)
+(defvar show_ip false)
 (defpoll recording :interval "1s" "pgrep 'wf-recorder' > /dev/null && echo true || echo false")
 
 
+(defpoll player :interval "1s" "scripts/playerinfo.sh")
 (defpoll battery :interval "1s" "scripts/battery.sh")
 (defpoll volume :interval ".01s" "scripts/volume.sh")
 (defpoll brightness :interval ".01s" "scripts/brightness.sh")
 (defpoll essid :interval "10s" "echo $( iwgetid -r )")
+(defpoll pacman :interval "1h" "scripts/pacman.sh")
 (deflisten network :initial '{"essid": "lo", "signal": ""}' "scripts/network.sh")

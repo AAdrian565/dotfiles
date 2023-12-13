@@ -5,3 +5,4 @@
 (include "modules/datetime.yuck")
 (include "modules/record.yuck")
 (include "modules/bar.yuck")
+(include "modules/background.yuck")

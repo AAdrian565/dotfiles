@@ -8,6 +8,8 @@ set fish_color_command brcyan
 set fish_color_error '#ff6c6b'
 set fish_color_param brcyan
 
+bind \cH backward-kill-word
+
 fish_add_path -g ~/.local/bin/
 fish_add_path -g ~/Android/Sdk/cmdline-tools/latest/bin/
 fish_add_path -g ~/Android/Sdk/emulator/

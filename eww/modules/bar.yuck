@@ -1,30 +1,38 @@
 (defwidget bar []
     (box :orientation "h" :class "bar" :space-evenly "true"
-        (box :orientation "h" :class "bar-section" :halign "start" :space-evenly "false"
-           (workspaces)
+        (box :orientation "h" :halign "start" :space-evenly "false"
+            (box :orientation "h" :class "bar-section" :space-evenly "false"
+              (workspaces)
+            )
+            (box :orientation "h" :class "bar-section left-margin" :space-evenly "false" :visible {player != "" ? true : false}
+              (script-button :var {player} :click "playerctl play-pause" )
+            )
+            (box :orientation "h" :class "bar-section left-margin" :space-evenly "false" :visible {pacman != "" ? true : false}
+              (script-text :var {pacman} )
+            )
         )
         (box :orientation "h" :class "bar-section" :halign "center" :space-evenly "false"
-           (time)
-           (date)
+            (time)
+            (date)
         )
         (box :orientation "h" :class "bar-section" :halign "end" :space-evenly "false"
-           (network)
-           (brightness)
-           (volume)
-           (battery)
+            (network)
+            (script-text :var {brightness} )
+            (script-text :var {volume} )
+            (script-text :var {battery} )
         )
     )
 )
 
 
 (defwidget item []
-    (box :orientation "h" :space-evenly "false" :class "bar-item"
+    (box :orientation "h" :space-evenly "false" :class "bar-item separator"
         (label :text "Item")
     )
 )
 
 (defwidget workspaces []
-  (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace.sh {} ${current_workspace}" :class "workspaces-widget bar-item"
+  (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace.sh {} ${current_workspace}" :class "workspaces-widget bar-item separator"
     (box 
       (label :text "${workspaces}${current_workspace}" :visible false)
       (for workspace in workspaces
@@ -39,64 +47,55 @@
   )
 )
 
-
-(defwidget workspacesBackup []
-  (box :orientation "h"
-       :space-evenly true
-       :class "bar-item"
-       :halign "start"
-    (button :class "workspace-item" :onclick "hyprctl dispatch workspace 1" 1)
-    (button :class "workspace-item" :onclick "hyprctl dispatch workspace 2" 2)
-    (button :class "workspace-item" :onclick "hyprctl dispatch workspace 3" 3)
-    (button :class "workspace-item" :onclick "hyprctl dispatch workspace 4" 4)
-    (button :class "workspace-item" :onclick "hyprctl dispatch workspace 5" 5)
-    (button :class "workspace-item" :onclick "hyprctl dispatch workspace 6" 6)
-    (button :class "workspace-item" :onclick "hyprctl dispatch workspace 7" 7)
-    (button :class "workspace-item" :onclick "hyprctl dispatch workspace 8" 8)
-    (button :class "workspace-item" :onclick "hyprctl dispatch workspace 9" 9)
-    (button :class "workspace-item" :onclick "hyprctl dispatch workspace 10" 0)
-  )
-) 
- 
 (defwidget date []
-    (box :orientation "h" :class "bar-item"
+    (box :orientation "h" :class "bar-item noseperator"
         (label :text {formattime(EWW_TIME, "    %A, %d/%m")})
     ) 
 )
 
 (defwidget time []
-    (box :orientation "h" :class "bar-item"
+    (box :orientation "h" :class "bar-item noseperator"
         (label :text {formattime(EWW_TIME, "   %H:%M")})
     )
 )
 
-(defwidget battery []
-    (box :orientation "h" :class "bar-item"
-        (label :text {battery})
+(defwidget script-button [var click]
+    (button :orientation "h" :class "separator" :visible {var != "" ? true : false} :onclick {click}
+        (label :class "bar-item" :text {var})
     )
 )
 
-(defwidget volume []
-    (box :orientation "h" :class "bar-item"
-        (label :text {volume})
+(defwidget script-text [var]
+    (box :orientation "h" :class "separator" :visible {var != "" ? true : false}
+        (label :class "bar-item" :text {var})
     )
 )
 
-(defwidget brightness []
+(defwidget icon-text [icon text]
     (box :orientation "h" :class "bar-item"
-        (label :text {brightness})
+        (label :text {icon + "    " + text})
     )
 )
 
 (defwidget network []
-    (box :orientation "h" :class "bar-item"
-        (label :text {network.essid == "lo" ? "󰤭   Disconnected" : "   " + network.essid})
+    (button :orientation "h" :class "separator" :onclick "bash ../eww/scripts/toggle-show_ip.sh"
+        (box
+            (icon-text  :icon {network.essid == "lo" ? "󰤭" : 
+                       network.signal == "" ? "󰤩"  
+                       : network.signal < 25 ? "󰤟"  
+                       : network.signal < 50 ? "󰤢"  
+                       : network.signal < 75 ? "󰤥"  
+                       : "󰤨" }
+                       :text {show_ip ? network.ip : network.essid}
+            )
+        )
     )
 )
 
 (defwidget system []
-    (box :orientation "h" :class "bar-item"
-        (label :text { "   " + EWW_CPU.usage + "  "})
-        (label :text { "   " + EWW_RAM.used_mem_perc })
+    (box :orientation "h" :class "bar-item separator"
+        (icon-text :icon "" :text {EWW_CPU.usage + "  "})
+        (icon-text :icon "" :text {EWW_RAM.used_mem_perc + "  "})
     )
 )
+

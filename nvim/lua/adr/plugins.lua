@@ -17,7 +17,7 @@ require('lazy').setup({
   -- Color theme/ decoration
   "navarasu/onedark.nvim",
   "nvim-tree/nvim-tree.lua",
-
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
   {
     'stevearc/oil.nvim',
     opts = {},

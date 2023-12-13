@@ -10,3 +10,8 @@ require("toggleterm").setup {
   insert_mappings = true,
   shading_factor = 0,
 }
+
+function _G.set_terminal_keymaps()
+  local opts = {buffer = 0}
+  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+end

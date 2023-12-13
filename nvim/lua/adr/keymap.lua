@@ -38,7 +38,7 @@ k("n", "<leader>mdd", ":lua require('monorepo').remove_project()<cr>", opt)
 -- Terminal
 k("t", "<cr>", "<cr>", opt)
 k("t", "<C-x>", "<cmd>ToggleTerm<cr>", opt)
-k("n", "<C-x>", "<cmd>ToggleTerm<cr>", opt)
+k("n", "<C-x>", ":ToggleTerm<cr>", opt)
 
 -- Harpoon
 k("n", "<leader>ho", ":lua require(\"harpoon.ui\").toggle_quick_menu()<cr>", opt)
