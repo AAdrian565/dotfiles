@@ -3,13 +3,14 @@ local opt = { noremap = true, silent = true }
 k = vim.keymap.set
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<leader>mo", function()
-  require("telescope").extensions.monorepo.monorepo()
-end)
-vim.keymap.set("n", "<leader>mt", function()
+k("n", "<leader>mo", function()
+      require("telescope").extensions.monorepo.monorepo()
+  end)
+k("n", "<leader>mt", function()
   require("monorepo").toggle_project()
 end)
--- Bacic Functionality
+-- Basic Functionality
+k("n", "<leader>y", '\"+y', opt)
 k("n", "<C-h>", "<C-w>h", opt)
 k("n", "<C-j>", "<C-w>j", opt)
 k("n", "<C-k>", "<C-w>k", opt)

@@ -13,6 +13,7 @@ fi
 export PATH="$PATH:$NPM_PACKAGES/bin"
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 export PATH=$PATH:~/.local/bin/
+export PATH=$PATH:~/go/bin/
 export PATH=$PATH:~/Android/Sdk/cmdline-tools/latest/bin/
 export PATH=$PATH:/opt/flutter/bin
 export PATH=$PATH:~/.config/emacs/bin
@@ -20,7 +21,7 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 # neofetch
 export DISPLAY=:0.0
-export TERM=xterm-256color
+export TERM=kitty
 export BROWSER=thorium-browser
 export BROWSE=thorium-browser
 export EDITOR=nvim
