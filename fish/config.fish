@@ -17,17 +17,12 @@ fish_add_path -g /opt/flutter/bin/
 fish_add_path -g ~/.config/emacs/bin
 fish_add_path -g ~/.pub-cache/bin
 fish_add_path -g ~/go/bin
-export BROWSER=thorium-browser
-export BROWSE=thorium-browser
-export EDITOR=nvim
-export VISUAL=nvim
-export GDK_BACKEND="wayland"
-export GTK_USE_PORTAL=1
-export MOZ_ENABLE_WAYLAND=1
+
 
 starship init fish | source
 
 . $HOME/.bashrc_aliases
+. $HOME/.bashrc_env
 
 function isolate
     if test -z $argv[1]

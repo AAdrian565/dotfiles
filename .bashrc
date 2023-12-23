@@ -7,6 +7,10 @@
 if [ -f $HOME/.bashrc_aliases ]; then
     . $HOME/.bashrc_aliases
 fi
+[[ $- != *i* ]] && return
+if [ -f $HOME/.bashrc_aliases ]; then
+    . $HOME/.bashrc_env
+fi
 
 # NPM_PACKAGES="${HOME}/.npm-packages"
 
@@ -20,15 +24,6 @@ export PATH=$PATH:~/.config/emacs/bin
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 # neofetch
-export DISPLAY=:0.0
-export TERM=kitty
-export BROWSER=thorium-browser
-export BROWSE=thorium-browser
-export EDITOR=nvim
-export VISUAL=nvim
-export GDK_BACKEND="wayland"
-export GTK_USE_PORTAL=1
-export MOZ_ENABLE_WAYLAND=1
 eval "$(starship init bash)"
 PS1='[\u@\h \W]\$ '
 . "$HOME/.cargo/env"
