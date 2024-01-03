@@ -1,6 +1,6 @@
 local opt = { noremap = true, silent = true }
 -- local opt = { noremap = true }
-k = vim.keymap.set
+local k = vim.keymap.set
 vim.g.mapleader = " "
 
 function EncodeURL()

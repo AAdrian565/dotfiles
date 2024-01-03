@@ -1,6 +1,5 @@
 {
   "LuaSnip": { "branch": "master", "commit": "a13af80734eb28f744de6c875330c9d3c24b5f3b" },
-  "ai.nvim": { "branch": "main", "commit": "814c877b5c6bbd5f160825d9679bbec2186a9d37" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "5af77f54de1b16c34b23cba810150689a3a90312" },
   "cmp-nvim-lua": { "branch": "main", "commit": "f12408bdb54c39c23e67cab726264c10db33ada8" },
@@ -50,6 +49,7 @@
   "todo-comments.nvim": { "branch": "main", "commit": "4a6737a8d70fe1ac55c64dfa47fcb189ca431872" },
   "toggleterm.nvim": { "branch": "main", "commit": "cbd041d91b90cd3c02df03fe6133208888f8e008" },
   "treesj": { "branch": "main", "commit": "1d6e89f4790aa04eaae38fa9460a3ee191961c96" },
+  "trouble.nvim": { "branch": "main", "commit": "f1168feada93c0154ede4d1fe9183bf69bac54ea" },
   "undotree": { "branch": "master", "commit": "36ff7abb6b60980338344982ad4cdf03f7961ecd" },
   "vim-be-good": { "branch": "master", "commit": "c290810728a4f75e334b07dc0f3a4cdea908d351" },
   "vim-closer": { "branch": "master", "commit": "6007d9db0a35e983af246b667282606612076b07" },

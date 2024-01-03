@@ -1,16 +1,13 @@
 local opt = { noremap = true, silent = true }
 -- local opt = { noremap = true }
-k = vim.keymap.set
+local k = vim.keymap.set
 vim.g.mapleader = " "
 
-k("n", "<leader>mo", function()
-      require("telescope").extensions.monorepo.monorepo()
-  end)
-k("n", "<leader>mt", function()
-  require("monorepo").toggle_project()
-end)
+k("n", "<leader>mo", function() require("telescope").extensions.monorepo.monorepo() end)
+k("n", "<leader>mt", function() require("monorepo").toggle_project() end)
+
 -- Basic Functionality
-k("n", "<leader>y", '\"+y', opt)
+k("n", "<leader>y", '"+y', opt)
 k("n", "<C-h>", "<C-w>h", opt)
 k("n", "<C-j>", "<C-w>j", opt)
 k("n", "<C-k>", "<C-w>k", opt)
@@ -29,15 +26,12 @@ k("n", "<leader>pa", "ggVGx\"+<S-p><cr>", opt)
 k("n", "<leader>da", "ggVGx\"d<cr>", opt)
 k("n", "<leader>yl", "V\"+y<cr>", opt)
 
--- NERD Tree
-k("n", "<C-a>", ":NERDTreeToggle<cr>", opt)
-k("n", "<leader>a", ":NERDTreeFind<cr>", opt)
-
 -- MONO Repo
 k("n", "<leader>maf", ":lua require('monorepo').add_project()<cr>", opt)
 k("n", "<leader>mdd", ":lua require('monorepo').remove_project()<cr>", opt)
+
 -- Terminal
-k("t", "<cr>", "<cr>", opt)
+-- k("t", "<cr>", "<cr>", opt)
 k("t", "<C-x>", "<cmd>ToggleTerm<cr>", opt)
 k("n", "<C-x>", ":ToggleTerm<cr>", opt)
 
@@ -60,3 +54,12 @@ k("v", "<leader>or", ":s/\\(.*\\)/\1", opt)
 k("n", "<leader>w", ":set wrap!<cr>", opt)
 -- m("n", "<leader>to", ":term<cr>i", opt)
 -- m("n", "<leader>mk", ":w:make<cr>:term<cr>i./hello<cr>", opt)
+
+
+-- Trouble
+-- Lua
+k("n", "<leader>xx", function() require("trouble").toggle() end)
+k("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
+k("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
+k("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
+k("n", "<leader>xl", function() require("trouble").toggle("loclist") end)

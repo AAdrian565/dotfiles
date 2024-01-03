@@ -1,6 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
+if not vim.loop.fs_stat(lazypath) then vim.fn.system({
         "git",
         "clone",
         "--filter=blob:none",
@@ -16,8 +15,13 @@ require('lazy').setup({
     "nvim-lua/plenary.nvim",
     -- Color theme/ decoration
     "navarasu/onedark.nvim",
+    "folke/tokyonight.nvim",
     "nvim-tree/nvim-tree.lua",
-    { "lukas-reineke/indent-blankline.nvim", main = "ibl",  opts = {} },
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        opts = {},
+    },
     {
         'stevearc/oil.nvim',
         opts = {},
@@ -50,24 +54,17 @@ require('lazy').setup({
     "mbbill/undotree",
     "honza/vim-snippets",
     "mg979/vim-visual-multi",
-    { "akinsho/toggleterm.nvim",             version = "*", config = true },
+    {
+        "akinsho/toggleterm.nvim",
+        version = "*",
+        config = true,
+    },
     "AndrewRadev/splitjoin.vim",
     {
         "smjonas/inc-rename.nvim",
-        config = function()
-            require("inc_rename").setup()
-        end,
+        config = function() require("inc_rename").setup() end,
     },
     "CRAG666/code_runner.nvim",
-    {
-        "iamcco/markdown-preview.nvim",
-        fun = "cd app && npm install",
-        setup = function()
-            vim.g.mkdp_filetypes = {
-                "markdown" }
-        end,
-        ft = { "markdown" },
-    },
     {
         "imNel/monorepo.nvim",
         config = function()
@@ -77,7 +74,15 @@ require('lazy').setup({
         end,
         dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     },
-
+    {
+        "folke/trouble.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        },
+    },
     --games
     "ThePrimeagen/vim-be-good",
     --tree/ navigation
@@ -176,7 +181,4 @@ require('lazy').setup({
             require "startup".setup({ theme = "greeterTheme" })
         end
     }
-})
-require("nvim-tree").setup({
-    on_attach = on_attach,
 })
