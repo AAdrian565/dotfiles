@@ -1,8 +1,5 @@
-super + 1
-	xfce4-terminal -e "btop" --maximize --hide-menubar
-
 super + e
-	alacritty -e lf
+	$TERMINAL -e lf
 
 super + l
 	betterlockscreen -l
@@ -13,8 +10,8 @@ alt + insert
 super + shift + s
 	flameshot gui
 
-super + {2, 3, 5, 6, 7}
-	{code, obsidian, $BROWSER, discord, obs}
+super + {1, 2, 3, 5, 6, 7}
+	{$TERMINAL -e btop, code, obsidian, $BROWSER, discord, obs}
 
 super + shift + c
 	gpick -s
@@ -29,10 +26,10 @@ alt + c
 	bash .config/rofi/autorofi.sh
 
 ctrl + alt + t
-	alacritty 
+	$TERMINAL 
 
 alt + Return
-	alacritty
+	$TERMINAL
 
 
 #
@@ -84,3 +81,8 @@ XF86AudioLowerVolume
 	pulsemixer --change-volume -1 & dunstify "Volume Down"
 
 
+ctrl + XF86AudioRaiseVolume
+   brightnessctl set 1%+ 
+
+ctrl + XF86AudioLowerVolume
+   brightnessctl set 1%- 
