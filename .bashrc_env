@@ -1,9 +1,0 @@
-export DISPLAY=:0.0
-export TERM=kitty
-export BROWSER=thorium-browser
-export BROWSE=thorium-browser
-export EDITOR=nvim
-export VISUAL=nvim
-export GDK_BACKEND="wayland"
-export GTK_USE_PORTAL=1
-export MOZ_ENABLE_WAYLAND=1

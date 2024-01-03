@@ -5,8 +5,13 @@
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias clock='timedatectl set-local-rtc 1'
+alias tmux='echo TERM\=xterm-256color tmux'
+alias r='cd ~/programming/ && cd "$(find -maxdepth 2 | grep '\''/\w\+/\w\+'\'' | fzf)"'
+alias t='cd ~/programming/ && cd "$(find -maxdepth 2 | grep '\''/\w\+/\w\+'\'' | fzf)" && tmux new -s "$(basename "$PWD")" -c "$(pwd)"'
+alias t.='tmux new -s $(basename "$PWD") -c $(pwd)'
+alias l='tmux a -t "$(tmux ls | awk -F ":" "{print \$1}" | fzf)"'
+alias e='tmux a -t all || tmux new -s all'
 
-alias csvim="feh Pictures/csvim.webp"
 alias ls="ls --color=auto"
 alias vim="nvim"
 alias v="vim"
@@ -15,7 +20,7 @@ alias tmux="tmux -2"
 # alias ~="cd ~"
 alias home="cd ~"
 alias cls="clear"
-alias duu="du -h -d 1"
+alias duu="du -h -d 1 | sort -hr"
 alias g="ping google.com"
 
 alias n="cd ~/notes; vim"

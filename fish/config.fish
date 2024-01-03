@@ -9,6 +9,7 @@ set fish_color_error '#ff6c6b'
 set fish_color_param brcyan
 
 bind \cH backward-kill-word
+bind \ca execute 'tmux a'
 
 fish_add_path -g ~/.local/bin/
 fish_add_path -g ~/Android/Sdk/cmdline-tools/latest/bin/
@@ -18,6 +19,15 @@ fish_add_path -g ~/.config/emacs/bin
 fish_add_path -g ~/.pub-cache/bin
 fish_add_path -g ~/go/bin
 
+export BROWSER=thorium-browser
+export BROWSE=thorium-browser
+export EDITOR=nvim
+export VISUAL=nvim
+export GDK_BACKEND="wayland"
+export GTK_USE_PORTAL=1
+export MOZ_ENABLE_WAYLAND=1
+export TERM=xterm-256color
+export TERMINAL=kitty
 
 starship init fish | source
 

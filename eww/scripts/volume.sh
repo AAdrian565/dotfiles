@@ -17,4 +17,4 @@ else
     icon="󰖁"
 fi
 
-echo -n "$icon   $volume%"
+echo -n "$icon  $volume%"

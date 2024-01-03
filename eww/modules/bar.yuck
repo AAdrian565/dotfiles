@@ -49,13 +49,13 @@
 
 (defwidget date []
     (box :orientation "h" :class "bar-item noseperator"
-        (label :text {formattime(EWW_TIME, "    %A, %d/%m")})
+        (label :text {formattime(EWW_TIME, "   %A, %d/%m")})
     ) 
 )
 
 (defwidget time []
     (box :orientation "h" :class "bar-item noseperator"
-        (label :text {formattime(EWW_TIME, "   %H:%M")})
+        (label :text {formattime(EWW_TIME, "  %H:%M")})
     )
 )
 
@@ -73,7 +73,7 @@
 
 (defwidget icon-text [icon text]
     (box :orientation "h" :class "bar-item"
-        (label :text {icon + "    " + text})
+        (label :text {icon + "  " + text})
     )
 )
 

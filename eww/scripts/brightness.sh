@@ -12,4 +12,4 @@ else
     icon=""
 fi
 
-echo -n "$icon   $brightness%"
+echo -n "$icon  $brightness%"

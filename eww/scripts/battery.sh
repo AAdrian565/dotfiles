@@ -24,5 +24,5 @@ fi
 if [ "$status" == "Charging" ] || [ "$status" == "Full" ] && [ "$battery" -ge 97 ]; then
     echo -n "$icon "
 else
-    echo -n "$icon   $battery%"
+    echo -n "$icon  $battery%"
 fi
