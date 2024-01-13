@@ -1,7 +1,7 @@
-require("flutter-tools").setup {
+require("flutter-tools").setup({
   closing_tags = {
-    highlight = "warningMsg", 
+    highlight = "warningMsg",
     prefix = "--> ", -- character to use for close tag e.g. > Widget
-    enabled = true -- set to false to disable
+    enabled = true, -- set to false to disable
   },
-}
+})
