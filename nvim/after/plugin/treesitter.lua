@@ -1,4 +1,4 @@
-require 'nvim-treesitter.configs'.setup {
+require("nvim-treesitter.configs").setup({
   -- A list of parser names, or "all" (the four listed parsers should always be installed)
   ensure_installed = { "javascript", "typescript", "c", "lua", "vim" },
 
@@ -36,15 +36,12 @@ require 'nvim-treesitter.configs'.setup {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
-}
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics,
-  {
-    underline = true,
-    virtual_text = {
-      spacing = 5,
-      severity_limit = 'Warning',
-    },
-    update_in_insert = true,
-  }
-)
+})
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+  underline = true,
+  virtual_text = {
+    spacing = 5,
+    severity_limit = "Warning",
+  },
+  update_in_insert = true,
+})

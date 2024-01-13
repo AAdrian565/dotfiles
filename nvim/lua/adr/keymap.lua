@@ -8,9 +8,9 @@ k("n", "<leader>mo", function() require("telescope").extensions.monorepo.monorep
 k("n", "<leader>mt", function() require("monorepo").toggle_project() end)
 
 -- Motion
-ka('n', 'gt', '<Plug>Titlecase', opt)
-ka('v', 'gt', '<Plug>Titlecase', opt)
-ka('n', 'gtt', '<Plug>TitlecaseLine', opt)
+ka("n", "gt", "<Plug>Titlecase", opt)
+ka("v", "gt", "<Plug>Titlecase", opt)
+ka("n", "gtt", "<Plug>TitlecaseLine", opt)
 
 -- Basic Functionality
 k("n", "<leader>y", '"+y', opt)
@@ -27,10 +27,10 @@ k("n", "-", "<CMD>Oil<CR>", opt)
 
 -- Copy paste
 k("n", "<C-a>", "ggVG<cr>", opt)
-k("n", "<leader>ya", "ggVG\"+y<cr>", opt)
-k("n", "<leader>pa", "ggVGx\"+<S-p><cr>", opt)
-k("n", "<leader>da", "ggVGx\"d<cr>", opt)
-k("n", "<leader>yl", "V\"+y<cr>", opt)
+k("n", "<leader>ya", 'ggVG"+y<cr>', opt)
+k("n", "<leader>pa", 'ggVGx"+<S-p><cr>', opt)
+k("n", "<leader>da", 'ggVGx"d<cr>', opt)
+k("n", "<leader>yl", 'V"+y<cr>', opt)
 
 -- MONO Repo
 k("n", "<leader>maf", ":lua require('monorepo').add_project()<cr>", opt)
@@ -42,10 +42,10 @@ k("t", "<C-x>", "<cmd>ToggleTerm<cr>", opt)
 k("n", "<C-x>", ":ToggleTerm<cr>", opt)
 
 -- Harpoon
-k("n", "<leader>ho", ":lua require(\"harpoon.ui\").toggle_quick_menu()<cr>", opt)
-k("n", "<leader>haf", ":lua require(\"harpoon.mark\").add_file()<cr>", opt)
-k("n", "<S-H>", ":lua require(\"harpoon.ui\").nav_prev()<cr>", opt)
-k("n", "<S-L>", ":lua require(\"harpoon.ui\").nav_next()<cr>", opt)
+k("n", "<leader>ho", ':lua require("harpoon.ui").toggle_quick_menu()<cr>', opt)
+k("n", "<leader>haf", ':lua require("harpoon.mark").add_file()<cr>', opt)
+k("n", "<S-H>", ':lua require("harpoon.ui").nav_prev()<cr>', opt)
+k("n", "<S-L>", ':lua require("harpoon.ui").nav_next()<cr>', opt)
 
 -- Utilities
 -- k("n", "<leader>f", ":LspZeroFormat<cr>", opt)
@@ -60,7 +60,6 @@ k("v", "<leader>or", ":s/\\(.*\\)/\1", opt)
 k("n", "<leader>w", ":set wrap!<cr>", opt)
 -- m("n", "<leader>to", ":term<cr>i", opt)
 -- m("n", "<leader>mk", ":w:make<cr>:term<cr>i./hello<cr>", opt)
-
 
 -- Trouble
 -- Lua
