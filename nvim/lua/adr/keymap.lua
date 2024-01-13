@@ -1,10 +1,16 @@
 local opt = { noremap = true, silent = true }
 -- local opt = { noremap = true }
 local k = vim.keymap.set
+local ka = vim.api.nvim_set_keymap
 vim.g.mapleader = " "
 
 k("n", "<leader>mo", function() require("telescope").extensions.monorepo.monorepo() end)
 k("n", "<leader>mt", function() require("monorepo").toggle_project() end)
+
+-- Motion
+ka('n', 'gt', '<Plug>Titlecase', opt)
+ka('v', 'gt', '<Plug>Titlecase', opt)
+ka('n', 'gtt', '<Plug>TitlecaseLine', opt)
 
 -- Basic Functionality
 k("n", "<leader>y", '"+y', opt)
@@ -42,7 +48,7 @@ k("n", "<S-H>", ":lua require(\"harpoon.ui\").nav_prev()<cr>", opt)
 k("n", "<S-L>", ":lua require(\"harpoon.ui\").nav_next()<cr>", opt)
 
 -- Utilities
-k("n", "<leader>f", ":LspZeroFormat<cr>", opt)
+-- k("n", "<leader>f", ":LspZeroFormat<cr>", opt)
 k("n", "<leader>u", ":UndotreeToggle<cr>", opt)
 k("n", "<leader>lo", ":LiveServer start<cr>", opt)
 k("n", "<leader>lc", ":LiveServer stop<cr>", opt)

@@ -11,6 +11,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+    "christoomey/vim-titlecase",
+    "christoomey/vim-system-copy",
     "christoomey/vim-tmux-navigator",
     "nvim-lua/plenary.nvim",
     -- Color theme/ decoration
@@ -77,11 +79,6 @@ require('lazy').setup({
     {
         "folke/trouble.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        opts = {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-        },
     },
     --games
     "ThePrimeagen/vim-be-good",
@@ -89,8 +86,9 @@ require('lazy').setup({
     "preservim/nerdtree",
     "ThePrimeagen/harpoon",
     -- Auto comment
-    "terrortylor/nvim-comment",
-    "mhartington/formatter.nvim",
+    "tpope/vim-commentary",
+    'nvimtools/none-ls.nvim',
+
     -- Tree sitter
     { "nvim-treesitter/nvim-treesitter", build = "TSUpdate" },
     "nvim-treesitter/playground",

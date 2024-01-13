@@ -21,7 +21,7 @@ else
             -desktopaudio)
                 additional_params+=" --audio='alsa_output.pci-0000_00_1f.3.analog-stereo.monitor'";;
             -region)
-                additional_params+=" -g \"$(slurp)\"";;
+:               additional_params+=" -g \"$(slurp)\"";;
                 # additional_params+=" -g \"$( slop -D | awk -F'[+x]' '{print $3","$4" "$1"x"$2}')\"";;
             # Add more cases for other parameters as needed
             *)

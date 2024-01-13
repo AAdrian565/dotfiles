@@ -4,9 +4,8 @@
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
-if [ -f $HOME/.bashrc_aliases ]; then
-    . $HOME/.bashrc_aliases
-fi
+
+source $HOME/.bashrc_aliases
 
 # NPM_PACKAGES="${HOME}/.npm-packages"
 
@@ -17,10 +16,9 @@ export PATH=$PATH:~/go/bin/
 export PATH=$PATH:~/Android/Sdk/cmdline-tools/latest/bin/
 export PATH=$PATH:/opt/flutter/bin
 export PATH=$PATH:~/.config/emacs/bin
-export PATH="$PATH":"$HOME/.pub-cache/bin"
+export PATH=$PATH:"$HOME/.pub-cache/bin"
 
-# neofetch
-export DISPLAY=:0.0
+# export DISPLAY=:0.0
 export TERM=TERM=xterm-256color
 export TERMINAL=kitty
 export BROWSER=thorium-browser
