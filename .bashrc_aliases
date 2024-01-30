@@ -5,12 +5,15 @@
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias clock='timedatectl set-local-rtc 1'
+alias h='cat $(find ~/hint/ -type f | fzf)'
 alias tmux='echo TERM\=xterm-256color tmux'
 alias r='cd ~/programming/ && cd "$(find -maxdepth 2 | grep '\''/\w\+/\w\+'\'' | fzf)"'
 alias t='cd ~/programming/ && cd "$(find -maxdepth 2 | grep '\''/\w\+/\w\+'\'' | fzf)" && tmux new -s "$(basename "$PWD")" -c "$(pwd)"'
 alias t.='tmux new -s $(basename "$PWD") -c $(pwd)'
 alias l='tmux a -t "$(tmux ls | awk -F ":" "{print \$1}" | fzf)"'
 alias e='tmux a -t all || tmux new -s all'
+
+alias bl='blueprint create $(blueprint list | fzf)'
 
 alias ls="ls --color=auto"
 alias vim="nvim"
@@ -33,16 +36,29 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias :q="exit"
 
+alias m="make"
+alias mr="make run"
+alias mb="make build"
+alias mt="make test"
+alias mc="make clean"
+alias mw="make watch"
+alias mdr="make docker-run"
+alias mdd="make docker-down"
+
+alias nr="npm run"
+alias nrd="npm run dev"
+alias nrb="npm run build"
+
 alias sail="./vendor/bin/sail"
 alias xampp="sudo /opt/lampp/lampp"
 
-alias nr="npm run"
 alias glaravel="composer install; cp .env.example .env; php artisan key:generate; php artisan db:seed; npm run build; sail up"
 
 alias pac="docker run -it --rm freedomben/pacvim"
 alias win="cd ~/vm ; quickemu --vm windows-10.conf"
 alias portainer="docker start portainer ;$BROWSER '0.0.0.0:9000'"
 
-alias dps="docker  ps"
-alias dpsa="docker  ps -a"
+alias dps="docker ps"
+alias dh="docker run hello-world"
+alias dpsa="docker ps -a"
 alias dib="docker inspect bridge | grep Name"

@@ -32,7 +32,7 @@ else
         shift
     done
 
-    # notify-send "Recording started $additional_params"
+    notify-send "Recording started $additional_params"
     # Execute the command
     eval "$base_command $additional_params" 
 fi
