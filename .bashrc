@@ -20,7 +20,7 @@ export PATH=$PATH:~/Android/Sdk/cmdline-tools/latest/bin/
 
 export DISPLAY=:0.0
 export TERM=kitty
-export BROWSER=thorium-browser
+export BROWSER=thorium-browser --proxy-server="http://127.0.0.1:9999"
 export EDITOR=nvim
 export VISUAL=nvim
 

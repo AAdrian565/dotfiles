@@ -62,3 +62,5 @@ alias dps="docker ps"
 alias dh="docker run hello-world"
 alias dpsa="docker ps -a"
 alias dib="docker inspect bridge | grep Name"
+
+alias dpi="spoof-dpi --port=9999"
