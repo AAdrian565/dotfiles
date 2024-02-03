@@ -1,2 +1,7 @@
 # HOW TO INSTALL
-ln -srf dotfiles/foldername/. .config/foldername
+```Bash
+cd $HOME
+git clone https://github.com/AAdrian565/dotfiles
+cd dotfiles
+stow .
+```
