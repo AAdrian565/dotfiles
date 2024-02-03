@@ -42,6 +42,7 @@ alias mb="make build"
 alias mt="make test"
 alias mc="make clean"
 alias mw="make watch"
+alias mdb="make docker-build"
 alias mdr="make docker-run"
 alias mdd="make docker-down"
 

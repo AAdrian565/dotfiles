@@ -16,6 +16,19 @@ require("lazy").setup({
     "christoomey/vim-system-copy",
     "christoomey/vim-tmux-navigator",
     "nvim-lua/plenary.nvim",
+    {
+        "folke/zen-mode.nvim",
+        opts = {
+            window = {
+                backdrop = 0.95,
+                options = {
+                    signcolumn = "no",
+                    number = false,
+                    relativenumber = false,
+                },
+            },
+        },
+    },
     -- Color theme/ decoration
     "navarasu/onedark.nvim",
     "folke/tokyonight.nvim",
