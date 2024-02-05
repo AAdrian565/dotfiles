@@ -7,6 +7,7 @@ alias grep='grep --color=auto'
 alias clock='timedatectl set-local-rtc 1'
 alias h='cat $(find ~/hint/ -type f | fzf)'
 alias tmux='echo TERM\=xterm-256color tmux'
+alias v='cd ~/programming/ && cd "$(find -maxdepth 2 | grep '\''/\w\+/\w\+'\'' | fzf)" && nvim'
 alias r='cd ~/programming/ && cd "$(find -maxdepth 2 | grep '\''/\w\+/\w\+'\'' | fzf)"'
 alias t='cd ~/programming/ && cd "$(find -maxdepth 2 | grep '\''/\w\+/\w\+'\'' | fzf)" && tmux new -s "$(basename "$PWD")" -c "$(pwd)"'
 alias t.='tmux new -s $(basename "$PWD") -c $(pwd)'
@@ -17,7 +18,6 @@ alias bl='blueprint create $(blueprint list | fzf)'
 
 alias ls="ls --color=auto"
 alias vim="nvim"
-alias v="vim"
 alias tmux="tmux -2"
 alias lg="lazygit"
 
