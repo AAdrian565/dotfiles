@@ -1,2 +1,2 @@
-tmux/plugins/
+.config/tmux/plugins/
 .config/btop/btop.log
