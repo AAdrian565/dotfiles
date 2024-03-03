@@ -4,9 +4,6 @@ declare -A COMMANDS
 COMMANDS["pixel7"]="emulator -avd Pixel7"
 LABELS["pixel7"]=""
 
-COMMANDS["burp"]="cd ~/Downloads/burp/;\"/usr/lib/jvm/java-20-openjdk/bin/java\" \"--add-opens=java.desktop/javax.swing=ALL-UNNAMED\" \"--add-opens=java.base/java.lang=ALL-UNNAMED\" \"--add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED\" \"--add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED\" \"--add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED\" \"-javaagent:burploader.jar\" \"-noverify\" \"-jar\" \"/home/adrian/Downloads/burp/burpsuite_pro_v2023.4.5.jar\" "
-LABELS["burp"]=""
-
 COMMANDS["portainer"]="docker start portainer ; $BROWSER '0.0.0.0:9000;"
 LABELS["portainer"]=""
 

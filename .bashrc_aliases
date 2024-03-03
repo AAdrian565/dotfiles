@@ -7,15 +7,21 @@ alias grep='grep --color=auto'
 alias clock='timedatectl set-local-rtc 1'
 alias h='cat $(find ~/hint/ -type f | fzf)'
 alias tmux='echo TERM\=xterm-256color tmux'
-alias v='cd ~/programming/ && cd "$(find -maxdepth 2 | grep '\''/\w\+/\w\+'\'' | fzf)" && nvim'
 alias r='cd ~/programming/ && cd "$(find -maxdepth 2 | grep '\''/\w\+/\w\+'\'' | fzf)"'
+alias v='cd ~/programming/ && cd "$(find -maxdepth 2 | grep '\''/\w\+/\w\+'\'' | fzf)" && nvim'
 alias t='cd ~/programming/ && cd "$(find -maxdepth 2 | grep '\''/\w\+/\w\+'\'' | fzf)" && tmux new -s "$(basename "$PWD")" -c "$(pwd)"'
+alias ztm='sudo zerotier-cli $(echo "join'\n'leave" | fzf) $(cat ~/zerotier | fzf | awk "{print \$1}")'
+alias sm='ssh $(cat ~/ssh | fzf | awk "{print \$1}")'
+# alias ts='server=$(cat ~/ssh | fzf | awk "{print \$1}"); tmux new -s "$server" ssh "$server"'
+alias sf='sshfs $(cat ~/sshf | fzf) ~/mount'
+alias sfu='fusermount -u ~/mount'
 alias t.='tmux new -s $(basename "$PWD") -c $(pwd)'
 alias l='tmux a -t "$(tmux ls | awk -F ":" "{print \$1}" | fzf)"'
 alias e='tmux a -t all || tmux new -s all'
 
 alias bl='blueprint create $(blueprint list | fzf)'
 
+alias feh="feh --auto-zoom --scale-down"
 alias ls="ls --color=auto"
 alias vim="nvim"
 alias tmux="tmux -2"
@@ -25,7 +31,7 @@ alias lg="lazygit"
 alias home="cd ~"
 alias cls="clear"
 alias duu="du -h -d 1 | sort -hr"
-alias g="ping google.com"
+alias g="ping 8.8.8.8"
 
 alias n="cd ~/notes; vim"
 alias c="cd ~/programming/"
@@ -65,3 +71,4 @@ alias dpsa="docker ps -a"
 alias dib="docker inspect bridge | grep Name"
 
 alias dpi="spoof-dpi --port=9999"
+alias zt="sudo zerotier-cli"

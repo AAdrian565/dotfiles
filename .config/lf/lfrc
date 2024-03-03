@@ -5,6 +5,7 @@ set icons true
 set ignorecase true
 set shell sh
 
+map g. set hidden!
 map . set hidden!
 map i set hidden!
 map y copy
@@ -15,30 +16,41 @@ map DD delete
 map <enter> shell
 map r reload
 map RR push :rename<space>
-map mf makefile
-map md mkdir
-map dr dragon
-map ds dragon-stay
+map gd dragon
 
-cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
+cmd rename %[ -e "$1" ] && printf "file exists" || mv "$f" "$1"
 
-cmd mkdir ${{
-	mkdir $1
-}}
-
-cmd mkfile ${{
-	touch $1
+cmd dragon ${{
+    dragon-drop "$f"
 }}
 
 cmd extract ${{
     set -f
     case $f in
-        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
-        *.tar.gz|*.tgz) tar xzvf $f;;
-        *.tar.xz|*.txz) tar xJvf $f;;
-        *.zip) unzip $f;;
-        *.rar) unrar x $f;;
-        *.7z) 7z x $f;;
+        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2)
+            foldername=$(basename "$f" .tar.bz2)
+            mkdir -p "$foldername" && tar xjvf "$f" -C "$foldername"
+            ;;
+        *.tar.gz|*.tgz)
+            foldername=$(basename "$f" .tar.gz)
+            mkdir -p "$foldername" && tar xzvf "$f" -C "$foldername"
+            ;;
+        *.tar.xz|*.txz)
+            foldername=$(basename "$f" .tar.xz)
+            mkdir -p "$foldername" && tar xJvf "$f" -C "$foldername"
+            ;;
+        *.zip)
+            foldername=$(basename "$f" .zip)
+            mkdir -p "$foldername" && unzip "$f" -d "$foldername"
+            ;;
+        *.rar)
+            foldername=$(basename "$f" .rar)
+            mkdir -p "$foldername" && unrar x "$f" "$foldername/"
+            ;;
+        *.7z)
+            foldername=$(basename "$f" .7z)
+            mkdir -p "$foldername" && 7z x "$f" -o"$foldername"
+            ;;
     esac
 }}
 
@@ -47,7 +59,6 @@ cmd zip ${{
     mkdir $1
     cp -r $fx $1
     zip -r $1.zip $1
-    /* rm -rf $1 */
 }}
 
 cmd tar ${{
@@ -55,13 +66,4 @@ cmd tar ${{
     mkdir $1
     cp -r $fx $1
     tar czf $1.tar.gz $1
-    /* rm -rf $1 */
-}}
-
-cmd data ${{
-	sudo mount.ntfs-3g /dev/nvme0n1p4 /mnt/data
-}}
-
-cmd windows ${{
-	sudo mount.ntfs-3g /dev/nvme0n1p3 /mnt/windows
 }}

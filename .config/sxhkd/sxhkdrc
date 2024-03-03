@@ -74,11 +74,11 @@ XF86AudioMute
 
 #Volume up
 XF86AudioRaiseVolume
-	pulsemixer --change-volume +1 & dunstify "Volume Up"
+	pulsemixer --change-volume +2 & dunstify "Volume Up"
 
 #Volume down
 XF86AudioLowerVolume
-	pulsemixer --change-volume -1 & dunstify "Volume Down"
+	pulsemixer --change-volume -2 & dunstify "Volume Down"
 
 
 ctrl + XF86AudioRaiseVolume
