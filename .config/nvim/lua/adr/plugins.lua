@@ -13,7 +13,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     "christoomey/vim-titlecase",
-    "christoomey/vim-system-copy",
     "christoomey/vim-tmux-navigator",
     "nvim-lua/plenary.nvim",
     {
@@ -68,6 +67,7 @@ require("lazy").setup({
             })
         end,
     },
+    "diepm/vim-rest-console",
     "nvim-lualine/lualine.nvim",
     "mbbill/undotree",
     "honza/vim-snippets",
@@ -102,7 +102,11 @@ require("lazy").setup({
     "ThePrimeagen/vim-be-good",
     --tree/ navigation
     "preservim/nerdtree",
-    "ThePrimeagen/harpoon",
+    {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
     -- Auto comment
     "tpope/vim-commentary",
     "nvimtools/none-ls.nvim",

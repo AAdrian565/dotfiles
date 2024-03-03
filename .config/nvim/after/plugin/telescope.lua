@@ -1,12 +1,14 @@
 local file_ignore_patterns = {
-    "./node_modules/*",
-    "node_modules",
-    "^node_modules/*",
     "node_modules/*",
+    "^%.svelte%-kit/*",
     "^%.cache/*",
-    ".git",
-    ".*%.o",
-    "*/.bin",
+    "^%.git/.*",
+    "build/.*",
+    ".*%.o$",
+    ".*%.bin$",
+    ".*%.png$",
+    ".*%.jpg$",
+    ".*%.lock$",
 }
 
 require("telescope").setup({
