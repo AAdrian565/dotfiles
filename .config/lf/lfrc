@@ -21,7 +21,7 @@ map gd dragon
 cmd rename %[ -e "$1" ] && printf "file exists" || mv "$f" "$1"
 
 cmd dragon ${{
-    dragon-drop "$f"
+    dragon-drop "$f" &
 }}
 
 cmd extract ${{

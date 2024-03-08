@@ -13,6 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     "christoomey/vim-titlecase",
+    "christoomey/vim-system-copy",
     "christoomey/vim-tmux-navigator",
     "nvim-lua/plenary.nvim",
     {

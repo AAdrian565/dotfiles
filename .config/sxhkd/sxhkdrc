@@ -4,11 +4,14 @@ super + e
 super + l
 	betterlockscreen -l
 
-alt + insert 
-	flameshot gui
+super + shift + a
+    spectacle -fmcn
+
+super + shift + w
+    spectacle -uwpcn
 
 super + shift + s
-	flameshot gui
+    spectacle -rpcn
 
 super + {1, 2, 3, 5, 6, 7}
 	{$TERMINAL -e btop, code, obsidian, $BROWSER, discord, obs}

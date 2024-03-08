@@ -13,7 +13,7 @@ ka("v", "gt", "<Plug>Titlecase", opt)
 ka("n", "gtt", "<Plug>TitlecaseLine", opt)
 
 -- Basic Functionality
-k("n", "<leader>y", '"+y', opt)
+-- k("n", "<leader>y", '"+y', opt)
 k("n", "<C-h>", "<C-w>h", opt)
 k("n", "<C-j>", "<C-w>j", opt)
 k("n", "<C-k>", "<C-w>k", opt)
