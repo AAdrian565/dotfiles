@@ -1,0 +1,19 @@
+default-timeout=3000
+border-radius=15
+layer=overlay
+width=300
+height=110
+margin=5
+padding=0,5,10
+border-size=2
+max-icon-size=64
+
+# Colors
+
+background-color=#1F2329
+text-color=#979eab
+border-color=#979eab
+progress-color=over #313244
+
+[urgency=high]
+border-color=#fab387

@@ -7,12 +7,8 @@ LABELS["pixel7"]=""
 COMMANDS["portainer"]="docker start portainer ; $BROWSER '0.0.0.0:9000;"
 LABELS["portainer"]=""
 
-COMMANDS["reload"]="pkill -USR1 -x polybar; pkill -USR1 -x sxhkd;"
-LABELS["reload"]=""
-
-
-COMMANDS["n"]="$TERM -e nvim ~/notes/note~"
-LABELS["n"]=""
+# COMMANDS["reload"]="pkill -USR1 -x polybar; pkill -USR1 -x sxhkd;"
+# LABELS["reload"]=""
 
 COMMANDS["r"]="rofi -show drun"
 LABELS["r"]=""

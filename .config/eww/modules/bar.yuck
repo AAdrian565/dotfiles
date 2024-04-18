@@ -17,6 +17,7 @@
         )
         (box :orientation "h" :class "bar-section" :halign "end" :space-evenly "false"
             (network)
+            (script-text :var {server} )
             (script-text :var {brightness} )
             (script-text :var {volume} )
             (script-text :var {battery} )
