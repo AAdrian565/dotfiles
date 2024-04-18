@@ -58,3 +58,6 @@ k("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics
 k("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
 k("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
 k("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
+
+-- CopilotChat
+k("n", "<leader>co", ":CopilotChatToggle<cr>", opt)

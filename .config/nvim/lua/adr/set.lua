@@ -36,10 +36,11 @@ o.isfname:append("@-@")
 o.updatetime = 50
 
 o.list = true
-o.listchars = {
-    tab = "▸ ",
-    trail = "·",
-    extends = "»",
-    precedes = "«",
-    nbsp = "␣",
-}
+
+-- o.listchars = {
+--     tab = "▸ ",
+--     trail = "·",
+--     extends = "»",
+--     precedes = "«",
+--     nbsp = "␣",
+-- }

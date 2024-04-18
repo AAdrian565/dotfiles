@@ -47,6 +47,19 @@ require("lazy").setup({
 
     -- Utilities
     "github/copilot.vim",
+    {
+        "CopilotC-Nvim/CopilotChat.nvim",
+        branch = "canary",
+        dependencies = {
+            { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+            { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+        },
+        opts = {
+            debug = true, -- Enable debugging
+            -- See Configuration section for rest
+        },
+        -- See Commands section for default commands if you want to lazy load on them
+    },
     -- "Exafunction/codeium.vim",
     "tpope/vim-fugitive",
     "airblade/vim-gitgutter",
@@ -111,6 +124,13 @@ require("lazy").setup({
     -- Auto comment
     "tpope/vim-commentary",
     "nvimtools/none-ls.nvim",
+    {
+        "nvimtools/none-ls.nvim",
+        config = function()
+            require("null-ls").setup()
+        end,
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
 
     -- Tree sitter
     { "nvim-treesitter/nvim-treesitter", build = "TSUpdate" },
@@ -166,16 +186,16 @@ require("lazy").setup({
         branch = "v1.x",
         dependencies = {
             -- LSP Support
-            { "neovim/nvim-lspconfig" },    -- Required
-            { "williamboman/mason.nvim" },  -- Optional
+            { "neovim/nvim-lspconfig" },             -- Required
+            { "williamboman/mason.nvim" },           -- Optional
             { "williamboman/mason-lspconfig.nvim" }, -- Optional
             -- Autocompletion
-            { "hrsh7th/nvim-cmp" },         -- Required
-            { "hrsh7th/cmp-nvim-lsp" },     -- Required
-            { "hrsh7th/cmp-buffer" },       -- Optional
-            { "hrsh7th/cmp-path" },         -- Optional
-            { "saadparwaiz1/cmp_luasnip" }, -- Optional
-            { "hrsh7th/cmp-nvim-lua" },     -- Optional
+            { "hrsh7th/nvim-cmp" },                  -- Required
+            { "hrsh7th/cmp-nvim-lsp" },              -- Required
+            { "hrsh7th/cmp-buffer" },                -- Optional
+            { "hrsh7th/cmp-path" },                  -- Optional
+            { "saadparwaiz1/cmp_luasnip" },          -- Optional
+            { "hrsh7th/cmp-nvim-lua" },              -- Optional
             -- Snippets
             {
                 "L3MON4D3/LuaSnip",

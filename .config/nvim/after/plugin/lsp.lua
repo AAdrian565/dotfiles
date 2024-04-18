@@ -63,17 +63,29 @@ lsp.set_preferences({
 lsp.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
 
-    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+    -- vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+    -- vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-    vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-    vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+    vim.keymap.set("n", "<leader>e", function() vim.diagnostic.open_float() end, opts)
     vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
     vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
     vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
-    vim.keymap.set("n", "<leader>vr", function() vim.lsp.buf.references() end, opts)
+    -- vim.keymap.set("n", "<leader>vr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+    vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+    vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 end)
+
+vim.keymap.set('n', 'gd', require('telescope.builtin').lsp_definitions)
+vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references)
+vim.keymap.set('n', 'gI', require('telescope.builtin').lsp_implementations)
+vim.keymap.set('n', '<leader>D', require('telescope.builtin').lsp_type_definitions)
+vim.keymap.set('n', '<leader>ds', require('telescope.builtin').lsp_document_symbols)
+vim.keymap.set('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols)
 
 vim.diagnostic.config({
     virtual_text = true,
