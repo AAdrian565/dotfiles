@@ -52,7 +52,7 @@ require("lazy").setup({
         branch = "canary",
         dependencies = {
             { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-            { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+            { "nvim-lua/plenary.nvim" },  -- for curl, log wrapper
         },
         opts = {
             debug = true, -- Enable debugging
@@ -73,7 +73,8 @@ require("lazy").setup({
             require("nvim-surround").setup({})
         end,
     },
-    {
+
+    { -- FOR SOME REASON THIS CRASH VUE
         "Wansmer/treesj",
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         config = function()
@@ -81,6 +82,7 @@ require("lazy").setup({
             })
         end,
     },
+
     "diepm/vim-rest-console",
     "nvim-lualine/lualine.nvim",
     "mbbill/undotree",
@@ -133,7 +135,7 @@ require("lazy").setup({
     },
 
     -- Tree sitter
-    { "nvim-treesitter/nvim-treesitter", build = "TSUpdate" },
+    { "nvim-treesitter/nvim-treesitter", build = "TSUpdate" }, -- FOR SOME REASON THIS CRASH VUE
     "nvim-treesitter/playground",
     "nvim-treesitter/nvim-treesitter-context",
     -- LANGUAGE SPECIFIC

@@ -34,12 +34,12 @@
 
 (defwidget workspaces []
   (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace.sh {} ${current_workspace}" :class "workspaces-widget bar-item separator"
-    (box 
+    (box
       (label :text "${workspaces}${current_workspace}" :visible false)
       (for workspace in workspaces
         (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}" :visible {(workspace.windows > 0) || (workspace.id == current_workspace) ? true : false}
-          (box 
-          :class "workspace-item ${workspace.id == current_workspace ? "workspace-current" : ""}" 
+          (box
+          :class "workspace-item ${workspace.id == current_workspace ? "workspace-current" : ""}"
             (label :text "${workspace.id == current_workspace ? "󰣇" :  workspace.id}")
           )
         )
@@ -51,7 +51,7 @@
 (defwidget date []
     (box :orientation "h" :class "bar-item noseperator"
         (label :text {formattime(EWW_TIME, "   %A, %d/%m")})
-    ) 
+    )
 )
 
 (defwidget time []
@@ -81,11 +81,11 @@
 (defwidget network []
     (button :orientation "h" :class "separator" :onclick "bash ../eww/scripts/toggle-show_ip.sh"
         (box
-            (icon-text  :icon {network.essid == "lo" ? "󰤭" : 
-                       network.signal == "" ? "󰤩"  
-                       : network.signal < 25 ? "󰤟"  
-                       : network.signal < 50 ? "󰤢"  
-                       : network.signal < 75 ? "󰤥"  
+            (icon-text  :icon {network.essid == "lo" ? "󰤭" :
+                       network.signal == "" ? "󰤩"
+                       : network.signal < 25 ? "󰤟"
+                       : network.signal < 50 ? "󰤢"
+                       : network.signal < 75 ? "󰤥"
                        : "󰤨" }
                        :text {show_ip ? network.ip : network.essid}
             )

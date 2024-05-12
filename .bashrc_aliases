@@ -35,7 +35,7 @@ alias g="ping 8.8.8.8"
 
 alias n="cd ~/notes; vim"
 alias c="cd ~/programming/"
-alias d="kitty --detach -d ." 
+alias d="kitty --detach -d ."
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."

@@ -1,0 +1,50 @@
+[
+    {
+        "command": "swaylock --clock --screenshot --indicator --indicator-radius 120 --indicator-thickness 8 --effect-blur 9x9",
+        "name": "01. LockScreen"
+    },
+    {
+        "command": "grimblast copysave active;",
+        "name": "02. Screenshot Active"
+    },
+    {
+        "command": "grimblast copysave;",
+        "name": "03. Screenshot Full"
+    },
+    {
+        "command": "hyprctl keyword animation \"fadeOut,0,0,default\"; grimblast  copysave area; hyprctl keyword animation \"fadeOut,1,4,default\"",
+        "name": "04. Screenshot Region"
+    },
+    {
+        "command": "pulsemixer --toggle-mute",
+        "name": "05. Toggle Mute"
+    },
+    {
+        "command": "pulsemixer --set-volume 100",
+        "name": "06. Volume 100%"
+    },
+    {
+        "command": "pulsemixer --set-volume 0",
+        "name": "07. Volume 0%"
+    },
+    {
+        "command": "brightnessctl set 0%",
+        "name": "08. Brightness 0%"
+    },
+    {
+        "command": "brightnessctl set 15%",
+        "name": "09. Brightness 15%"
+    },
+    {
+        "command": "reboot",
+        "name": "10. RESTART"
+    },
+    {
+        "command": "poweroff",
+        "name": "11. SHUTDOWN"
+    },
+    {
+        "command": "",
+        "name": ""
+    }
+]
