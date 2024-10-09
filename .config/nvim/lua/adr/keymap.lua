@@ -61,3 +61,5 @@ k("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
 
 -- CopilotChat
 k("n", "<leader>co", ":CopilotChatToggle<cr>", opt)
+k("i", "<C-i>", 'copilot#Accept("<CR>")', opt)
+k("i", "<Tab>", '<Tab>', opt)

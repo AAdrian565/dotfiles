@@ -2,10 +2,10 @@
 # ~/.bashrc
 #
 
+alias ~="cd ~"
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias clock='timedatectl set-local-rtc 1'
-alias h='cat $(find ~/hint/ -type f | fzf)'
 alias tmux='echo TERM\=xterm-256color tmux'
 alias r='cd ~/programming/ && cd "$(find -maxdepth 2 | grep '\''/\w\+/\w\+'\'' | fzf)"'
 alias v='cd ~/programming/ && cd "$(find -maxdepth 2 | grep '\''/\w\+/\w\+'\'' | fzf)" && nvim'
@@ -18,6 +18,8 @@ alias sfu='fusermount -u ~/mount'
 alias t.='tmux new -s $(basename "$PWD") -c $(pwd)'
 alias l='tmux a -t "$(tmux ls | awk -F ":" "{print \$1}" | fzf)"'
 alias e='tmux a -t all || tmux new -s all'
+alias o='xdg-open'
+alias venv='source .venv/bin/activate'
 
 alias bl='blueprint create $(blueprint list | fzf)'
 
@@ -33,9 +35,9 @@ alias cls="clear"
 alias duu="du -h -d 1 | sort -hr"
 alias g="ping 8.8.8.8"
 
-alias n="cd ~/notes; vim"
+# alias n="cd ~/notes; vim"
+alias h="cd ~/"
 alias c="cd ~/programming/"
-alias d="kitty --detach -d ."
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -56,6 +58,8 @@ alias nr="npm run"
 alias nrd="npm run dev"
 alias nrb="npm run build"
 
+alias codegen="npx playwright codegen"
+
 alias sail="./vendor/bin/sail"
 alias xampp="sudo /opt/lampp/lampp"
 
@@ -63,12 +67,18 @@ alias glaravel="composer install; cp .env.example .env; php artisan key:generate
 
 alias pac="docker run -it --rm freedomben/pacvim"
 alias win="cd ~/vm ; quickemu --vm windows-10.conf"
-alias portainer="docker start portainer ;$BROWSER '0.0.0.0:9000'"
+alias portainerinit="docker volume create portainer_data"
+alias portainer="docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest"
+
+alias ap="ansible-playbook"
 
 alias dps="docker ps"
 alias dh="docker run hello-world"
 alias dpsa="docker ps -a"
 alias dib="docker inspect bridge | grep Name"
+alias dockerclean="docker container rm -f $(docker container ls -aq)"
+alias dbt="docker build -t test ."
+alias drt="docker run test"
 
 alias dpi="spoof-dpi --port=9999"
 alias zt="sudo zerotier-cli"
