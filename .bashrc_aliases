@@ -2,7 +2,6 @@
 # ~/.bashrc
 #
 
-alias ~="cd ~"
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias clock='timedatectl set-local-rtc 1'
@@ -21,22 +20,20 @@ alias e='tmux a -t all || tmux new -s all'
 alias o='xdg-open'
 alias venv='source .venv/bin/activate'
 
-alias bl='blueprint create $(blueprint list | fzf)'
-
 alias feh="feh --auto-zoom --scale-down"
 alias ls="ls --color=auto"
 alias vim="nvim"
 alias tmux="tmux -2"
 alias lg="lazygit"
+alias ip="ip -c"
 
 # alias ~="cd ~"
 alias home="cd ~"
 alias cls="clear"
-alias duu="du -h -d 1 | sort -hr"
+alias duu="du -hd 1 | sort -hr"
 alias g="ping 8.8.8.8"
 
 # alias n="cd ~/notes; vim"
-alias h="cd ~/"
 alias c="cd ~/programming/"
 alias ..="cd .."
 alias ...="cd ../.."
