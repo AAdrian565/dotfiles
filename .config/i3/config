@@ -55,6 +55,9 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
+bindsym --whole-window $mod2+button4 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
+bindsym --whole-window $mod2+button5 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && $refresh_i3status
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -88,6 +91,10 @@ for_window [title="Whatsapp Webapp"] floating enable move scratchpad
 bindsym Mod2+KP_6 [title="Whatsapp Webapp"] scratchpad show resize set 1000 800; move position center
 
 bindsym Mod2+KP_3 floating toggle resize set 427 240; sticky enable; move position 1450 800
+
+# for_window [title="Picture-in-Picture"] floating enable resize set 427 240; move position 1450 800
+for_window [title="Picture-in-Picture"] floating enable sticky enable move scratchpad
+bindsym Mod2+KP_2 [title="Picture-in-Picture"] scratchpad show resize set 427 240; move position 1450 800
 
 # start a terminal
 bindsym $mod+Return exec alacritty

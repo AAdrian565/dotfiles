@@ -6,11 +6,11 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias clock='timedatectl set-local-rtc 1'
 alias tmux='echo TERM\=xterm-256color tmux'
-alias r='cd ~/programming/ && cd "$(find -maxdepth 2 | grep '\''/\w\+/\w\+'\'' | fzf)"'
-alias v='cd ~/programming/ && cd "$(find -maxdepth 2 | grep '\''/\w\+/\w\+'\'' | fzf)" && nvim'
-alias t='cd ~/programming/ && cd "$(find -maxdepth 2 | grep '\''/\w\+/\w\+'\'' | fzf)" && tmux new -s "$(basename "$PWD")" -c "$(pwd)"'
-alias ztm='sudo zerotier-cli $(echo "join'\n'leave" | fzf) $(cat ~/zerotier | fzf | awk "{print \$1}")'
-alias sm='ssh $(cat ~/ssh | fzf | awk "{print \$1}")'
+alias r='cd "$(find ~/programming -maxdepth 2 -type d -printf "/%P\n" | grep '\''/[^/]\+/[^/]\+'\'' | fzf | sed "s|^/|$HOME/programming/|")"'
+alias v='dir=$(find ~/programming -maxdepth 2 -type d -printf "/%P\n" | grep '\''/[^/]\+/[^/]\+'\'' | fzf | sed "s|^/|$HOME/programming/|") && [ -n "$dir" ] && cd "$dir" && nvim'
+alias t='dir=$(find ~/programming -maxdepth 2 -type d -printf "/%P\n" | grep '\''/[^/]\+/[^/]\+'\'' | fzf | sed "s|^/|$HOME/programming/|") && [ -n "$dir" ] && cd "$dir" && tmux new -s "$(basename "$dir")" -c "$dir"'
+alias ztm='action=$(echo -e "join\nleave" | fzf) && [ -n "$action" ] && network_id=$(cat ~/zerotier | fzf | awk "{print \$1}") && [ -n "$network_id" ] && sudo zerotier-cli "$action" "$network_id"'
+alias sm='host=$(cat ~/ssh | fzf | awk "{print \$1}") && [ -n "$host" ] && ssh "$host"'
 # alias ts='server=$(cat ~/ssh | fzf | awk "{print \$1}"); tmux new -s "$server" ssh "$server"'
 alias sf='sshfs $(cat ~/sshf | fzf) ~/mount'
 alias sfu='fusermount -u ~/mount'
@@ -27,8 +27,6 @@ alias tmux="tmux -2"
 alias lg="lazygit"
 alias ip="ip -c"
 
-# alias ~="cd ~"
-alias home="cd ~"
 alias cls="clear"
 alias duu="du -hd 1 | sort -hr"
 alias g="ping 8.8.8.8"
