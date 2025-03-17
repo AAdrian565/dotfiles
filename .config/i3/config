@@ -27,11 +27,13 @@ font pango:monospace 8
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id xrandr --output HDMI-0 --left-of DP-1
+exec --no-startup-id openrgb -p off
 exec --no-startup-id picom
 exec --no-startup-id desktop-items
 exec --no-startup-id nm-applet
 exec --no-startup-id numlockx
 exec --no-startup-id shutter --min_at_startup
+exec --no-startup-id STEAM_FRAME_FORCE_CLOSE=1 steam -silent
 # exec_always --no-startup-id sbxkb
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
@@ -58,12 +60,21 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym --whole-window $mod2+button4 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
 bindsym --whole-window $mod2+button5 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && $refresh_i3status
 
+bindsym Mod2+KP_1 exec --no-startup-id pactl set-source-mute "$(pactl get-default-source)" toggle && $refresh_i3status
+
+bindsym $mod+Shift+c exec gcolor3
+for_window [class="^Color picker$"] floating enable
+for_window [class="^Zoom Workspace$"] floating enable
+for_window [class="^Login - Akun Google — Mozilla Firefox$"] floating enable
+
 # Use Mouse+$mod to drag floating windows to their wanted position
+for_window [class="^Big Meter (GUI)$"] floating enable move position center
 floating_modifier $mod
 
 for_window [class="Shutter"] floating enable move position center
 for_window [title="Sign In - Google Accounts —"] floating enable move position center
 
+exec --no-startup-id pasystray
 exec --no-startup-id pavucontrol
 for_window [title="^Volume Control$"] floating enable move scratchpad
 bindsym Mod2+KP_Divide [title="^Volume Control$"] scratchpad show resize set 800 1000; move position center
@@ -72,8 +83,12 @@ exec --no-startup-id blueman-manager
 for_window [title="^Bluetooth Devices$"] floating enable move scratchpad
 bindsym Mod2+KP_Multiply [title="^Bluetooth Devices$"] scratchpad show resize set 400 600; move position center
 
+exec --no-startup-id firefoxpwa site launch 01JC915EEETM486S2VZ7B95V49
+for_window [title="^YouTube on TV$"] floating enable move scratchpad
+bindsym Mod2+KP_5 [title="^YouTube on TV$"] scratchpad show, fullscreen enable
+
 exec --no-startup-id firefoxpwa site launch 01JA4AP6DGVF2DXK0MN66VKG7P
-for_window [title="YouTube Music$"] floating enable move scratchpad
+for_window [title="Youtube Music(?: Webapps)?"] floating enable move scratchpad
 bindsym Mod2+KP_Subtract [title="YouTube Music$"] scratchpad show resize set 400 600; move position center
 
 bindsym Mod2+KP_7 exec --no-startup-id playerctl previous
@@ -84,10 +99,10 @@ exec --no-startup-id discord
 for_window [title=" - Discord$"] floating enable move scratchpad
 bindsym Mod2+KP_4 [title=" - Discord$"] scratchpad show resize set 1400 1000; move position center
 
-bindsym Mod2+KP_5 [title="^feh"] scratchpad show resize set 800 800; move position center
+# bindsym Mod2+KP_5 [title="^feh"] scratchpad show resize set 800 800; move position center
 
 exec --no-startup-id firefoxpwa site launch 01JA4JS3M3PANQFRSNH2NFCXR7
-for_window [title="Whatsapp Webapp"] floating enable move scratchpad
+for_window [title="^Whatsapp Webapp$"] floating enable move scratchpad
 bindsym Mod2+KP_6 [title="Whatsapp Webapp"] scratchpad show resize set 1000 800; move position center
 
 bindsym Mod2+KP_3 floating toggle resize set 427 240; sticky enable; move position 1450 800
@@ -95,6 +110,9 @@ bindsym Mod2+KP_3 floating toggle resize set 427 240; sticky enable; move positi
 # for_window [title="Picture-in-Picture"] floating enable resize set 427 240; move position 1450 800
 for_window [title="Picture-in-Picture"] floating enable sticky enable move scratchpad
 bindsym Mod2+KP_2 [title="Picture-in-Picture"] scratchpad show resize set 427 240; move position 1450 800
+
+for_window [title="^JACK Audio Connection Kit"] floating enable move position center
+for_window [title="QjackCtl$"] floating enable move position center
 
 # start a terminal
 bindsym $mod+Return exec alacritty
@@ -123,10 +141,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -172,6 +190,7 @@ bindsym $mod2+2 exec alacritty -e nvtop
 bindsym $mod2+5 exec firefox
 bindsym $mod2+6 exec discord
 bindsym $mod2+7 exec obs
+bindsym $mod2+e exec thunar
 # bindsym $mod2+8
 # bindsym $mod2+9
 # bindsym $mod2+0
@@ -237,7 +256,7 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+# bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
@@ -275,5 +294,6 @@ bindsym $mod+r mode "resize"
 
 bar {
         status_command i3status
+        # status_command i3blocks
 }
 

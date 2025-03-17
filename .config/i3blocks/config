@@ -1,0 +1,36 @@
+[mic_status]
+command=~/script/mic_status.sh | awk '{print " " $0 " "}'
+interval=1
+color=#00FF00
+
+[volume]
+command=amixer get Master | awk -F'[][]' '/%/ { print " V: "$2 " " }' | head -n 1
+interval=1
+
+[wireless]
+command=iwgetid -r | awk '{print " " $0 " "}'
+interval=5
+
+[ethernet]
+command=ip -4 addr show $(ip route | awk '/default/ {print $5}') | awk '/inet / {print " lan: "$2 " "}'
+interval=5
+
+[cpu_usage]
+command=top -bn1 | grep 'Cpu(s)' | awk '{print " cpu: " 100-$8 "% "}'
+interval=1
+
+[cpu_temperature]
+command=sensors | awk '/Package id 0/ {print " temp: " $4 " "}'
+interval=5
+
+[memory]
+command=free -h | awk '/Mem:/ {print " ram: "$7 " / " $2 " "}'
+interval=5
+
+[disk]
+command=df -h / | awk 'NR==2 {print " 🖴 "$4 " "}'
+interval=30
+
+[tztime]
+command=date '+%a, %d %b %Y - %H:%M:%S' | awk '{print " " $0 " "}'
+interval=1
