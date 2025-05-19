@@ -19,6 +19,7 @@ alias l='tmux a -t "$(tmux ls | awk -F ":" "{print \$1}" | fzf)"'
 alias e='tmux a -t all || tmux new -s all'
 alias o='xdg-open'
 alias d='alacritty --working-directory $(pwd) &'
+alias dm='alacritty -e make &'
 alias venv='source .venv/bin/activate'
 
 alias feh="feh --auto-zoom --scale-down"
@@ -27,6 +28,8 @@ alias vim="nvim"
 alias tmux="tmux -2"
 alias lg="lazygit"
 alias ip="ip -c"
+alias rb="systemctl restart bluetooth; blueman-manager &"
+alias ra="systemctl --user stop pipewire; systemctl --user stop pipewire-pulse; systemctl --user restart wireplumber;"
 
 alias cls="clear"
 alias duu="du -hd 1 | sort -hr"
@@ -74,7 +77,11 @@ alias dockerclean="docker container rm -f $(docker container ls -aq)"
 alias dbt="docker build -t test ."
 alias drt="docker run test"
 alias dbr="docker build -t test . && docker run test"
-alias dre="docker compose build && docker compose up -d --remove-orphans && docker compose logs -f"
+alias dre="docker compose down && docker compose up -d --remove-orphans && docker compose logs -f"
+alias dbu="docker compose build && docker compose up -d --remove-orphans && docker compose logs -f"
+alias stack-pause='f() { docker stack services "$1" --format "{{.Name}}" | while read svc; do echo "Scaling $svc to 0"; docker service scale "$svc"=0; done }; f'
+alias stack-resume='f() { stack="$1"; replicas="${2:-1}"; docker stack services "$stack" --format "{{.Name}}" | while read svc; do echo "Scaling $svc to $replicas"; docker service scale "$svc"="$replicas"; done }; f'
+
 
 alias dpi="spoof-dpi --port=9999"
 alias zt="sudo zerotier-cli"

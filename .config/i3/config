@@ -17,7 +17,7 @@ default_floating_border normal
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+font pango:monospace 9
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -34,6 +34,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id numlockx
 exec --no-startup-id shutter --min_at_startup
 exec --no-startup-id STEAM_FRAME_FORCE_CLOSE=1 steam -silent
+exec --no-startup-id /usr/libexec/gsd-xsettings
 # exec_always --no-startup-id sbxkb
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
@@ -47,23 +48,24 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
-# Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-bindsym --whole-window $mod2+button4 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
-bindsym --whole-window $mod2+button5 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id sh -c 'pactl set-sink-volume @DEFAULT_SINK@ +2% && pkill -RTMIN+11 i3blocks'
+bindsym XF86AudioLowerVolume exec --no-startup-id sh -c 'pactl set-sink-volume @DEFAULT_SINK@ -2% && pkill -RTMIN+11 i3blocks'
+bindsym XF86AudioMute exec --no-startup-id sh -c 'pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+11 i3blocks'
+bindsym XF86AudioMicMute exec --no-startup-id sh -c 'pactl set-source-mute @DEFAULT_SOURCE@ toggle && pkill -RTMIN+10 i3blocks'
+bindsym --whole-window $mod2+button4 exec --no-startup-id sh -c 'pactl set-sink-volume @DEFAULT_SINK@ +2% && pkill -RTMIN+11 i3blocks'
+bindsym --whole-window $mod2+button5 exec --no-startup-id sh -c 'pactl set-sink-volume @DEFAULT_SINK@ -2% && pkill -RTMIN+11 i3blocks'
 
-bindsym Mod2+KP_1 exec --no-startup-id pactl set-source-mute "$(pactl get-default-source)" toggle && $refresh_i3status
+# bindsym Mod2+KP_1 exec --no-startup-id pactl set-source-mute "$(pactl get-default-source)" toggle && $refresh_i3status
+bindsym Mod2+KP_1 exec --no-startup-id sh -c 'pactl set-source-mute "$(pactl get-default-source)" toggle && pkill -RTMIN+10 i3blocks'
+
 
 bindsym $mod+Shift+c exec gcolor3
 for_window [class="^Color picker$"] floating enable
+for_window [class="^Friends List$"] floating enable
 for_window [class="^Zoom Workspace$"] floating enable
 for_window [class="^Login - Akun Google — Mozilla Firefox$"] floating enable
 
@@ -77,15 +79,15 @@ for_window [title="Sign In - Google Accounts —"] floating enable move position
 exec --no-startup-id pasystray
 exec --no-startup-id pavucontrol
 for_window [title="^Volume Control$"] floating enable move scratchpad
-bindsym Mod2+KP_Divide [title="^Volume Control$"] scratchpad show resize set 800 1000; move position center
+bindsym Mod2+KP_Divide [title="^Volume Control$"] scratchpad show resize set 1000 1000; move position center
 
 exec --no-startup-id blueman-manager
 for_window [title="^Bluetooth Devices$"] floating enable move scratchpad
 bindsym Mod2+KP_Multiply [title="^Bluetooth Devices$"] scratchpad show resize set 400 600; move position center
 
-exec --no-startup-id firefoxpwa site launch 01JC915EEETM486S2VZ7B95V49
-for_window [title="^YouTube on TV$"] floating enable move scratchpad
-bindsym Mod2+KP_5 [title="^YouTube on TV$"] scratchpad show, fullscreen enable
+exec --no-startup-id firefoxpwa site launch 01JTHQ9Y77YSKTVH3PGAZEWN4M
+for_window [title="YouTube$"] floating enable move scratchpad
+bindsym Mod2+KP_5 [title="YouTube$"] scratchpad show resize set 1920 1200, fullscreen enable; move position center
 
 exec --no-startup-id firefoxpwa site launch 01JA4AP6DGVF2DXK0MN66VKG7P
 for_window [title="Youtube Music(?: Webapps)?"] floating enable move scratchpad
@@ -121,7 +123,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+d exec --no-startup-id rofi -show drun
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -196,11 +198,11 @@ bindsym $mod2+e exec thunar
 # bindsym $mod2+0
 bindsym $mod2+equal exec pavucontrol
 
-bindsym $mod2+l exec --no-startup-id SDL_VIDEO_FULLSCREEN_HEAD=0 i3lock -i ~/.wallpaper/lock.png, mode "default"
+# bindsym $mod2+l exec --no-startup-id SDL_VIDEO_FULLSCREEN_HEAD=0 i3lock -i ~/.wallpaper/lock.png, mode "default"
 
 bindsym $mod2+Shift+s exec shutter -w
-bindsym $mod2+Control+r exec simplescreenrecorder --start-recording --start-hidden
-bindsym $mod4+Control+Shift+r exec simplescreenrecorder record-stop
+# bindsym $mod2+Control+r exec simplescreenrecorder --start-recording --start-hidden
+# bindsym $mod4+Control+Shift+r exec simplescreenrecorder record-stop
 # bindsym $mod2+Shift+s exec gnome-screenshot -wc
 bindsym Mod4+Shift+c exec xcolor
 
@@ -293,7 +295,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bar {
-        status_command i3status
-        # status_command i3blocks
+        # status_command i3status
+        status_command i3blocks
 }
 
