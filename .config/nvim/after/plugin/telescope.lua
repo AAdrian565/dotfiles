@@ -13,6 +13,7 @@ local file_ignore_patterns = {
     ".*%.png$",
     ".*%.jpg$",
     ".*%.lock$",
+    ".*%-lock.json$",
 }
 
 require("telescope").setup({
@@ -32,3 +33,4 @@ vim.keymap.set("n", "<C-p>", builtin.git_files, {})
 vim.keymap.set("n", "<leader>ps", function()
     builtin.grep_string({ search = vim.fn.input("Grep > "), file_ignore_patterns = file_ignore_patterns })
 end)
+

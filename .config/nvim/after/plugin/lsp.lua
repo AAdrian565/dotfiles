@@ -1,134 +1,107 @@
-local lsp = require("lsp-zero")
-
-lsp.preset("recommended")
-
-lsp.ensure_installed({
-	"tsserver",
-	"rust_analyzer",
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+	callback = function(event)
+		local map = function(keys, func, desc, mode)
+			mode = mode or "n"
+			vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+		end
+		map("<S-k>", vim.lsp.buf.hover, "Hover Documentation")
+		map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
+		map("gra", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
+		map("grr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+		map("gri", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+		map("grd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+		map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+		map("gO", require("telescope.builtin").lsp_document_symbols, "Open Document Symbols")
+		map("gW", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
+		map("grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
+		local function client_supports_method(client, method, bufnr)
+			if vim.fn.has("nvim-0.11") == 1 then
+				return client:supports_method(method, bufnr)
+			else
+				return client.supports_method(method, { bufnr = bufnr })
+			end
+		end
+		local client = vim.lsp.get_client_by_id(event.data.client_id)
+		-- if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
+		--     local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
+		--     vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+		--         buffer = event.buf,
+		--         group = highlight_augroup,
+		--         callback = vim.lsp.buf.document_highlight,
+		--     })
+		--     vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+		--         buffer = event.buf,
+		--         group = highlight_augroup,
+		--         callback = vim.lsp.buf.clear_references,
+		--     })
+		--     vim.api.nvim_create_autocmd('LspDetach', {
+		--         group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
+		--         callback = function(event2)
+		--             vim.lsp.buf.clear_references()
+		--             vim.api.nvim_clear_autocmds { group = 'lsp-highlight', buffer = event2.buf }
+		--         end,
+		--     })
+		-- end
+		if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+			map("<leader>th", function()
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+			end, "[T]oggle Inlay [H]ints")
+		end
+	end,
 })
-
--- Fix Undefined global 'vim'
-lsp.configure("lua-language-server", {
-	settings = {
-		["rust-analyzer"] = {
-			-- Other Settings ...
-			procMacro = {
-				ignored = {
-					leptos_macro = {
-						-- optional: --
-						-- "component",
-						"server",
-					},
+vim.diagnostic.config({
+	severity_sort = true,
+	float = { border = "rounded", source = "if_many" },
+	underline = { severity = vim.diagnostic.severity.ERROR },
+	signs = vim.g.have_nerd_font and {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "󰅚 ",
+			[vim.diagnostic.severity.WARN] = "󰀪 ",
+			[vim.diagnostic.severity.INFO] = "󰋽 ",
+			[vim.diagnostic.severity.HINT] = "󰌶 ",
+		},
+	} or {},
+	virtual_text = {
+		source = "if_many",
+		spacing = 2,
+		format = function(diagnostic)
+			local diagnostic_message = {
+				[vim.diagnostic.severity.ERROR] = diagnostic.message,
+				[vim.diagnostic.severity.WARN] = diagnostic.message,
+				[vim.diagnostic.severity.INFO] = diagnostic.message,
+				[vim.diagnostic.severity.HINT] = diagnostic.message,
+			}
+			return diagnostic_message[diagnostic.severity]
+		end,
+	},
+})
+local capabilities = require("blink.cmp").get_lsp_capabilities()
+local servers = {
+	lua_ls = {
+		settings = {
+			Lua = {
+				completion = {
+					callSnippet = "Replace",
 				},
 			},
 		},
-		Lua = {
-			diagnostics = {
-				globals = { "vim" },
-			},
-		},
 	},
+}
+local ensure_installed = vim.tbl_keys(servers or {})
+vim.list_extend(ensure_installed, {
+	"stylua",
+	"gopls",
 })
-
-local cmp = require("cmp")
--- local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-	["<C-k>"] = cmp.mapping.select_prev_item(cmp_select),
-	["<C-j>"] = cmp.mapping.select_next_item(cmp_select),
-	["<C-l>"] = cmp.mapping.confirm({ select = true }),
-	["<C-Space>"] = cmp.mapping.complete(),
-})
-
-cmp_mappings["Up"] = nil
-cmp_mappings["Down"] = nil
-cmp_mappings["<Tab>"] = nil
-cmp_mappings["<CR>"] = nil
-cmp_mappings["<C-j>"] = nil
-cmp_mappings["<C-k>"] = nil
-
-lsp.setup_nvim_cmp({
-	mapping = cmp_mappings,
-})
-
-lsp.set_preferences({
-	suggest_lsp_servers = false,
-	sign_icons = {
-		error = "E",
-		warn = "W",
-		hint = "H",
-		info = "I",
-	},
-})
-
-lsp.on_attach(function(client, bufnr)
-	local opts = { buffer = bufnr, remap = false }
-
-	-- vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-	-- vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-	vim.keymap.set("n", "K", function()
-		vim.lsp.buf.hover()
-	end, opts)
-	vim.keymap.set("n", "<leader>e", function()
-		vim.diagnostic.open_float()
-	end, opts)
-	vim.keymap.set("n", "[d", function()
-		vim.diagnostic.goto_next()
-	end, opts)
-	vim.keymap.set("n", "]d", function()
-		vim.diagnostic.goto_prev()
-	end, opts)
-	vim.keymap.set("n", "<leader>ca", function()
-		vim.lsp.buf.code_action()
-	end, opts)
-	-- vim.keymap.set("n", "<leader>vr", function() vim.lsp.buf.references() end, opts)
-	vim.keymap.set("n", "<leader>rn", function()
-		vim.lsp.buf.rename()
-	end, opts)
-	vim.keymap.set("i", "<C-h>", function()
-		vim.lsp.buf.signature_help()
-	end, opts)
-
-	vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-	vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-	vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-	vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
-end)
-
-vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions)
-vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references)
-vim.keymap.set("n", "gI", require("telescope.builtin").lsp_implementations)
-vim.keymap.set("n", "<leader>D", require("telescope.builtin").lsp_type_definitions)
-vim.keymap.set("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols)
-vim.keymap.set("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols)
-
-vim.diagnostic.config({
-	virtual_text = true,
-})
-
-lsp.setup()
-local lspconfig = require("lspconfig")
--- local configs = require('lspconfig/configs')
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-lspconfig.emmet_ls.setup({
-	capabilities = capabilities,
-	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "php", "javascript" },
-	init_options = {
-		html = {
-			options = {
-				-- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
-				["bem.enabled"] = true,
-			},
-		},
-	},
-})
-
-lspconfig.volar.setup({
-	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-	init_options = {
-		vue = {
-			hybridMode = false,
-		},
+require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+require("mason-lspconfig").setup({
+	ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+	automatic_installation = false,
+	handlers = {
+		function(server_name)
+			local server = servers[server_name] or {}
+			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+			require("lspconfig")[server_name].setup(server)
+		end,
 	},
 })
