@@ -15,13 +15,12 @@ set $mod2 Mod4
 default_border pixel 1
 default_floating_border normal
 
+include $HOME/.config/i3/config-macropad.conf
+include $HOME/.config/i3/config-barpc.conf
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 9
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -52,69 +51,14 @@ bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
+bindsym $mod2+Control+Up exec --no-startup-id sh -c 'pactl set-sink-volume @DEFAULT_SINK@ +2% && pkill -RTMIN+11 i3blocks'
+bindsym $mod2+Control+Down exec --no-startup-id sh -c 'pactl set-sink-volume @DEFAULT_SINK@ -2% && pkill -RTMIN+11 i3blocks'
 bindsym XF86AudioRaiseVolume exec --no-startup-id sh -c 'pactl set-sink-volume @DEFAULT_SINK@ +2% && pkill -RTMIN+11 i3blocks'
 bindsym XF86AudioLowerVolume exec --no-startup-id sh -c 'pactl set-sink-volume @DEFAULT_SINK@ -2% && pkill -RTMIN+11 i3blocks'
 bindsym XF86AudioMute exec --no-startup-id sh -c 'pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+11 i3blocks'
 bindsym XF86AudioMicMute exec --no-startup-id sh -c 'pactl set-source-mute @DEFAULT_SOURCE@ toggle && pkill -RTMIN+10 i3blocks'
 bindsym --whole-window $mod2+button4 exec --no-startup-id sh -c 'pactl set-sink-volume @DEFAULT_SINK@ +2% && pkill -RTMIN+11 i3blocks'
 bindsym --whole-window $mod2+button5 exec --no-startup-id sh -c 'pactl set-sink-volume @DEFAULT_SINK@ -2% && pkill -RTMIN+11 i3blocks'
-
-# bindsym Mod2+KP_1 exec --no-startup-id pactl set-source-mute "$(pactl get-default-source)" toggle && $refresh_i3status
-bindsym Mod2+KP_1 exec --no-startup-id sh -c 'pactl set-source-mute "$(pactl get-default-source)" toggle && pkill -RTMIN+10 i3blocks'
-
-
-bindsym $mod+Shift+c exec gcolor3
-for_window [class="^Color picker$"] floating enable
-for_window [class="^Friends List$"] floating enable
-for_window [class="^Zoom Workspace$"] floating enable
-for_window [class="^Login - Akun Google — Mozilla Firefox$"] floating enable
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-for_window [class="^Big Meter (GUI)$"] floating enable move position center
-floating_modifier $mod
-
-for_window [class="Shutter"] floating enable move position center
-for_window [title="Sign In - Google Accounts —"] floating enable move position center
-
-exec --no-startup-id pasystray
-exec --no-startup-id pavucontrol
-for_window [title="^Volume Control$"] floating enable move scratchpad
-bindsym Mod2+KP_Divide [title="^Volume Control$"] scratchpad show resize set 1000 1000; move position center
-
-exec --no-startup-id blueman-manager
-for_window [title="^Bluetooth Devices$"] floating enable move scratchpad
-bindsym Mod2+KP_Multiply [title="^Bluetooth Devices$"] scratchpad show resize set 400 600; move position center
-
-exec --no-startup-id firefoxpwa site launch 01JTHQ9Y77YSKTVH3PGAZEWN4M
-for_window [title="YouTube$"] floating enable move scratchpad
-bindsym Mod2+KP_5 [title="YouTube$"] scratchpad show resize set 1920 1200, fullscreen enable; move position center
-
-exec --no-startup-id firefoxpwa site launch 01JA4AP6DGVF2DXK0MN66VKG7P
-for_window [title="Youtube Music(?: Webapps)?"] floating enable move scratchpad
-bindsym Mod2+KP_Subtract [title="YouTube Music$"] scratchpad show resize set 400 600; move position center
-
-bindsym Mod2+KP_7 exec --no-startup-id playerctl previous
-bindsym Mod2+KP_8 exec --no-startup-id playerctl play-pause
-bindsym Mod2+KP_9 exec --no-startup-id playerctl next
-
-exec --no-startup-id discord
-for_window [title=" - Discord$"] floating enable move scratchpad
-bindsym Mod2+KP_4 [title=" - Discord$"] scratchpad show resize set 1400 1000; move position center
-
-# bindsym Mod2+KP_5 [title="^feh"] scratchpad show resize set 800 800; move position center
-
-exec --no-startup-id firefoxpwa site launch 01JA4JS3M3PANQFRSNH2NFCXR7
-for_window [title="^Whatsapp Webapp$"] floating enable move scratchpad
-bindsym Mod2+KP_6 [title="Whatsapp Webapp"] scratchpad show resize set 1000 800; move position center
-
-bindsym Mod2+KP_3 floating toggle resize set 427 240; sticky enable; move position 1450 800
-
-# for_window [title="Picture-in-Picture"] floating enable resize set 427 240; move position 1450 800
-for_window [title="Picture-in-Picture"] floating enable sticky enable move scratchpad
-bindsym Mod2+KP_2 [title="Picture-in-Picture"] scratchpad show resize set 427 240; move position 1450 800
-
-for_window [title="^JACK Audio Connection Kit"] floating enable move position center
-for_window [title="QjackCtl$"] floating enable move position center
 
 # start a terminal
 bindsym $mod+Return exec alacritty
@@ -184,10 +128,9 @@ bindsym $mod+SHift+minus scratchpad show
 # focus the child container
 bindsym $mod+s focus child
 
-# switch to workspace
 bindsym $mod2+1 exec alacritty -e btop
 bindsym $mod2+2 exec alacritty -e nvtop
-# bindsym $mod2+3
+bindsym $mod2+3 exec alacritty -e ssh -t home btop
 # bindsym $mod2+4
 bindsym $mod2+5 exec firefox
 bindsym $mod2+6 exec discord
@@ -216,6 +159,7 @@ workspace 7 output DP-1
 workspace 8 output DP-1
 workspace 9 output DP-1
 workspace 10 output DP-1
+workspace 11 output DP-3
 
 bindsym $mod+n move container to output next
 bindsym $mod+m move workspace to output next
@@ -232,6 +176,7 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
+set $ws11 "11"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -244,6 +189,7 @@ bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
+bindsym $mod+p workspace number $ws11
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -256,6 +202,7 @@ bindsym $mod+Shift+7 move container to workspace number $ws7
 bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+p move container to workspace number $ws11
 
 # reload the configuration file
 # bindsym $mod+Shift+c reload
@@ -293,9 +240,3 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
-
-bar {
-        # status_command i3status
-        status_command i3blocks
-}
-

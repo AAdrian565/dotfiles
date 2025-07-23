@@ -1,11 +1,10 @@
 [mic_status]
-command=~/script/mic_status.sh | awk '{print " " $0 " "}'
+command=bash -c 'STATUS=$(pactl list sources | grep -A 6 "$(pactl get-default-source)" | grep "Mute" | awk '\''{print $2}'\''); if [ "$STATUS" = "yes" ]; then echo " "; else echo " "; fi'
 interval=1
 signal=10
-color=#00FF00
 
 [volume]
-command=amixer get Master | awk -F'[][]' '/%/ { if ($4 == "off") print " 🔇 "; else print " 🔊 " $2 " "; exit }'
+command=amixer get Master | awk -F'[][]' '/%/ { if ($4 == "off") print "   "; else print "   " $2 " "; exit }'
 interval=1
 signal=11
 
@@ -20,21 +19,16 @@ interval=5
 color=#7FFFD4  # Aquamarine
 
 [cpu_usage]
-command=top -bn1 | grep 'Cpu(s)' | awk '{print " cpu: " 100-$8 "% "}'
+command=top -bn1 | grep 'Cpu(s)' | awk '{printf("  %.1f%% ", 100 - $8)}'
 interval=1
 
 [memory]
-command=free -h | awk '/Mem:/ {print " ram: "$7 " / " $2 " "}'
-interval=5
+command=free | awk '/Mem:/ {printf("  %.1f%% ", $3/$2*100)}'
+interval=1
 
 [disk]
-command=df -h / | awk 'NR==2 {print " 🖴 "$4 " "}'
+command=df -h / | awk 'NR==2 {printf("  %s ", $4)}'
 interval=30
-color=#00CED1  # DarkTurquoise
-
-[tztime-utc]
-command=TZ=UTC date '+%H:%M:%S' | awk '{print " " $0 " "}'
-interval=1
 
 [tztime]
 command=date '+%a, %d %b %Y - %H:%M:%S' | awk '{print " " $0 " "}'

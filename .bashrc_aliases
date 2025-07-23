@@ -82,6 +82,8 @@ alias dbu="docker compose build && docker compose up -d --remove-orphans && dock
 alias stack-pause='f() { docker stack services "$1" --format "{{.Name}}" | while read svc; do echo "Scaling $svc to 0"; docker service scale "$svc"=0; done }; f'
 alias stack-resume='f() { stack="$1"; replicas="${2:-1}"; docker stack services "$stack" --format "{{.Name}}" | while read svc; do echo "Scaling $svc to $replicas"; docker service scale "$svc"="$replicas"; done }; f'
 
+alias pixel5="flutter emulator --launch Pixel_5_API_35"
+
 
 alias dpi="spoof-dpi --port=9999"
 alias zt="sudo zerotier-cli"
