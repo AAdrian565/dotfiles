@@ -50,11 +50,8 @@ local plugins = {
 		},
 	},
 	{
-		"startup-nvim/startup.nvim",
-		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-		config = function()
-			require("startup").setup({ theme = "greeterTheme" })
-		end,
+		"goolord/alpha-nvim",
+		event = "VimEnter",
 	},
 	{
 		"nvim-telescope/telescope.nvim",

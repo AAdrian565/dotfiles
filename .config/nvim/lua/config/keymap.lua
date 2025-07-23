@@ -36,5 +36,3 @@ k("n", "-", "<CMD>Oil<CR>", opt)
 -- Suda
 k("n", "<leader>WW", ":SudaWrite<cr>", opt)
 k("n", "<leader>u", ":UndotreeToggle<cr>", opt)
-
-k("n", "<leader>q", vim.diagnostic.setloclist)
