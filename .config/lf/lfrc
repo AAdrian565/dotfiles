@@ -14,16 +14,13 @@ map p paste
 map C clear
 map DD delete
 map o mark-load
+map e $nvim "$f"
 map <enter> shell
 map r reload
 map RR push :rename<space>
-map gd dragon
+map gd $dragon "$f" &
 
 cmd rename %[ -e "$1" ] && printf "file exists" || mv "$f" "$1"
-
-cmd dragon ${{
-    dragon-drop "$f" &
-}}
 
 cmd extract ${{
     set -f
