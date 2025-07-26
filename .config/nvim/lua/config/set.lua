@@ -1,10 +1,11 @@
-o = vim.opt
+local o = vim.opt
 o.guicursor = ""
 
 o.nu = true
 o.relativenumber = true
 o.splitbelow = true
 o.splitright = true
+o.inccommand = "split"
 
 o.inccommand = "split"
 

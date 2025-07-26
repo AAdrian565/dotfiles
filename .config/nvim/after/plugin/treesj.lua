@@ -7,7 +7,7 @@ tsj.setup({
 	check_syntax_error = true,
 	---If line after join will be longer than max value,
 	---@type number If line after join will be longer than max value, node will not be formatted
-	max_join_length = 150,
+	max_join_length = 120,
 	---Cursor behavior:
 	---hold - cursor follows the node/place on which it was called
 	---start - cursor jumps to the first symbol of the node being formatted

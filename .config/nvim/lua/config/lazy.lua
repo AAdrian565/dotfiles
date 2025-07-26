@@ -17,12 +17,13 @@ vim.opt.rtp:prepend(lazypath)
 -- Leader keys
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
+vim.g.have_nerd_font = false
 
 -- Lazy plugin list
 local plugins = {
 	"airblade/vim-gitgutter",
 	"navarasu/onedark.nvim",
-	"fatih/vim-go",
+	-- "fatih/vim-go",
 	"lambdalisue/suda.vim",
 	"mbbill/undotree",
 	"mg979/vim-visual-multi",
@@ -108,6 +109,7 @@ local plugins = {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		main = "nvim-treesitter.configs",
+		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
 	},
 	{
 		"folke/todo-comments.nvim",
@@ -131,6 +133,14 @@ local plugins = {
 	{
 		"Wansmer/treesj",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
+	},
+	{
+		"nvim-flutter/flutter-tools.nvim",
+		lazy = false,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = true,
 	},
 }
 

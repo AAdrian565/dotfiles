@@ -1,21 +1,38 @@
 require("nvim-treesitter.configs").setup({
 	ensure_installed = { "javascript", "typescript", "c", "lua", "vim", "vue" },
-	autotag = {
-		enable = true,
-		filetypes = { "html", "xml", "php", "jsx" },
-	},
 	sync_install = true,
 	auto_install = true,
 	highlight = {
 		enable = true,
 		additional_vim_regex_highlighting = false,
 	},
-})
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-	underline = true,
-	virtual_text = {
-		spacing = 5,
-		severity_limit = "Warning",
+	autotag = {
+		enable = true,
+		filetypes = { "html", "xml", "php", "jsx" },
 	},
-	update_in_insert = true,
+
+	textobjects = {
+		select = {
+			enable = true,
+			lookahead = true,
+			keymaps = {
+				["af"] = "@function.outer",
+				["if"] = "@function.inner",
+				["ac"] = "@class.outer",
+				["ic"] = "@class.inner",
+			},
+		},
+		move = {
+			enable = true,
+			set_jumps = true,
+			goto_next_start = {
+				["]f"] = "@function.outer",
+				["]c"] = "@class.outer",
+			},
+			goto_previous_start = {
+				["[f"] = "@function.outer",
+				["[c"] = "@class.outer",
+			},
+		},
+	},
 })
