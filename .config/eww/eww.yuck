@@ -1,8 +1,0 @@
-(include "variables.yuck")
-(include "windows.yuck")
-
-
-(include "modules/datetime.yuck")
-(include "modules/record.yuck")
-(include "modules/bar.yuck")
-(include "modules/background.yuck")

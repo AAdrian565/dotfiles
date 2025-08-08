@@ -1,5 +1,0 @@
-(defwidget background []
-  (box :class "window"
-  )
-)
-
