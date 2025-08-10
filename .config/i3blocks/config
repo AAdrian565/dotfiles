@@ -1,10 +1,11 @@
 [mic_status]
-command=bash -c 'STATUS=$(pactl list sources | grep -A 6 "$(pactl get-default-source)" | grep "Mute" | awk '\''{print $2}'\''); if [ "$STATUS" = "yes" ]; then echo " "; else echo " "; fi'
+command=bash -c 'STATUS=$(pactl list sources | grep -A 6 "$(pactl get-default-source)" | grep "Mute" | awk '\''{print $2}'\''); if [ "$STATUS" = "yes" ]; then echo "MUTE"; else echo ""; fi'
 interval=1
 signal=10
+color=#FF0000
 
 [volume]
-command=amixer get Master | awk -F'[][]' '/%/ { if ($4 == "off") print "   "; else print "   " $2 " "; exit }'
+command=amixer get Master | awk -F'[][]' '/%/ { if ($4 == "off") print " V "; else print " V: " $2 " "; exit }'
 interval=1
 signal=11
 
@@ -19,15 +20,19 @@ interval=5
 color=#7FFFD4  # Aquamarine
 
 [cpu_usage]
-command=top -bn1 | grep 'Cpu(s)' | awk '{printf("  %.1f%% ", 100 - $8)}'
+command=top -bn1 | grep 'Cpu(s)' | awk '{printf(" C: %.1f%% ", 100 - $8)}'
 interval=1
 
 [memory]
-command=free | awk '/Mem:/ {printf("  %.1f%% ", $3/$2*100)}'
+command=free | awk '/Mem:/ {printf(" R: %.1f%% ", $3/$2*100)}'
 interval=1
 
 [disk]
-command=df -h / | awk 'NR==2 {printf("  %s ", $4)}'
+command=df -h / | awk 'NR==2 {printf(" D: %s ", $4)}'
+interval=30
+
+[power]
+command=$HOME/script/power_status.sh
 interval=30
 
 [tztime]
