@@ -35,3 +35,4 @@ k("n", "-", "<CMD>Oil<CR>", opt)
 -- Suda
 k("n", "<leader>WW", ":SudaWrite<cr>", opt)
 k("n", "<leader>u", ":UndotreeToggle<cr>", opt)
+k("i", "<tab>", "<tab>", opt)

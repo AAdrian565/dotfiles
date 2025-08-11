@@ -32,11 +32,11 @@ local plugins = {
 	"rstacruz/vim-closer",
 	{
 		"github/copilot.vim",
-		init = function()
-			vim.g.copilot_no_tab_map = true
-		end,
 		config = function()
-			vim.cmd([[imap <silent><script><expr> <C-i> copilot#Accept("\<CR>")]])
+			vim.g.copilot_no_tab_map = true
+			vim.g.copilot_assume_mapped = true
+			vim.g.copilot_tab_fallback = ""
+			vim.cmd([[imap <silent><script><expr> <C-o> copilot#Accept("\<CR>")]])
 		end,
 	},
 	{
