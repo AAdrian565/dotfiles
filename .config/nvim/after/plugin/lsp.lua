@@ -85,6 +85,7 @@ vim.list_extend(ensure_installed, {
 })
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = { "*.go", "*.py" },
 	callback = function()
 		local params = vim.lsp.util.make_range_params()
 		params.context = { only = { "source.organizeImports" } }
@@ -99,7 +100,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 				end
 			end
 		end
-
 		vim.lsp.buf.format({ async = false })
 	end,
 })

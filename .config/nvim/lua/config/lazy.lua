@@ -118,6 +118,10 @@ local plugins = {
 		opts = { signs = false },
 	},
 	{
+		"numToStr/Comment.nvim",
+		dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
+	},
+	{
 		"kylechui/nvim-surround",
 		version = "^3.0.0",
 		event = "VeryLazy",
