@@ -32,7 +32,7 @@ exec --no-startup-id desktop-items
 exec --no-startup-id nm-applet
 exec --no-startup-id numlockx
 exec --no-startup-id shutter --min_at_startup
-exec --no-startup-id STEAM_FRAME_FORCE_CLOSE=1 steam -silent
+# exec --no-startup-id STEAM_FRAME_FORCE_CLOSE=1 steam -silent
 exec --no-startup-id /usr/libexec/gsd-xsettings
 # exec_always --no-startup-id sbxkb
 
