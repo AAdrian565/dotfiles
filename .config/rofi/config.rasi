@@ -180,4 +180,6 @@ configuration {
 	me-accept-custom: "Control+MouseDPrimary";
 */
 }
-@theme "/home/adrian/.local/share/rofi/themes/nord.rasi"
+//@theme "/home/adrian/.local/share/rofi/themes/nord.rasi"
+
+@theme "/usr/share/rofi/themes/android_notification.rasi"

@@ -6,7 +6,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias clock='timedatectl set-local-rtc 1'
 alias tmux='echo TERM\=xterm-256color tmux'
-alias r='cd "$(find ~/programming -maxdepth 2 -type d -printf "/%P\n" | grep '\''/[^/]\+/[^/]\+'\'' | fzf | sed "s|^/|$HOME/programming/|")"'
+alias r='cd "$(find ~/programming -maxdepth 2 -follow -type d -printf "/%P\n" | grep '\''/[^/]\+/[^/]\+'\'' | fzf | sed "s|^/|$HOME/programming/|")"'
 alias v='dir=$(find ~/programming -maxdepth 2 -type d -printf "/%P\n" | grep '\''/[^/]\+/[^/]\+'\'' | fzf | sed "s|^/|$HOME/programming/|") && [ -n "$dir" ] && cd "$dir" && nvim'
 alias t='dir=$(find ~/programming -maxdepth 2 -type d -printf "/%P\n" | grep '\''/[^/]\+/[^/]\+'\'' | fzf | sed "s|^/|$HOME/programming/|") && [ -n "$dir" ] && cd "$dir" && tmux new -s "$(basename "$dir")" -c "$dir"'
 alias ztm='action=$(echo -e "join\nleave" | fzf) && [ -n "$action" ] && network_id=$(cat ~/dotfiles/data/zerotier | fzf | awk "{print \$1}") && [ -n "$network_id" ] && sudo zerotier-cli "$action" "$network_id"'
@@ -32,7 +32,7 @@ alias rb="systemctl restart bluetooth; blueman-manager &"
 alias ra="systemctl --user stop pipewire; systemctl --user stop pipewire-pulse; systemctl --user restart wireplumber;"
 
 alias cls="clear"
-alias duu="du -hd 1 | sort -hr"
+alias duu="sudo du -hd 1 | sort -hr"
 alias g="ping 8.8.8.8"
 
 # alias n="cd ~/notes; vim"

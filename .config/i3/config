@@ -16,7 +16,7 @@ default_border pixel 1
 default_floating_border normal
 
 include $HOME/.config/i3/config-macropad.conf
-include $HOME/.config/i3/config-barpc.conf
+include $HOME/.config/i3/config-bardefault.conf
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -59,6 +59,8 @@ bindsym XF86AudioMute exec --no-startup-id sh -c 'pactl set-sink-mute @DEFAULT_S
 bindsym XF86AudioMicMute exec --no-startup-id sh -c 'pactl set-source-mute @DEFAULT_SOURCE@ toggle && pkill -RTMIN+10 i3blocks'
 bindsym --whole-window $mod2+button4 exec --no-startup-id sh -c 'pactl set-sink-volume @DEFAULT_SINK@ +2% && pkill -RTMIN+11 i3blocks'
 bindsym --whole-window $mod2+button5 exec --no-startup-id sh -c 'pactl set-sink-volume @DEFAULT_SINK@ -2% && pkill -RTMIN+11 i3blocks'
+bindsym XF86MonBrightnessUp exec --no-startup-id sh -c 'brightnessctl set 5%+'
+bindsym XF86MonBrightnessDown exec --no-startup-id sh -c 'brightnessctl set 5%-'
 
 # start a terminal
 bindsym $mod+Return exec alacritty
@@ -142,6 +144,7 @@ bindsym $mod2+e exec thunar
 bindsym $mod2+equal exec pavucontrol
 
 # bindsym $mod2+l exec --no-startup-id SDL_VIDEO_FULLSCREEN_HEAD=0 i3lock -i ~/.wallpaper/lock.png, mode "default"
+bindsym $mod2+l exec --no-startup-id SDL_VIDEO_FULLSCREEN_HEAD=0 i3lock -i ~/.wallpaper/lock.png, mode "default"
 
 bindsym $mod2+Shift+s exec shutter -w
 # bindsym $mod2+Control+r exec simplescreenrecorder --start-recording --start-hidden
