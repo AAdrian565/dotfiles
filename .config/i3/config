@@ -62,6 +62,8 @@ bindsym --whole-window $mod2+button5 exec --no-startup-id sh -c 'pactl set-sink-
 bindsym XF86MonBrightnessUp exec --no-startup-id sh -c 'brightnessctl set 5%+'
 bindsym XF86MonBrightnessDown exec --no-startup-id sh -c 'brightnessctl set 5%-'
 
+bindsym XF86Display exec arandr
+
 # start a terminal
 bindsym $mod+Return exec alacritty
 
@@ -143,8 +145,8 @@ bindsym $mod2+e exec thunar
 # bindsym $mod2+0
 bindsym $mod2+equal exec pavucontrol
 
-# bindsym $mod2+l exec --no-startup-id SDL_VIDEO_FULLSCREEN_HEAD=0 i3lock -i ~/.wallpaper/lock.png, mode "default"
-bindsym $mod2+l exec --no-startup-id SDL_VIDEO_FULLSCREEN_HEAD=0 i3lock -i ~/.wallpaper/lock.png, mode "default"
+# bindsym $mod2+l exec --no-startup-id SDL_VIDEO_FULLSCREEN_HEAD=0 i3lock -i ~/.wallpaper/FullHD.png, mode "default"
+bindsym $mod2+l exec --no-startup-id SDL_VIDEO_FULLSCREEN_HEAD=0 i3lock -i ~/.wallpaper/FullHD.png, mode "default"
 
 bindsym $mod2+Shift+s exec shutter -w
 # bindsym $mod2+Control+r exec simplescreenrecorder --start-recording --start-hidden
