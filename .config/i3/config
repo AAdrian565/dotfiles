@@ -15,8 +15,7 @@ set $mod2 Mod4
 default_border pixel 1
 default_floating_border normal
 
-include $HOME/.config/i3/config-macropad.conf
-include $HOME/.config/i3/config-bardefault.conf
+include $HOME/.config/i3/config-device.conf
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -153,18 +152,6 @@ bindsym $mod2+Shift+s exec shutter -w
 # bindsym $mod4+Control+Shift+r exec simplescreenrecorder record-stop
 # bindsym $mod2+Shift+s exec gnome-screenshot -wc
 bindsym Mod4+Shift+c exec xcolor
-
-workspace 1 output HDMI-0
-workspace 2 output HDMI-0
-workspace 3 output HDMI-0
-workspace 4 output HDMI-0
-workspace 5 output HDMI-0
-workspace 6 output DP-1
-workspace 7 output DP-1
-workspace 8 output DP-1
-workspace 9 output DP-1
-workspace 10 output DP-1
-workspace 11 output DP-3
 
 bindsym $mod+n move container to output next
 bindsym $mod+m move workspace to output next
