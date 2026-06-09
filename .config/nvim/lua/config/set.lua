@@ -45,3 +45,7 @@ o.listchars = {
 	precedes = "«",
 	nbsp = "␣",
 }
+
+if vim.env.SSH_CONNECTION then
+	vim.g.clipboard = "osc52"
+end
