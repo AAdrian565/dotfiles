@@ -147,6 +147,7 @@ bindsym $mod2+equal exec pavucontrol
 bindsym $mod2+l exec --no-startup-id SDL_VIDEO_FULLSCREEN_HEAD=0 i3lock -i ~/.wallpaper/double.png, mode "default"
 
 bindsym $mod2+Shift+s exec shutter -w
+bindsym Print exec --no-startup-id gnome-screenshot -ic
 # bindsym $mod2+Control+r exec simplescreenrecorder --start-recording --start-hidden
 # bindsym $mod4+Control+Shift+r exec simplescreenrecorder record-stop
 # bindsym $mod2+Shift+s exec gnome-screenshot -wc

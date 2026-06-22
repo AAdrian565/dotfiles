@@ -21,6 +21,14 @@ vim.g.have_nerd_font = false
 
 -- Lazy plugin list
 local plugins = {
+	{
+		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
+		build = ":TSUpdate",
+		branch = "master",
+		main = "nvim-treesitter.configs",
+		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
+	},
 	"airblade/vim-gitgutter",
 	"navarasu/onedark.nvim",
 	-- "fatih/vim-go",
@@ -104,12 +112,6 @@ local plugins = {
 			},
 			"folke/lazydev.nvim",
 		},
-	},
-	{
-		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-		main = "nvim-treesitter.configs",
-		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
 	},
 	{
 		"folke/todo-comments.nvim",
