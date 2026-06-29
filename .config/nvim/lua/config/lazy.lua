@@ -29,6 +29,15 @@ local plugins = {
 		main = "nvim-treesitter.configs",
 		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
 	},
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {},
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			-- "rcarriga/nvim-notify",
+		},
+	},
 	"airblade/vim-gitgutter",
 	"navarasu/onedark.nvim",
 	-- "fatih/vim-go",
