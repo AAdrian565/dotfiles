@@ -36,3 +36,8 @@ k("n", "-", "<CMD>Oil<CR>", opt)
 k("n", "<leader>WW", ":SudaWrite<cr>", opt)
 k("n", "<leader>u", ":UndotreeToggle<cr>", opt)
 k("i", "<tab>", "<tab>", opt)
+
+vim.keymap.set("n", "<leader>nu", function()
+	vim.o.number = not vim.o.number
+	vim.o.relativenumber = vim.o.number
+end, { desc = "Toggle line numbers" })
