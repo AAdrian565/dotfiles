@@ -1,6 +1,6 @@
 require("nvim-treesitter.configs").setup({
-	ensure_installed = { "javascript", "typescript", "c", "lua", "vim", "vue" },
-	sync_install = true,
+	ensure_installed = { "c", "html", "javascript", "lua", "markdown", "markdown_inline", "regex", "typescript", "vim", "vue" },
+	sync_install = false,
 	auto_install = true,
 	highlight = {
 		enable = true,

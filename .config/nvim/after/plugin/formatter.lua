@@ -6,7 +6,7 @@ require("conform").setup({
 		javascript = { "prettierd", "prettier", stop_after_first = true },
 		typescript = { "prettierd", "prettier", stop_after_first = true },
 		vue = { "prettierd" },
-		go = { "gopls" },
-		yaml = { "yamlfmt", "prettierd" },
+		go = { lsp_format = "fallback" },
+		yaml = { "yamlfmt", "prettierd", stop_after_first = true },
 	},
 })
