@@ -24,6 +24,8 @@ alias d='alacritty --working-directory $(pwd) &'
 alias dm='alacritty -e make &'
 alias venv='source .venv/bin/activate'
 
+alias hermesd="docker exec -it AI-hermes bash"
+
 alias feh="feh --auto-zoom --scale-down"
 alias ls="ls --color=auto"
 alias vim="nvim"
