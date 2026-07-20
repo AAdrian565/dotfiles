@@ -29,13 +29,14 @@ local plugins = {
 		main = "nvim-treesitter.configs",
 		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
 	},
+	"windwp/nvim-ts-autotag",
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {},
 		dependencies = {
 			"MunifTanjim/nui.nvim",
-			-- "rcarriga/nvim-notify",
+			"rcarriga/nvim-notify",
 		},
 	},
 	"airblade/vim-gitgutter",
@@ -44,7 +45,7 @@ local plugins = {
 	"lambdalisue/suda.vim",
 	"mbbill/undotree",
 	"mg979/vim-visual-multi",
-	"norcalli/nvim-colorizer.lua",
+	"catgoose/nvim-colorizer.lua",
 	"christoomey/vim-titlecase",
 	"rstacruz/vim-closer",
 	{
@@ -60,12 +61,6 @@ local plugins = {
 		"stevearc/oil.nvim",
 		opts = {},
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
-	{
-		"nvimtools/none-ls.nvim",
-		dependencies = {
-			"nvimtools/none-ls-extras.nvim",
-		},
 	},
 	{
 		"goolord/alpha-nvim",
@@ -113,6 +108,7 @@ local plugins = {
 		"saghen/blink.cmp",
 		event = "VimEnter",
 		version = "1.*",
+		build = "cargo build --release",
 		dependencies = {
 			{
 				"L3MON4D3/LuaSnip",
@@ -168,11 +164,6 @@ local plugins = {
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },        -- if you use standalone mini plugins
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
 		---@module 'render-markdown'
-		opts = {},
-	},
-	{
-		"SCJangra/table-nvim",
-		ft = "markdown",
 		opts = {},
 	},
 }

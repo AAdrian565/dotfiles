@@ -32,7 +32,7 @@ require("blink.cmp").setup({
 		preset = "luasnip",
 	},
 	fuzzy = {
-		implementation = "lua",
+		implementation = "rust",
 	},
 	signature = {
 		enabled = true,

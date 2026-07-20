@@ -70,6 +70,8 @@ local servers = {
 		},
 	},
 	pyright = {},
+	gopls = {},
+	emmet_ls = {},
 }
 
 local ensure_installed = vim.tbl_keys(servers or {})
@@ -82,6 +84,7 @@ vim.list_extend(ensure_installed, {
 	"prettierd",
 	"pyright",
 	"emmet-language-server",
+	"yamlfmt",
 })
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -108,9 +111,11 @@ require("mason-lspconfig").setup({
 	automatic_installation = false,
 	handlers = {
 		function(server_name)
-			local server = servers[server_name] or {}
-			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-			require("lspconfig")[server_name].setup(server)
+			local server = servers[server_name]
+			if server then
+				server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+				require("lspconfig")[server_name].setup(server)
+			end
 		end,
 	},
 })
