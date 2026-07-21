@@ -39,7 +39,7 @@ local plugins = {
 			"rcarriga/nvim-notify",
 		},
 	},
-	"airblade/vim-gitgutter",
+	"lewis6991/gitsigns.nvim",
 	"navarasu/onedark.nvim",
 	-- "fatih/vim-go",
 	"lambdalisue/suda.vim",
@@ -119,6 +119,7 @@ local plugins = {
 					end
 					return "make install_jsregexp"
 				end)(),
+				dependencies = { "rafamadriz/friendly-snippets" },
 			},
 			"folke/lazydev.nvim",
 		},

@@ -1,4 +1,4 @@
-vim.api.nvim_create_autocmd("lspattach", {
+vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 	callback = function(event)
 		local map = function(keys, func, desc, mode)
@@ -74,27 +74,8 @@ local servers = {
 	emmet_ls = {},
 }
 
-local ensure_installed = vim.tbl_keys(servers or {})
-vim.list_extend(ensure_installed, {
-	"stylua",
-	"gopls",
-	"ruff",
-	"goimports",
-	"eslint_d",
-	"prettierd",
-	"pyright",
-	"emmet-language-server",
-	"yamlfmt",
-})
-require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = { "*.go", "*.py" },
-	callback = function()
-		require("conform").format({ async = false, lsp_format = "fallback" })
-	end,
-})
 require("mason-lspconfig").setup({
-	ensure_installed = {},
+	ensure_installed = vim.tbl_keys(servers or {}),
 	automatic_installation = false,
 	handlers = {
 		function(server_name)
@@ -105,4 +86,22 @@ require("mason-lspconfig").setup({
 			end
 		end,
 	},
+})
+
+require("mason-tool-installer").setup({
+	ensure_installed = {
+		"stylua",
+		"ruff",
+		"goimports",
+		"eslint_d",
+		"prettierd",
+		"yamlfmt",
+	},
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = { "*.go", "*.py" },
+	callback = function()
+		require("conform").format({ async = false, lsp_format = "fallback" })
+	end,
 })
