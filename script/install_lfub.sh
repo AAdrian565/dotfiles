@@ -1,5 +1,5 @@
 #!/bin/sh
-# Installation script for lfub and lf previews on another device (assumes GNU Stow is used)
+# Installation/Rollback script for lfub and lf previews on another device (assumes GNU Stow is used)
 
 set -e
 
@@ -9,10 +9,58 @@ BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-printf "${BLUE}==> Setting up lfub wrapper swap and checking permissions...${NC}\n"
-
 # Determine directories
 DOTFILES_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+
+# Check if rollback is requested
+if [ "$1" = "rollback" ] || [ "$1" = "--rollback" ]; then
+    printf "${BLUE}==> Initiating rollback of lf wrapper swap...${NC}\n"
+    
+    LF_PATH=$(which lf 2>/dev/null || true)
+    
+    # Check standard local bin path if not found in current PATH
+    if [ -z "$LF_PATH" ] && [ -f "$HOME/.local/bin/lf.bak" ]; then
+        LF_PATH="$HOME/.local/bin/lf"
+    fi
+    
+    if [ -z "$LF_PATH" ]; then
+        printf "${RED}Error: Could not locate 'lf' executable directory.${NC}\n"
+        exit 1
+    fi
+    
+    LF_DIR=$(dirname "$LF_PATH")
+    BAK_PATH="$LF_DIR/lf.bak"
+    
+    if [ ! -f "$BAK_PATH" ]; then
+        printf "${RED}Error: Backup file '$BAK_PATH' does not exist. Nothing to roll back.${NC}\n"
+        exit 1
+    fi
+    
+    printf "Are you sure you want to restore the original binary from $BAK_PATH? [y/N]: "
+    read -r response
+    case "$response" in
+        [yY][eE][sS]|[yY])
+            ;;
+        *)
+            printf "${YELLOW}Rollback aborted.${NC}\n"
+            exit 0
+            ;;
+    esac
+    
+    printf "${BLUE}==> Restoring original lf binary...${NC}\n"
+    if [ -w "$LF_DIR" ]; then
+        mv -f "$BAK_PATH" "$LF_PATH"
+    else
+        printf "${YELLOW}Write permission denied for $LF_DIR. Using sudo...${NC}\n"
+        sudo mv -f "$BAK_PATH" "$LF_PATH"
+    fi
+    
+    printf "${GREEN}✔ Successfully restored original lf binary to $LF_PATH${NC}\n"
+    exit 0
+fi
+
+# Standard Installation flow
+printf "${BLUE}==> Setting up lfub wrapper swap and checking permissions...${NC}\n"
 
 # 1. Ensure preview scripts in the repo are executable (since Stow symlinks them)
 printf "${BLUE}==> Making configuration scripts executable...${NC}\n"
