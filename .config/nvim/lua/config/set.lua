@@ -12,8 +12,6 @@ o.splitbelow = true
 o.splitright = true
 o.inccommand = "split"
 
-o.inccommand = "split"
-
 o.virtualedit = "block"
 
 o.tabstop = 4

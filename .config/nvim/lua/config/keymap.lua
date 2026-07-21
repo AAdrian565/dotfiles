@@ -35,6 +35,8 @@ k("n", "-", "<CMD>Oil<CR>", opt)
 k("n", "<leader>WW", ":SudaWrite<cr>", opt)
 k("n", "<leader>u", ":UndotreeToggle<cr>", opt)
 k("i", "<tab>", "<tab>", opt)
+-- TodoComments
+k("n", "<leader>st", "<cmd>TodoTelescope<cr>", { desc = "Search TODO comments" })
 
 vim.keymap.set("n", "<leader>nu", function()
 	vim.o.number = not vim.o.number

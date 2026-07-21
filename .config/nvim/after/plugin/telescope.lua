@@ -20,6 +20,18 @@ local file_ignore_patterns = {
 
 require("telescope").setup({
 	defaults = {
+		vimgrep_arguments = {
+			"rg",
+			"--color=never",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--smart-case",
+			"--hidden",
+			"--glob",
+			"!**/.git/*",
+		},
 		file_ignore_patterns = file_ignore_patterns,
 		mappings = {
 			n = {
@@ -39,4 +51,3 @@ vim.keymap.set("n", "<leader>ps", function()
 		file_ignore_patterns = file_ignore_patterns,
 	})
 end, { desc = "Telescope Live Grep with Args" })
-

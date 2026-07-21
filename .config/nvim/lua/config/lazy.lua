@@ -83,11 +83,10 @@ local plugins = {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			{ "mason-org/mason.nvim", opts = {} },
-			"mason-org/mason-lspconfig.nvim",
+			{ "williamboman/mason.nvim", opts = {} },
+			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			--
-			-- { "j-hui/fidget.nvim", opts = {} },
+			{ "j-hui/fidget.nvim", opts = {} },
 		},
 	},
 	{
@@ -121,7 +120,11 @@ local plugins = {
 				end)(),
 				dependencies = { "rafamadriz/friendly-snippets" },
 			},
-			"folke/lazydev.nvim",
+			{
+				"folke/lazydev.nvim",
+				ft = "lua",
+				opts = {},
+			},
 		},
 	},
 	{
@@ -165,6 +168,25 @@ local plugins = {
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },        -- if you use standalone mini plugins
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
 		---@module 'render-markdown'
+		opts = {},
+	},
+	{
+		"kdheepak/lazygit.nvim",
+		cmd = {
+			"LazyGit",
+			"LazyGitConfig",
+			"LazyGitCurrentFile",
+			"LazyGitFilter",
+			"LazyGitFilterCurrentFile",
+		},
+		dependencies = { "nvim-lua/plenary.nvim" },
+		keys = {
+			{ "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+		},
+	},
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
 		opts = {},
 	},
 }

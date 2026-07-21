@@ -17,3 +17,12 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 		vim.fn.setpos(".", save_cursor)
 	end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "lazygit",
+	callback = function()
+		vim.keymap.set("t", "<C-g>", "<cmd>close<cr>", { buffer = true, silent = true })
+		vim.keymap.set("n", "<leader>gg", "<cmd>close<cr>", { buffer = true, silent = true })
+	end,
+})
+
