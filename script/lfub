@@ -1,0 +1,18 @@
+#!/bin/sh
+# Wrapper script to run lf with ueberzug
+
+cleanup() {
+    exec 3>&-
+    rm "$FIFO_UEBERZUG"
+}
+
+if [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ] && command -v ueberzug >/dev/null 2>&1; then
+    export FIFO_UEBERZUG="${TMPDIR:-/tmp}/lf-ueberzug-$$"
+    mkfifo "$FIFO_UEBERZUG"
+    ueberzug layer --parser json <"$FIFO_UEBERZUG" -s &
+    export UEBERZUGPID=$!
+    exec 3>"$FIFO_UEBERZUG"
+    trap cleanup EXIT
+fi
+
+lf "$@"

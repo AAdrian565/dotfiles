@@ -91,3 +91,5 @@ alias pixel5="flutter emulator --launch Pixel_5_API_35"
 
 alias dpi="spoof-dpi --port=9999"
 alias zt="sudo zerotier-cli"
+
+alias lf="lfub"

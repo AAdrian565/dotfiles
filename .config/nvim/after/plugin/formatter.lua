@@ -8,6 +8,8 @@ require("conform").setup({
 		vue = { "prettierd" },
 		go = { "goimports", "gofmt" },
 		yaml = { "yamlfmt" },
+		["yaml.docker-compose"] = { "yamlfmt" },
+		dockercompose = { "yamlfmt" },
 		json = { "prettierd", "prettier", stop_after_first = true },
 		html = { "prettierd", "prettier", stop_after_first = true },
 		css = { "prettierd", "prettier", stop_after_first = true },
@@ -15,7 +17,16 @@ require("conform").setup({
 	},
 	formatters = {
 		yamlfmt = {
-			prepend_args = { "-formatter", "retain_line_breaks=true" },
+			prepend_args = { "-formatter", "indent=4,retain_line_breaks=true" },
+		},
+		stylua = {
+			prepend_args = { "--indent-width", "4", "--indent-type", "Spaces" },
+		},
+		prettier = {
+			prepend_args = { "--tab-width", "4" },
+		},
+		prettierd = {
+			prepend_args = { "--tab-width", "4" },
 		},
 	},
 })
