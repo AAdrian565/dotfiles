@@ -15,4 +15,4 @@ if [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ] && command -v ueberzug >/dev/n
     trap cleanup EXIT
 fi
 
-lf "$@"
+lf.bak "$@"
