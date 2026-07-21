@@ -181,12 +181,13 @@ local plugins = {
 		opts = {},
 	},
 	{
-		"folke/trouble.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
-	{
 		"SmiteshP/nvim-navic",
 		dependencies = { "neovim/nvim-lspconfig" },
+	},
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
 	},
 }
 
