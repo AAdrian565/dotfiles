@@ -94,6 +94,7 @@ check_dep "chafa" "Image previews on Wayland / fallback"
 check_dep "glow" "Markdown previews"
 check_dep "ffmpegthumbnailer" "Video previews"
 check_dep "pdftoppm" "PDF previews"
+check_dep "convert" "SVG previews (ImageMagick)"
 printf "\n"
 
 # 3. Swap lf binary with wrapper script
