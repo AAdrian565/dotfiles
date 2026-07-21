@@ -1,12 +1,11 @@
 local opt = { noremap = true, silent = true }
 local k = vim.keymap.set
-local ka = vim.api.nvim_set_keymap
 vim.g.mapleader = " "
 
 -- Motion
-ka("n", "gt", "<Plug>Titlecase", opt)
-ka("v", "gt", "<Plug>Titlecase", opt)
-ka("n", "gtt", "<Plug>TitlecaseLine", opt)
+k("n", "gt", "<Plug>Titlecase", opt)
+k("v", "gt", "<Plug>Titlecase", opt)
+k("n", "gtt", "<Plug>TitlecaseLine", opt)
 
 -- Basic Functionality
 -- k("n", "<leader>y", '"+y', opt)

@@ -78,8 +78,8 @@ local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
 	"stylua",
 	"gopls",
-	"black",
-	"isort",
+	"ruff",
+	"goimports",
 	"eslint_d",
 	"prettierd",
 	"pyright",
@@ -90,20 +90,7 @@ require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = { "*.go", "*.py" },
 	callback = function()
-		local params = vim.lsp.util.make_range_params()
-		params.context = { only = { "source.organizeImports" } }
-
-		local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 1000)
-		for _, res in pairs(result or {}) do
-			for _, r in pairs(res.result or {}) do
-				if r.edit then
-					vim.lsp.util.apply_workspace_edit(r.edit, "utf-16")
-				elseif r.command then
-					vim.lsp.buf.execute_command(r.command)
-				end
-			end
-		end
-		vim.lsp.buf.format({ async = false })
+		require("conform").format({ async = false, lsp_format = "fallback" })
 	end,
 })
 require("mason-lspconfig").setup({

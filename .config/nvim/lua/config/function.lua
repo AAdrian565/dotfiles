@@ -12,7 +12,7 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 		if not vim.bo[ev.buf].modifiable then
 			return
 		end
-		save_cursor = vim.fn.getpos(".")
+		local save_cursor = vim.fn.getpos(".")
 		vim.cmd([[%s/\s\+$//e]])
 		vim.fn.setpos(".", save_cursor)
 	end,
