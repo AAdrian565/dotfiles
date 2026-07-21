@@ -30,15 +30,6 @@ local plugins = {
 		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
 	},
 	"windwp/nvim-ts-autotag",
-	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		opts = {},
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			"rcarriga/nvim-notify",
-		},
-	},
 	"lewis6991/gitsigns.nvim",
 	"navarasu/onedark.nvim",
 	-- "fatih/vim-go",
@@ -188,6 +179,14 @@ local plugins = {
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
 		opts = {},
+	},
+	{
+		"folke/trouble.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
+	{
+		"SmiteshP/nvim-navic",
+		dependencies = { "neovim/nvim-lspconfig" },
 	},
 }
 
