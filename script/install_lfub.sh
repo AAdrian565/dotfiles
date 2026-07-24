@@ -152,12 +152,27 @@ SHELL_CONFIGS="$HOME/.bashrc_aliases $HOME/.bashrc $HOME/.zshrc"
 for config in $SHELL_CONFIGS; do
     if [ -f "$config" ] && grep -q "alias lf=" "$config"; then
         printf "${BLUE}==> Cleaning up old lf alias from $config...${NC}\n"
-        # Create temp file to avoid inplace edit issues
-        tmp_file=$(mktemp)
-        grep -v "alias lf=" "$config" > "$tmp_file" || true
-        # Also clean up the comment above it if present
-        grep -v "# lf wrapper for ueberzug image previews" "$tmp_file" > "$config" || true
-        rm "$tmp_file"
+        # Resolve symlinks so a Stow-managed config remains a symlink after updating it.
+        config_target=$(readlink -f "$config") || {
+            printf "${RED}Could not resolve $config; skipping.${NC}\n"
+            continue
+        }
+        tmp_file=$(mktemp "${config_target}.tmp.XXXXXX") || {
+            printf "${RED}Could not create a temporary file for $config; skipping.${NC}\n"
+            continue
+        }
+
+        if ! awk '!/alias lf=/ && !/# lf wrapper for ueberzug image previews/' "$config_target" > "$tmp_file"; then
+            rm -f "$tmp_file"
+            printf "${RED}Could not update $config; skipping.${NC}\n"
+            continue
+        fi
+
+        chmod --reference="$config_target" "$tmp_file" && mv -f "$tmp_file" "$config_target" || {
+            rm -f "$tmp_file"
+            printf "${RED}Could not replace $config; skipping.${NC}\n"
+            continue
+        }
         printf "${GREEN}✔ Removed alias from $config${NC}\n"
     fi
 done

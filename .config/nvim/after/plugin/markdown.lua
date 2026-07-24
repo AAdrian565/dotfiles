@@ -1,6 +1,18 @@
 require("render-markdown").setup({
 	completions = { lsp = { enabled = true } },
 	latex = { enabled = false },
+	pipe_table = {
+		enabled = true,
+		preset = "full",
+		cell = "padded",
+		padding = 1,
+	},
+	win_options = {
+		conceallevel = {
+			default = 0,
+			rendered = 3,
+		},
+	},
 	heading = {
 		enabled = false,
 	},

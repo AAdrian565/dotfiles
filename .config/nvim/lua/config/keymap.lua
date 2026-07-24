@@ -22,7 +22,7 @@ k("n", "<leader>hl", ":set hlsearch!<cr>", opt)
 
 -- Copy paste
 k("n", "<C-a>", "ggVG<cr>", opt)
-k("n", "<leader>ya", 'ggVG"+y<cr>', opt)
+k("n", "<leader>ya", 'gg"+yG', opt)
 k("n", "<leader>pa", 'ggVGx"+<S-p><cr>', opt)
 k("n", "<leader>da", 'ggVGx"d<cr>', opt)
 k("n", "cp", '"+y', opt)
@@ -39,6 +39,6 @@ k("i", "<tab>", "<tab>", opt)
 k("n", "<leader>st", "<cmd>TodoTelescope<cr>", { desc = "Search TODO comments" })
 
 vim.keymap.set("n", "<leader>nu", function()
-	vim.o.number = not vim.o.number
-	vim.o.relativenumber = vim.o.number
+    vim.o.number = not vim.o.number
+    vim.o.relativenumber = vim.o.number
 end, { desc = "Toggle line numbers" })

@@ -25,8 +25,5 @@ require("conform").setup({
 		prettier = {
 			prepend_args = { "--tab-width", "4" },
 		},
-		prettierd = {
-			prepend_args = { "--tab-width", "4" },
-		},
 	},
 })
