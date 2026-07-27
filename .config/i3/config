@@ -26,7 +26,8 @@ font pango:monospace 9
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id xrandr --output HDMI-0 --left-of DP-1
 exec --no-startup-id openrgb -p off
-exec --no-startup-id picom
+exec --no-startup-id picom --experimental-backends --config $HOME/.config/picom/picom.conf
+exec --no-startup-id dunst -config $HOME/.config/dunst/dunstrc
 exec --no-startup-id desktop-items
 exec --no-startup-id nm-applet
 exec --no-startup-id numlockx
@@ -142,6 +143,8 @@ bindsym $mod2+e exec thunar
 # bindsym $mod2+9
 # bindsym $mod2+0
 bindsym $mod2+equal exec pavucontrol
+bindsym $mod2+n exec --no-startup-id dunstctl history-pop
+bindsym $mod2+Shift+n exec --no-startup-id dunstctl close-all
 
 bindsym $mod2+l exec --no-startup-id SDL_VIDEO_FULLSCREEN_HEAD=0 i3lock -i ~/.wallpaper/double.png, mode "default"
 

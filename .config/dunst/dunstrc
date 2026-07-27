@@ -1,0 +1,63 @@
+# Dunst notifications for i3.
+
+[global]
+    # Place notifications on the monitor containing the focused window.
+    follow = keyboard
+    geometry = "360x5-20+40"
+    indicate_hidden = yes
+    shrink = no
+
+    font = Monospace 10
+    format = "<b>%s</b>\\n%b"
+    markup = full
+    alignment = left
+    vertical_alignment = center
+    word_wrap = yes
+    ellipsize = middle
+
+    # Layout and appearance.
+    transparency = 0
+    notification_height = 0
+    separator_height = 2
+    separator_color = frame
+    padding = 12
+    horizontal_padding = 14
+    frame_width = 2
+    frame_color = "#61afef"
+    corner_radius = 6
+
+    # Icons and notification history.
+    icon_position = left
+    max_icon_size = 40
+    icon_path = /usr/share/icons/Adwaita/48x48/status/:/usr/share/icons/hicolor/48x48/status/
+    stack_duplicates = true
+    hide_duplicate_count = false
+    history_length = 30
+    sticky_history = yes
+
+    # Notification interactions.
+    mouse_left_click = close_current
+    mouse_middle_click = do_action, close_current
+    mouse_right_click = close_all
+    dmenu = rofi -dmenu -p Notifications
+    browser = firefox
+    startup_notification = false
+    verbosity = warn
+
+[urgency_low]
+    background = "#282b31"
+    foreground = "#abb2bf"
+    frame_color = "#5c6370"
+    timeout = 5
+
+[urgency_normal]
+    background = "#1e2127"
+    foreground = "#abb2bf"
+    frame_color = "#61afef"
+    timeout = 8
+
+[urgency_critical]
+    background = "#3b1f25"
+    foreground = "#e6efff"
+    frame_color = "#e06c75"
+    timeout = 0
