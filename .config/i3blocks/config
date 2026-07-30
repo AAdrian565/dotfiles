@@ -10,7 +10,7 @@ interval=1
 signal=11
 
 [wireless]
-command=iwgetid -r | awk '{print " " $0 " "}'
+command=sh -c 'if command -v iwgetid >/dev/null 2>&1; then iwgetid -r; else nmcli -t -f active,ssid dev wifi 2>/dev/null | awk -F: '\''$1 == "yes" {sub(/^yes:/, ""); print; exit}'\''; fi' | awk 'NF {print " " $0 " "}'
 interval=5
 color=#1E90FF  # DodgerBlue
 
