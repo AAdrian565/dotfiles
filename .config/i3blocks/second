@@ -5,7 +5,7 @@ signal=10
 color=#FF0000
 
 [volume]
-command=amixer get Master | awk -F'[][]' '/%/ { if ($4 == "off") print " V "; else print " V: " $2 " "; exit }'
+command=bash -c 'sink=$(pactl get-default-sink); case "$sink" in *CX31993*) icon="🎧" ;; *hdmi*) icon="🔊" ;; *) icon="🔊" ;; esac; volume=$(pactl get-sink-volume "$sink" | awk -F/ "NR == 1 { gsub(/ /, \"\", \$2); print \$2 }"); muted=$(pactl get-sink-mute "$sink" | awk "{ print \$2 }"); if [ "$muted" = yes ]; then printf " %s " "$icon"; else printf " %s %s " "$icon" "$volume"; fi'
 interval=1
 signal=11
 
