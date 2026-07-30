@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Select PulseAudio/PipeWire outputs without hard-coded device IDs.
+
+set -u
+
+case "${1:-}" in
+    headphones)
+        sink=$(pactl list short sinks | awk '$2 ~ /analog-stereo$/ { print $2; exit }')
+        ;;
+    hdmi)
+        sink=$(pactl list short sinks | awk '$2 ~ /[Hh][Dd][Mm][Ii](-|_)/ { print $2; exit }')
+        ;;
+    *)
+        echo "Usage: ${0##*/} {headphones|hdmi}" >&2
+        exit 2
+        ;;
+esac
+
+if [ -z "$sink" ]; then
+    notify-send "Audio output unavailable" "No $1 output is connected."
+    exit 1
+fi
+
+pactl set-default-sink "$sink"
+pactl list short sink-inputs | awk '{ print $1 }' | while read -r input; do
+    pactl move-sink-input "$input" "$sink"
+done
+pkill -RTMIN+11 i3blocks

@@ -1,16 +1,27 @@
 #!/bin/sh
 
+sink=$(pactl get-default-sink 2>/dev/null)
+port=$(pactl list sinks 2>/dev/null | awk -v sink="$sink" '
+    $1 == "Name:" { selected = ($2 == sink) }
+    selected && $1 == "Active" && $2 == "Port:" { print $3; exit }
+')
 volume=$(
-    pactl get-sink-volume @DEFAULT_SINK@ 2>/dev/null |
+    pactl get-sink-volume "$sink" 2>/dev/null |
         awk -F/ 'NR == 1 {gsub(/ /, "", $2); print $2}'
 )
 muted=$(
-    pactl get-sink-mute @DEFAULT_SINK@ 2>/dev/null |
+    pactl get-sink-mute "$sink" 2>/dev/null |
         awk '{print $2}'
 )
 
+case "$sink:$port" in
+    *[Hh][Dd][Mm][Ii]*) icon='📺' ;;
+    *[Hh]eadphones*|*[Hh]eadset*) icon='🎧' ;;
+    *) icon='🔊' ;;
+esac
+
 if [ "$muted" = yes ]; then
-    printf ' 🔊 muted \n'
+    printf ' %s muted \n' "$icon"
 elif [ -n "$volume" ]; then
-    printf ' 🔊 %s \n' "$volume"
+    printf ' %s %s \n' "$icon" "$volume"
 fi
