@@ -35,7 +35,7 @@
   "snacks.nvim": { "branch": "main", "commit": "882c996cf28183f4d63640de0b4c02ec886d01f2" },
   "suda.vim": { "branch": "master", "commit": "c492741b4679b3cdd4d9e34138209784e061d916" },
   "telescope-live-grep-args.nvim": { "branch": "master", "commit": "53e9df55b3651dd7cf77e172f1e8c9a17407acca" },
-  "telescope.nvim": { "branch": "master", "commit": "7011eaae0ac1afe036e30c95cf80200b8dc3f21a" },
+  "telescope.nvim": { "branch": "master", "commit": "84b9ba066d1860f7a586ce9cd732fd6c4f77d1d9" },
   "todo-comments.nvim": { "branch": "main", "commit": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668" },
   "treesj": { "branch": "main", "commit": "79aedb401bbdc7e4202f7881eab5f6feb2105b0a" },
   "undotree": { "branch": "master", "commit": "6fa6b57cda8459e1e4b2ca34df702f55242f4e4d" },

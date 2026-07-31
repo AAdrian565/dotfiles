@@ -60,12 +60,10 @@ local plugins = {
 	},
 	{
 		"nvim-telescope/telescope.nvim",
-		version = "0.1.4",
+		version = "0.1.9",
 		dependencies = {
-			{
-				"nvim-lua/plenary.nvim",
-				"nvim-telescope/telescope-live-grep-args.nvim",
-			},
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope-live-grep-args.nvim",
 		},
 	},
 	{
