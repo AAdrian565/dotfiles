@@ -77,7 +77,6 @@ alias ap="ansible-playbook"
 
 alias dps="docker ps"
 alias dpsa="docker ps -a"
-alias dockerclean="docker container rm -f $(docker container ls -aq)"
 alias dbt="docker build -t test ."
 alias drt="docker run test"
 alias dbr="docker build -t test . && docker run test"
