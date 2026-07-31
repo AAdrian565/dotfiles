@@ -1,0 +1,187 @@
+#!/usr/bin/env bash
+
+set -u
+
+usage() {
+	cat <<'EOF'
+Usage: screenshot [area|window|screen] [copy-save|copy|save|ocr]
+
+Environment:
+  OCR_LANG       Tesseract language (default: eng)
+  SCREENSHOT_DIR Destination directory (default: Pictures/Screenshots)
+EOF
+}
+
+notify() {
+	command -v notify-send >/dev/null 2>&1 && notify-send -a Screenshot "$@"
+}
+
+fail() {
+	printf 'screenshot: %s\n' "$*" >&2
+	notify -u critical 'Screenshot failed' "$*"
+	exit 1
+}
+
+copy_image() {
+	local file=$1
+	if [[ -n "${WAYLAND_DISPLAY:-}" ]] && command -v wl-copy >/dev/null 2>&1; then
+		wl-copy --type image/png < "$file"
+	elif command -v xclip >/dev/null 2>&1; then
+		xclip -selection clipboard -t image/png -i "$file"
+	else
+		return 1
+	fi
+}
+
+copy_text() {
+	if [[ -x "$HOME/script/clipboard" ]]; then
+		"$HOME/script/clipboard" copy
+	elif [[ -n "${WAYLAND_DISPLAY:-}" ]] && command -v wl-copy >/dev/null 2>&1; then
+		wl-copy --type text/plain
+	elif command -v xclip >/dev/null 2>&1; then
+		xclip -selection clipboard -i
+	else
+		return 1
+	fi
+}
+
+capture_wayland() {
+	local mode=$1 file=$2 geometry
+	if command -v grimblast >/dev/null 2>&1; then
+		case "$mode" in
+			area) grimblast save area "$file" ;;
+			window) grimblast save active "$file" ;;
+			screen) grimblast save screen "$file" ;;
+		esac
+		return
+	fi
+
+	command -v grim >/dev/null 2>&1 || return 127
+	case "$mode" in
+		area)
+			command -v slurp >/dev/null 2>&1 || fail 'Install slurp for Wayland area selection.'
+			geometry=$(slurp) || return
+			[[ -n "$geometry" ]] || return 1
+			grim -g "$geometry" "$file"
+			;;
+		window)
+			command -v hyprctl >/dev/null 2>&1 || fail 'Active-window capture requires grimblast or Hyprland.'
+			command -v jq >/dev/null 2>&1 || fail 'Active-window capture requires jq.'
+			geometry=$(hyprctl -j activewindow | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"') || return
+			grim -g "$geometry" "$file"
+			;;
+		screen) grim "$file" ;;
+	esac
+}
+
+capture_x11() {
+	local mode=$1 file=$2 geometry window_id
+	local slop_config_home=${XDG_CONFIG_HOME:-$HOME/.config}
+	local script_path dotfiles_root
+	local -a slop_args
+	if command -v maim >/dev/null 2>&1; then
+		case "$mode" in
+			area)
+				if command -v slop >/dev/null 2>&1; then
+					# Capture after slop exits so picom cannot bake its blurred
+					# selection overlay into the resulting image. A zero
+					# tolerance also prevents a click from selecting a full window.
+					script_path=$(readlink -f "${BASH_SOURCE[0]}")
+					dotfiles_root=$(dirname "$(dirname "$script_path")")
+					if [[ ! -r "$slop_config_home/slop/focus.vert" || ! -r "$slop_config_home/slop/focus.frag" ]]; then
+						slop_config_home=$dotfiles_root/.config
+					fi
+					slop_args=(
+						--tolerance=0
+						--highlight
+						--bordersize=0
+						--color=1,1,1,1
+						--format=%g
+					)
+					if [[ -r "$slop_config_home/slop/focus.vert" && -r "$slop_config_home/slop/focus.frag" ]]; then
+						slop_args+=(--shader=focus)
+					fi
+					geometry=$(XDG_CONFIG_HOME="$slop_config_home" slop "${slop_args[@]}") || return
+					[[ -n "$geometry" ]] || return 1
+					sleep 0.15
+					maim --hidecursor --geometry "$geometry" "$file"
+				else
+					maim --noopengl --tolerance=0 --hidecursor --select "$file"
+				fi
+				;;
+			window)
+				command -v xdotool >/dev/null 2>&1 || fail 'Active-window capture requires xdotool.'
+				window_id=$(xdotool getactivewindow) || return
+				maim --window "$window_id" "$file"
+				;;
+			screen) maim "$file" ;;
+		esac
+		return
+	fi
+
+	command -v scrot >/dev/null 2>&1 || return 127
+	case "$mode" in
+		area) scrot --select "$file" ;;
+		window) scrot --focused "$file" ;;
+		screen) scrot "$file" ;;
+	esac
+}
+
+mode=${1:-area}
+action=${2:-copy-save}
+case "$mode" in
+	area|window|screen) ;;
+	-h|--help) usage; exit 0 ;;
+	*) usage >&2; exit 2 ;;
+esac
+case "$action" in
+	copy-save|copy|save|ocr) ;;
+	*) usage >&2; exit 2 ;;
+esac
+
+pictures_dir=''
+if command -v xdg-user-dir >/dev/null 2>&1; then
+	pictures_dir=$(xdg-user-dir PICTURES 2>/dev/null || true)
+fi
+pictures_dir=${pictures_dir:-$HOME/Pictures}
+screenshot_dir=${SCREENSHOT_DIR:-$pictures_dir/Screenshots}
+mkdir -p "$screenshot_dir" || fail "Cannot create $screenshot_dir"
+file="$screenshot_dir/$(date '+%Y-%m-%d_%H-%M-%S')_${mode}.png"
+
+if [[ -n "${WAYLAND_DISPLAY:-}" ]]; then
+	capture_wayland "$mode" "$file" || {
+		status=$?
+		((status == 127)) && fail 'Install grim (and slurp for area selection) to take Wayland screenshots.'
+		exit "$status"
+	}
+else
+	capture_x11 "$mode" "$file" || {
+		status=$?
+		((status == 127)) && fail 'Install maim or scrot to take X11 screenshots.'
+		exit "$status"
+	}
+fi
+
+[[ -s "$file" ]] || exit 1
+
+case "$action" in
+	save)
+	notify 'Screenshot saved' "$file"
+	;;
+	copy-save)
+		copy_image "$file" || fail 'Install wl-clipboard (Wayland) or xclip (X11) to copy images.'
+		notify 'Screenshot copied and saved' "$file"
+		;;
+	copy)
+		copy_image "$file" || fail 'Install wl-clipboard (Wayland) or xclip (X11) to copy images.'
+		rm -f -- "$file"
+		notify 'Screenshot copied'
+		;;
+	ocr)
+		command -v tesseract >/dev/null 2>&1 || fail 'Install tesseract and a language data package to use OCR.'
+		text=$(tesseract "$file" stdout -l "${OCR_LANG:-eng}" 2>/dev/null) || fail 'Tesseract could not read the screenshot.'
+		[[ -n "$text" ]] || fail 'No text was detected.'
+		printf '%s' "$text" | copy_text || fail 'Install wl-clipboard (Wayland) or xclip (X11) to copy OCR text.'
+		notify 'OCR copied to clipboard' "$(printf '%s' "$text" | head -c 120)"
+		;;
+esac

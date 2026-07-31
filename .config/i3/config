@@ -31,7 +31,7 @@ exec --no-startup-id dunst -config $HOME/.config/dunst/dunstrc
 exec --no-startup-id desktop-items
 exec --no-startup-id nm-applet
 exec --no-startup-id numlockx
-exec --no-startup-id shutter --min_at_startup
+exec --no-startup-id $HOME/script/clipboard daemon
 # exec --no-startup-id STEAM_FRAME_FORCE_CLOSE=1 steam -silent
 exec --no-startup-id /usr/libexec/gsd-xsettings
 # exec_always --no-startup-id sbxkb
@@ -148,8 +148,11 @@ bindsym $mod2+Shift+n exec --no-startup-id dunstctl close-all
 
 bindsym $mod2+l exec --no-startup-id SDL_VIDEO_FULLSCREEN_HEAD=0 i3lock -i ~/.wallpaper/double.png, mode "default"
 
-bindsym $mod2+Shift+s exec shutter -w
-bindsym Print exec --no-startup-id gnome-screenshot -ic
+bindsym $mod2+Shift+s exec --no-startup-id $HOME/script/screenshot area copy-save
+bindsym $mod2+Shift+p exec --no-startup-id $HOME/script/screenshot window copy-save
+bindsym $mod2+Shift+o exec --no-startup-id $HOME/script/screenshot area ocr
+bindsym Print exec --no-startup-id $HOME/script/screenshot screen copy-save
+bindsym $mod2+v exec --no-startup-id $HOME/script/clipboard menu
 # bindsym $mod2+Control+r exec simplescreenrecorder --start-recording --start-hidden
 # bindsym $mod4+Control+Shift+r exec simplescreenrecorder record-stop
 # bindsym $mod2+Shift+s exec gnome-screenshot -wc

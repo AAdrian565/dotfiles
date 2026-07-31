@@ -1,0 +1,127 @@
+@import "../colors/onedark.rasi"
+
+* {
+    border-colour:               @selected;
+    handle-colour:               @selected;
+    background-colour:           @background;
+    foreground-colour:           @foreground;
+    alternate-background:        @background-alt;
+    selected-background:         @selected;
+    selected-foreground:         @background;
+    separator-colour:            #3E4451FF;
+    font:                        "JetBrains Mono Nerd Font 11";
+}
+
+window {
+    location:                    center;
+    anchor:                      center;
+    width:                       720px;
+    border:                      2px;
+    border-radius:               12px;
+    border-color:                @border-colour;
+    background-color:            @background-colour;
+}
+
+mainbox {
+    spacing:                     12px;
+    padding:                     18px;
+    background-color:            transparent;
+    children:                    [ inputbar, message, listview, mode-switcher ];
+}
+
+inputbar {
+    spacing:                     10px;
+    padding:                     12px 14px;
+    border-radius:               8px;
+    background-color:            @alternate-background;
+    text-color:                  @foreground-colour;
+    children:                    [ prompt, entry ];
+}
+
+prompt {
+    text-color:                  @selected;
+    background-color:            transparent;
+}
+
+entry {
+    placeholder:                 "Search";
+    placeholder-color:           #5C6370FF;
+    text-color:                  @foreground-colour;
+    background-color:            transparent;
+}
+
+message {
+    padding:                     10px;
+    border-radius:               8px;
+    background-color:            @alternate-background;
+}
+
+textbox {
+    text-color:                  @foreground-colour;
+    background-color:            transparent;
+}
+
+listview {
+    columns:                     1;
+    lines:                       10;
+    spacing:                     6px;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    background-color:            transparent;
+}
+
+element {
+    spacing:                     12px;
+    padding:                     10px 12px;
+    border-radius:               8px;
+    background-color:            transparent;
+    text-color:                  @foreground-colour;
+}
+
+element normal.normal,
+element alternate.normal {
+    background-color:            transparent;
+    text-color:                  @foreground-colour;
+}
+
+element selected.normal {
+    background-color:            @selected-background;
+    text-color:                  @selected-foreground;
+}
+
+element urgent.normal {
+    text-color:                  @urgent;
+}
+
+element active.normal {
+    text-color:                  @active;
+}
+
+element-icon {
+    size:                        24px;
+    background-color:            transparent;
+}
+
+element-text {
+    vertical-align:              0.5;
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+
+mode-switcher {
+    spacing:                     8px;
+    background-color:            transparent;
+}
+
+button {
+    padding:                     8px 12px;
+    border-radius:               8px;
+    background-color:            @alternate-background;
+    text-color:                  @foreground-colour;
+}
+
+button selected {
+    background-color:            @selected-background;
+    text-color:                  @selected-foreground;
+}
