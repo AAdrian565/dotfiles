@@ -1,0 +1,155 @@
+#!/usr/bin/env bash
+
+set -u
+umask 077
+
+state_dir=${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/clipboard
+history_dir=$state_dir/history
+pause_file=$state_dir/pause-until
+max_entries=${CLIPBOARD_HISTORY_SIZE:-100}
+[[ "$max_entries" =~ ^[1-9][0-9]*$ ]] || max_entries=100
+mkdir -p "$history_dir" || exit 1
+chmod 700 "$state_dir" "$history_dir"
+
+notify() {
+	command -v notify-send >/dev/null 2>&1 && notify-send -a Clipboard "$@"
+}
+
+copy_clipboard() {
+	if [[ -n "${WAYLAND_DISPLAY:-}" ]] && command -v wl-copy >/dev/null 2>&1; then
+		wl-copy --type text/plain
+	elif command -v xclip >/dev/null 2>&1; then
+		xclip -selection clipboard -i
+	else
+		printf 'clipboard: install wl-clipboard (Wayland) or xclip (X11)\n' >&2
+		return 1
+	fi
+}
+
+paused() {
+	local now until=0
+	now=$(date +%s)
+	[[ -r "$pause_file" ]] && read -r until < "$pause_file"
+	[[ "$until" =~ ^[0-9]+$ ]] && ((now < until))
+}
+
+sensitive() {
+	local value=$1 lower
+	lower=${value,,}
+	[[ "$value" == *'PRIVATE KEY-----'* ]] ||
+		[[ "$lower" =~ (password|passwd|passphrase|api[_-]?key|access[_-]?token|refresh[_-]?token|client[_-]?secret|authorization)[[:space:]]*[:=] ]] ||
+		[[ "$lower" =~ bearer[[:space:]]+[a-z0-9._~+/-]{16,} ]] ||
+		[[ "$value" =~ (gh[opusr]_[A-Za-z0-9_]{20,}|AKIA[0-9A-Z]{16}) ]] ||
+		[[ "$value" =~ eyJ[A-Za-z0-9_-]+\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+ ]] ||
+		[[ "$value" =~ ://[^[:space:]/]+:[^[:space:]@]+@ ]]
+}
+
+prune_history() {
+	local -a old_files
+	mapfile -t old_files < <(find "$history_dir" -maxdepth 1 -type f -printf '%T@ %p\n' |
+		sort -rn | tail -n "+$((max_entries + 1))" | cut -d' ' -f2-)
+	((${#old_files[@]} == 0)) || rm -f -- "${old_files[@]}"
+}
+
+store() {
+	local value hash existing file
+	value=$(head -c 100000)
+	[[ -n "$value" ]] || return 0
+	paused && return 0
+	if sensitive "$value"; then
+		notify 'Sensitive clipboard entry ignored' 'It was copied but not written to history.'
+		return 0
+	fi
+
+	hash=$(printf '%s' "$value" | sha256sum | awk '{ print $1 }')
+	existing=$(find "$history_dir" -maxdepth 1 -type f -name "*-$hash" -print -quit)
+	[[ -z "$existing" ]] || rm -f -- "$existing"
+	file="$history_dir/$(date +%s%N)-$hash"
+	printf '%s' "$value" > "$file"
+	prune_history
+}
+
+daemon() {
+	exec 9>"$state_dir/daemon.lock"
+	flock -n 9 || return 0
+
+	if [[ -n "${WAYLAND_DISPLAY:-}" ]] && command -v wl-paste >/dev/null 2>&1; then
+		exec wl-paste --type text --watch "$0" store
+	fi
+	command -v xclip >/dev/null 2>&1 || {
+		printf 'clipboard: install wl-clipboard (Wayland) or xclip (X11)\n' >&2
+		return 1
+	}
+
+	local value hash last_hash=''
+	while sleep 0.7; do
+		value=$(xclip -selection clipboard -o 2>/dev/null | head -c 100000) || continue
+		[[ -n "$value" ]] || continue
+		hash=$(printf '%s' "$value" | sha256sum | awk '{ print $1 }')
+		[[ "$hash" == "$last_hash" ]] && continue
+		last_hash=$hash
+		printf '%s' "$value" | store
+	done
+}
+
+menu() {
+	local file preview selection number index
+	local -a files entries
+	command -v rofi >/dev/null 2>&1 || {
+		printf 'clipboard: rofi is required for the history menu\n' >&2
+		return 1
+	}
+	mapfile -t files < <(find "$history_dir" -maxdepth 1 -type f -printf '%T@ %p\n' |
+		sort -rn | cut -d' ' -f2-)
+	((${#files[@]})) || {
+		notify 'Clipboard history is empty'
+		return 0
+	}
+
+	for index in "${!files[@]}"; do
+		file=${files[$index]}
+		preview=$(tr '\n\r\t' '   ' < "$file" | head -c 120)
+		entries+=("$(printf '%03d  %s' "$((index + 1))" "$preview")")
+	done
+	selection=$(printf '%s\n' "${entries[@]}" | rofi -dmenu -i -p 'Clipboard' -theme-str 'listview { lines: 12; }') || return
+	number=${selection%% *}
+	[[ "$number" =~ ^[0-9]+$ ]] || return 1
+	index=$((10#$number - 1))
+	[[ -r "${files[$index]:-}" ]] || return 1
+	copy_clipboard < "${files[$index]}"
+}
+
+pause() {
+	local seconds=${1:-60}
+	[[ "$seconds" =~ ^[0-9]+$ ]] || {
+		printf 'clipboard: pause duration must be seconds\n' >&2
+		return 2
+	}
+	printf '%s\n' "$(( $(date +%s) + seconds ))" > "$pause_file"
+	notify 'Clipboard history paused' "New entries will be ignored for $seconds seconds."
+}
+
+case ${1:-menu} in
+	daemon) daemon ;;
+	store|ingest) store ;;
+	menu) menu ;;
+	copy) copy_clipboard ;;
+	copy-sensitive)
+		shift
+		pause 30 >/dev/null
+		if (($#)); then printf '%s' "$*" | copy_clipboard; else copy_clipboard; fi
+		;;
+	pause) pause "${2:-60}" ;;
+	resume) printf '0\n' > "$pause_file"; notify 'Clipboard history resumed' ;;
+	clear)
+		find "$history_dir" -maxdepth 1 -type f -delete
+		notify 'Clipboard history cleared'
+		;;
+	status)
+		if paused; then printf 'paused\n'; else printf 'recording\n'; fi
+		;;
+	-h|--help)
+		printf 'Usage: clipboard {daemon|menu|copy|copy-sensitive|pause [SECONDS]|resume|clear|status}\n'
+		;;
+	*) printf 'clipboard: unknown command: %s\n' "$1" >&2; exit 2 ;;
+esac

@@ -37,8 +37,17 @@ LABELS["rofi-Bluetooth"]=""
 COMMANDS["rofi-Calculator"]="rofi -show calc -modi calc -no-show-match -no-sort"
 LABELS["rofi-Calculator"]=""
 
-COMMANDS["rofi-Clipboard"]="rofi -modi 'clipboard:greenclip print' -show clipboard"
-LABELS["rofi-Clipboard"]=""
+COMMANDS["Clipboard"]="$HOME/script/clipboard menu"
+LABELS["Clipboard"]=""
+
+COMMANDS["Screenshot-OCR"]="$HOME/script/screenshot area ocr"
+LABELS["Screenshot-OCR"]=""
+
+COMMANDS["Power"]="$HOME/script/power-profile menu"
+LABELS["Power"]=""
+
+COMMANDS["Dashboard"]="alacritty -e $HOME/script/dashboard"
+LABELS["Dashboard"]=""
 
 ################################################################################
 #
