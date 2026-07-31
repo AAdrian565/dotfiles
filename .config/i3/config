@@ -26,7 +26,7 @@ font pango:monospace 9
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id xrandr --output HDMI-0 --left-of DP-1
 exec --no-startup-id openrgb -p off
-exec --no-startup-id picom --experimental-backends --config $HOME/.config/picom/picom.conf
+exec --no-startup-id picom --config $HOME/.config/picom/picom.conf
 exec --no-startup-id dunst -config $HOME/.config/dunst/dunstrc
 exec --no-startup-id desktop-items
 exec --no-startup-id nm-applet

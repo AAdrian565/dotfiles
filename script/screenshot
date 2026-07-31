@@ -76,32 +76,12 @@ capture_wayland() {
 
 capture_x11() {
 	local mode=$1 file=$2 geometry window_id
-	local slop_config_home=${XDG_CONFIG_HOME:-$HOME/.config}
-	local script_path dotfiles_root
-	local -a slop_args
 	if command -v maim >/dev/null 2>&1; then
 		case "$mode" in
 			area)
 				if command -v slop >/dev/null 2>&1; then
-					# Capture after slop exits so picom cannot bake its blurred
-					# selection overlay into the resulting image. A zero
-					# tolerance also prevents a click from selecting a full window.
-					script_path=$(readlink -f "${BASH_SOURCE[0]}")
-					dotfiles_root=$(dirname "$(dirname "$script_path")")
-					if [[ ! -r "$slop_config_home/slop/focus.vert" || ! -r "$slop_config_home/slop/focus.frag" ]]; then
-						slop_config_home=$dotfiles_root/.config
-					fi
-					slop_args=(
-						--tolerance=0
-						--highlight
-						--bordersize=0
-						--color=1,1,1,1
-						--format=%g
-					)
-					if [[ -r "$slop_config_home/slop/focus.vert" && -r "$slop_config_home/slop/focus.frag" ]]; then
-						slop_args+=(--shader=focus)
-					fi
-					geometry=$(XDG_CONFIG_HOME="$slop_config_home" slop "${slop_args[@]}") || return
+					geometry=$(slop --shader=focus --highlight --bordersize=0 \
+						--color=1,1,1,0.25 --format=%g) || return
 					[[ -n "$geometry" ]] || return 1
 					sleep 0.15
 					maim --hidecursor --geometry "$geometry" "$file"
