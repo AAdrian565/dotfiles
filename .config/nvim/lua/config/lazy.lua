@@ -26,7 +26,9 @@ local plugins = {
 		lazy = false,
 		build = ":TSUpdate",
 		branch = "main",
-		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
+		dependencies = {
+			{ "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
+		},
 	},
 	"windwp/nvim-ts-autotag",
 	"lewis6991/gitsigns.nvim",
