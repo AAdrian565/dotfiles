@@ -39,7 +39,12 @@ local plugins = {
 	"mg979/vim-visual-multi",
 	"catgoose/nvim-colorizer.lua",
 	"christoomey/vim-titlecase",
-	"rstacruz/vim-closer",
+	{
+		"nvim-mini/mini.nvim",
+		config = function()
+			require("mini.pairs").setup()
+		end,
+	},
 	{
 		"github/copilot.vim",
 		config = function()
@@ -60,7 +65,7 @@ local plugins = {
 	},
 	{
 		"nvim-telescope/telescope.nvim",
-		version = "0.1.9",
+		version = "*",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-live-grep-args.nvim",
@@ -76,6 +81,7 @@ local plugins = {
 			{ "williamboman/mason.nvim", opts = {} },
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			"b0o/SchemaStore.nvim",
 			{ "j-hui/fidget.nvim", opts = {} },
 		},
 	},
@@ -129,7 +135,7 @@ local plugins = {
 	},
 	{
 		"kylechui/nvim-surround",
-		version = "^3.0.0",
+		version = "^4.0.0",
 		event = "VeryLazy",
 		config = function()
 			require("nvim-surround").setup({})

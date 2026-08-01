@@ -73,20 +73,35 @@ local servers = {
 	pyright = {},
 	gopls = {},
 	emmet_ls = {},
+	-- JetBrains' official server handles Kotlin/JVM, Kotlin DSL, and has
+	-- experimental Android Gradle Plugin support.
+	kotlin_lsp = {},
+	-- Kotlin DSL files are handled by kotlin_lsp; this covers Groovy Gradle files.
+	gradle_ls = {},
+	yamlls = {
+		settings = {
+			yaml = {
+				schemaStore = {
+					enable = false,
+					url = "",
+				},
+				schemas = require("schemastore").yaml.schemas(),
+				validate = true,
+				completion = true,
+				hover = true,
+			},
+		},
+	},
 }
+
+for server_name, server in pairs(servers) do
+	server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+	vim.lsp.config(server_name, server)
+end
 
 require("mason-lspconfig").setup({
 	ensure_installed = vim.tbl_keys(servers or {}),
-	automatic_installation = false,
-	handlers = {
-		function(server_name)
-			local server = servers[server_name]
-			if server then
-				server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-				require("lspconfig")[server_name].setup(server)
-			end
-		end,
-	},
+	automatic_enable = vim.tbl_keys(servers),
 })
 
 require("mason-tool-installer").setup({
@@ -96,11 +111,12 @@ require("mason-tool-installer").setup({
 		"eslint_d",
 		"prettierd",
 		"yamlfmt",
+		"ktlint",
 	},
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = { "*.go", "*.py" },
+	pattern = { "*.go", "*.py", "*.kt", "*.kts", "*.yaml", "*.yml" },
 	callback = function()
 		require("conform").format({ async = false, lsp_format = "fallback" })
 	end,

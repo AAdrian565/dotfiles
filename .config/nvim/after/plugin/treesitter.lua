@@ -1,14 +1,20 @@
 local languages = {
 	"c",
+	"groovy",
 	"html",
+	"java",
 	"javascript",
+	"kotlin",
 	"lua",
+	"make",
 	"markdown",
 	"markdown_inline",
 	"regex",
 	"typescript",
 	"vim",
 	"vue",
+	"xml",
+	"yaml",
 }
 
 require("nvim-treesitter").install(languages)
