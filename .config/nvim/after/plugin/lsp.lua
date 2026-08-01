@@ -75,18 +75,14 @@ local servers = {
 	emmet_ls = {},
 }
 
+for server_name, server in pairs(servers) do
+	server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+	vim.lsp.config(server_name, server)
+end
+
 require("mason-lspconfig").setup({
 	ensure_installed = vim.tbl_keys(servers or {}),
-	automatic_installation = false,
-	handlers = {
-		function(server_name)
-			local server = servers[server_name]
-			if server then
-				server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-				require("lspconfig")[server_name].setup(server)
-			end
-		end,
-	},
+	automatic_enable = vim.tbl_keys(servers),
 })
 
 require("mason-tool-installer").setup({
