@@ -22,9 +22,9 @@ k("n", "<leader>hl", ":set hlsearch!<cr>", opt)
 
 -- Copy paste
 k("n", "<C-a>", "ggVG<cr>", opt)
-k("n", "<leader>ya", 'gg"+yG', opt)
-k("n", "<leader>pa", 'ggVGx"+<S-p><cr>', opt)
-k("n", "<leader>da", 'ggVGx"d<cr>', opt)
+k("n", "<leader>ya", ":%y+<CR>", opt)
+k("n", "<leader>pa", ':%d_<CR>"+PGdd', opt)
+k("n", "<leader>da", ":%d d<CR>", opt)
 k("n", "cp", '"+y', opt)
 k("v", "cp", '"+y', opt)
 

@@ -1,6 +1,6 @@
 local ok, alpha = pcall(require, "alpha")
 if not ok then
-	return
+    return
 end
 
 local dashboard = require("alpha.themes.dashboard")
