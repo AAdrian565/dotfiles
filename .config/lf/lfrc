@@ -4,6 +4,7 @@ set previewer ~/.config/lf/preview
 set icons true
 set ignorecase true
 set shell sh
+set scrolloff 5
 
 map g. set hidden!
 map . set hidden!
@@ -17,10 +18,8 @@ map o mark-load
 map e $nvim "$f"
 map <enter> shell
 map r reload
-map RR push :rename<space>
+map RR rename
 map gd $dragon "$f" &
-
-cmd rename %[ -e "$1" ] && printf "file exists" || mv "$f" "$1"
 
 cmd extract ${{
     set -f
@@ -54,14 +53,16 @@ cmd extract ${{
 
 cmd zip ${{
     set -f
-    mkdir $1
-    cp -r $fx $1
-    zip -r $1.zip $1
+    IFS="$(printf '\n\t')"
+    mkdir -- "$1" &&
+        cp -r -- $fx "$1" &&
+        zip -r "$1.zip" "$1"
 }}
 
 cmd tar ${{
     set -f
-    mkdir $1
-    cp -r $fx $1
-    tar czf $1.tar.gz $1
+    IFS="$(printf '\n\t')"
+    mkdir -- "$1" &&
+        cp -r -- $fx "$1" &&
+        tar -czf "$1.tar.gz" -- "$1"
 }}
