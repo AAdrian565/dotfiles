@@ -1,9 +1,11 @@
 require("blink.cmp").setup({
 	keymap = {
 		preset = "default",
-		["<C-k>"] = { "select_prev", "fallback" },
-		["<C-j>"] = { "select_next", "fallback" },
-		["<C-l>"] = { "select_and_accept" },
+		-- These are installed explicitly below so they work even if Blink's
+		-- InsertEnter keymap setup runs after the first insert-mode entry.
+		["<C-k>"] = false,
+		["<C-j>"] = false,
+		["<C-l>"] = false,
 		["<C-space>"] = {
 			function(cmp)
 				cmp.show({ providers = { "snippets" } })
@@ -38,6 +40,26 @@ require("blink.cmp").setup({
 		enabled = true,
 	},
 })
+
+local completion_actions = {
+	["<C-j>"] = "select_next",
+	["<C-k>"] = "select_prev",
+	["<C-l>"] = "select_and_accept",
+}
+
+for key, action in pairs(completion_actions) do
+	vim.keymap.set("i", key, function()
+		local cmp = require("blink.cmp")
+		if cmp[action]() then return "" end
+		return vim.api.nvim_replace_termcodes(key, true, false, true)
+	end, {
+		expr = true,
+		noremap = true,
+		silent = true,
+		replace_keycodes = false,
+		desc = "Completion: " .. action,
+	})
+end
 
 local ok_luasnip, luasnip = pcall(require, "luasnip")
 if ok_luasnip then

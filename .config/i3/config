@@ -23,6 +23,10 @@ font pango:monospace 9
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
+exec_always --no-startup-id xset s off
+exec_always --no-startup-id xset -dpms
+exec_always --no-startup-id xset s noblank
+exec_always --no-startup-id setxkbmap -layout us -option
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id xrandr --output HDMI-0 --left-of DP-1
 exec --no-startup-id openrgb -p off
@@ -31,7 +35,7 @@ exec --no-startup-id dunst -config $HOME/.config/dunst/dunstrc
 exec --no-startup-id desktop-items
 exec --no-startup-id nm-applet
 exec --no-startup-id numlockx
-exec --no-startup-id $HOME/script/clipboard daemon
+# DISABLED clipboard daemon: exec --no-startup-id $HOME/script/clipboard daemon
 # exec --no-startup-id STEAM_FRAME_FORCE_CLOSE=1 steam -silent
 exec --no-startup-id /usr/libexec/gsd-xsettings
 # exec_always --no-startup-id sbxkb
