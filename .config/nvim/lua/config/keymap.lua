@@ -7,6 +7,11 @@ k("n", "gt", "<Plug>Titlecase", opt)
 k("v", "gt", "<Plug>Titlecase", opt)
 k("n", "gtt", "<Plug>TitlecaseLine", opt)
 
+k("n", "g*", function()
+    vim.go.operatorfunc = "v:lua.redact_operator"
+    return "g@"
+end, { expr = true, noremap = true, silent = true, desc = "Redact motion" })
+
 -- Basic Functionality
 -- k("n", "<leader>y", '"+y', opt)
 k("n", "<C-h>", "<C-w>h", opt)

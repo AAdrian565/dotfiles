@@ -114,10 +114,3 @@ require("mason-tool-installer").setup({
 		"ktlint",
 	},
 })
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = { "*.go", "*.py", "*.kt", "*.kts", "*.yaml", "*.yml" },
-	callback = function()
-		require("conform").format({ async = false, lsp_format = "fallback" })
-	end,
-})

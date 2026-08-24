@@ -2,3 +2,4 @@
 .config/btop/btop.log
 .config/btop/btop.conf
 data/*
+/nvim.log
