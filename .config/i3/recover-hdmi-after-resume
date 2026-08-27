@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Lenovo L24i-40 (serial UNP01YB2), the home HDMI monitor.
+readonly home_monitor_edid_sha256="175db5e8125f5702b52ac7167d5aff486054fded36d1d2cfd25a10ff84f83898"
+readonly runtime_dir="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+readonly recovery_lock="$runtime_dir/i3-hdmi-recovery.lock"
+
+home_monitor_connected() {
+    local edid
+    for edid in /sys/class/drm/card*-HDMI-A-*/edid; do
+        if [[ -r "$edid" ]] && [[ "$(sha256sum "$edid" | cut -d' ' -f1)" == "$home_monitor_edid_sha256" ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+recover_hdmi() (
+    # A resume signal and the connector watcher can fire together.
+    exec 8>"$recovery_lock"
+    flock -n 8 || return 0
+
+    # Allow the kernel a few seconds to rediscover the monitor after resume.
+    # Away from home this simply times out in the background.
+    local attempt
+    for attempt in {1..10}; do
+        xrandr --query >/dev/null 2>&1 || true
+        if home_monitor_connected; then
+            break
+        fi
+        sleep 1
+    done
+
+    if ! home_monitor_connected; then
+        logger -t i3-hdmi-resume "Home monitor was not detected after resume"
+        return 0
+    fi
+
+    logger -t i3-hdmi-resume "Retraining the home HDMI connection"
+    xrandr --output HDMI-A-0 --off
+    sleep 1
+    autorandr --load home --force
+    i3-msg -q reload
+)
+
+watch_system_resume() {
+    while true; do
+        while IFS= read -r line; do
+            if [[ "$line" == *"boolean false"* ]]; then
+                sleep 2
+                recover_hdmi || logger -t i3-hdmi-resume "HDMI recovery failed"
+            fi
+        done < <(dbus-monitor --system \
+            "type='signal',interface='org.freedesktop.login1.Manager',member='PrepareForSleep'")
+        sleep 2
+    done
+}
+
+watch_resume() {
+    exec 9>"$runtime_dir/i3-hdmi-resume-watch.lock"
+    flock -n 9 || exit 0
+
+    # Only restore HDMI after logind confirms the system has resumed. Polling
+    # the connector while idle would reactivate it during the suspend sequence
+    # and leave the machine locked but awake.
+    watch_system_resume
+}
+
+case "${1:-}" in
+    --watch) watch_resume ;;
+    --recover|"") recover_hdmi ;;
+    *) echo "Usage: ${0##*/} [--watch|--recover]" >&2; exit 2 ;;
+esac
