@@ -11,7 +11,20 @@ alias v='dir=$(find ~/programming -maxdepth 2 -type d -printf "/%P\n" | grep '\'
 alias t='dir=$(find ~/programming -maxdepth 2 -type d -printf "/%P\n" | grep '\''/[^/]\+/[^/]\+'\'' | fzf | sed "s|^/|$HOME/programming/|") && [ -n "$dir" ] && cd "$dir" && tmux new -s "$(basename "$dir")" -c "$dir"'
 alias ztm='action=$(echo -e "join\nleave" | fzf) && [ -n "$action" ] && network_id=$(cat ~/dotfiles/data/zerotier | fzf | awk "{print \$1}") && [ -n "$network_id" ] && sudo zerotier-cli "$action" "$network_id"'
 alias sm='line=$(fzf --with-nth=1 < ~/dotfiles/data/ssh) && [ -n "$line" ] && eval "ssh $(echo "$line" | cut -d" " -f2-)"'
-alias wsm='host=$(tsh ls --format=text 2>/dev/null | tail -n +2 | awk "{print \$1}" | fzf) && [ -n "$host" ] && tsh ssh root@"$host"'
+wsm() {
+    local host user users
+
+    host=$(tsh ls --format=text 2>/dev/null | tail -n +2 | awk '{print $1}' | fzf --prompt='Host > ') || return
+    [ -n "$host" ] || return
+
+    users=$(tsh status --format=json 2>/dev/null | jq -r '.active.logins[]?' 2>/dev/null)
+    [ -n "$users" ] || { echo 'No Teleport SSH users found.' >&2; return 1; }
+
+    user=$(printf '%s\n' "$users" | fzf --prompt='User > ') || return
+    [ -n "$user" ] || return
+
+    tsh ssh "$user@$host"
+}
 alias tm='entry=$(cat ~/dotfiles/data/tsh | fzf) && proxy=$(echo "$entry" | awk "{print \$1}") && user=$(echo "$entry" | awk "{print \$2}") && [ -n "$proxy" ] && tsh login --proxy="$proxy" --user="$user"'
 alias dc='current_context=$(docker context show) && selection=$(docker context list --format "table {{.Name}}\t{{.Description}}\t{{.DockerEndpoint}}" | tail -n +2 | fzf --prompt="Current Context: $current_context > ") && [ -n "$selection" ] && context=$(echo "$selection" | awk "{print \$1}") && [ -n "$context" ] && docker context use "$context"'
 alias sf='sshfs $(cat ~/sshf | fzf) ~/mount'
