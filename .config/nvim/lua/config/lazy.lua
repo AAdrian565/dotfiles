@@ -194,6 +194,7 @@ local plugins = {
 		priority = 1000,
 		lazy = false,
 	},
+    "pablopunk/pi.nvim",
 }
 
 require("lazy").setup({

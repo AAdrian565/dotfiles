@@ -45,7 +45,8 @@ exec --no-startup-id /usr/libexec/gsd-xsettings
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# Share a guard with Win+L so display sleep cannot start a second locker.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- flock --nonblock --no-fork "$XDG_RUNTIME_DIR/i3lock.lock" i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -150,7 +151,8 @@ bindsym $mod2+equal exec pavucontrol
 bindsym $mod2+n exec --no-startup-id dunstctl history-pop
 bindsym $mod2+Shift+n exec --no-startup-id dunstctl close-all
 
-bindsym $mod2+l exec --no-startup-id SDL_VIDEO_FULLSCREEN_HEAD=0 i3lock -i ~/.wallpaper/double.png, mode "default"
+# Lock before powering off displays; wait for key release to avoid waking them immediately.
+bindsym --release $mod2+l exec --no-startup-id sh -c 'SDL_VIDEO_FULLSCREEN_HEAD=0 flock --nonblock --no-fork "$XDG_RUNTIME_DIR/i3lock.lock" i3lock -i ~/.wallpaper/double.png && sleep 0.5 && xset dpms 0 0 0 +dpms && xset dpms force off', mode "default"
 
 bindsym $mod2+Shift+s exec --no-startup-id $HOME/script/screenshot area copy-save
 bindsym $mod2+Shift+p exec --no-startup-id $HOME/script/screenshot window copy-save
