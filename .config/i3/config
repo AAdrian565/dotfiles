@@ -155,7 +155,7 @@ bindsym $mod2+l exec --no-startup-id SDL_VIDEO_FULLSCREEN_HEAD=0 i3lock -i ~/.wa
 bindsym $mod2+Shift+s exec --no-startup-id $HOME/script/screenshot area copy-save
 bindsym $mod2+Shift+p exec --no-startup-id $HOME/script/screenshot window copy-save
 bindsym $mod2+Shift+o exec --no-startup-id $HOME/script/screenshot area ocr
-bindsym Print exec --no-startup-id $HOME/script/screenshot screen copy-save
+bindsym Print exec --no-startup-id $HOME/script/screenshot output copy-save
 bindsym $mod2+v exec --no-startup-id $HOME/script/clipboard menu
 # bindsym $mod2+Control+r exec simplescreenrecorder --start-recording --start-hidden
 # bindsym $mod4+Control+Shift+r exec simplescreenrecorder record-stop

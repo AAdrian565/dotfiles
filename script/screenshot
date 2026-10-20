@@ -4,7 +4,7 @@ set -u
 
 usage() {
 	cat <<'EOF'
-Usage: screenshot [area|window|screen] [copy-save|copy|save|ocr]
+Usage: screenshot [area|window|output|screen] [copy-save|copy|save|ocr]
 
 Environment:
   OCR_LANG       Tesseract language (default: eng)
@@ -51,6 +51,7 @@ capture_wayland() {
 		case "$mode" in
 			area) grimblast save area "$file" ;;
 			window) grimblast save active "$file" ;;
+			output) grimblast save output "$file" ;;
 			screen) grimblast save screen "$file" ;;
 		esac
 		return
@@ -70,12 +71,62 @@ capture_wayland() {
 			geometry=$(hyprctl -j activewindow | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"') || return
 			grim -g "$geometry" "$file"
 			;;
+		output)
+			command -v hyprctl >/dev/null 2>&1 || fail 'Active-output capture requires grimblast or Hyprland.'
+			command -v jq >/dev/null 2>&1 || fail 'Active-output capture requires jq.'
+			geometry=$(hyprctl -j monitors | jq -r '.[] | select(.focused) | "\(.x),\(.y) \(.width)x\(.height)"') || return
+			[[ -n "$geometry" && "$geometry" != null ]] || return 1
+			grim -g "$geometry" "$file"
+			;;
 		screen) grim "$file" ;;
 	esac
 }
 
+active_output_geometry() {
+	local active_geometry active_x active_y window_x window_y window_width window_height
+	local output status rest output_width output_height output_x output_y
+	local xrandr_output
+
+	command -v xdotool >/dev/null 2>&1 || return 127
+	command -v xrandr >/dev/null 2>&1 || return 127
+
+	active_geometry=$(xdotool getactivewindow getwindowgeometry --shell 2>/dev/null || true)
+	window_x=$(awk -F= '$1 == "X" {print $2}' <<< "$active_geometry")
+	window_y=$(awk -F= '$1 == "Y" {print $2}' <<< "$active_geometry")
+	window_width=$(awk -F= '$1 == "WIDTH" {print $2}' <<< "$active_geometry")
+	window_height=$(awk -F= '$1 == "HEIGHT" {print $2}' <<< "$active_geometry")
+	if [[ "$window_x" =~ ^-?[0-9]+$ && "$window_y" =~ ^-?[0-9]+$ &&
+		"$window_width" =~ ^[0-9]+$ && "$window_height" =~ ^[0-9]+$ ]]; then
+		active_x=$((window_x + window_width / 2))
+		active_y=$((window_y + window_height / 2))
+	else
+		active_geometry=$(xdotool getmouselocation --shell 2>/dev/null || true)
+		active_x=$(awk -F= '$1 == "X" {print $2}' <<< "$active_geometry")
+		active_y=$(awk -F= '$1 == "Y" {print $2}' <<< "$active_geometry")
+		[[ "$active_x" =~ ^-?[0-9]+$ && "$active_y" =~ ^-?[0-9]+$ ]] || return 1
+	fi
+
+	xrandr_output=$(xrandr --query 2>/dev/null) || return 1
+	while read -r output status rest; do
+		[[ "$status" == connected ]] || continue
+		if [[ "$rest" =~ ([0-9]+)x([0-9]+)([+-][0-9]+)([+-][0-9]+) ]]; then
+			output_width=${BASH_REMATCH[1]}
+			output_height=${BASH_REMATCH[2]}
+			output_x=${BASH_REMATCH[3]}
+			output_y=${BASH_REMATCH[4]}
+			if (( active_x >= output_x && active_x < output_x + output_width &&
+				active_y >= output_y && active_y < output_y + output_height )); then
+				printf '%sx%s%+d%+d\n' "$output_width" "$output_height" "$output_x" "$output_y"
+				return 0
+			fi
+		fi
+	done <<< "$xrandr_output"
+
+	return 1
+}
+
 capture_x11() {
-	local mode=$1 file=$2 geometry window_id
+	local mode=$1 file=$2 geometry window_id width height x y
 	if command -v maim >/dev/null 2>&1; then
 		case "$mode" in
 			area)
@@ -94,6 +145,10 @@ capture_x11() {
 				window_id=$(xdotool getactivewindow) || return
 				maim --window "$window_id" "$file"
 				;;
+			output)
+				geometry=$(active_output_geometry) || return
+				maim --hidecursor --geometry "$geometry" "$file"
+				;;
 			screen) maim "$file" ;;
 		esac
 		return
@@ -103,6 +158,18 @@ capture_x11() {
 	case "$mode" in
 		area) scrot --select "$file" ;;
 		window) scrot --focused "$file" ;;
+		output)
+			geometry=$(active_output_geometry) || return
+			if [[ "$geometry" =~ ^([0-9]+)x([0-9]+)([+-][0-9]+)([+-][0-9]+)$ ]]; then
+				width=${BASH_REMATCH[1]}
+				height=${BASH_REMATCH[2]}
+				x=${BASH_REMATCH[3]}
+				y=${BASH_REMATCH[4]}
+				scrot --autoselect "$x,$y,$width,$height" "$file"
+			else
+				return 1
+			fi
+			;;
 		screen) scrot "$file" ;;
 	esac
 }
@@ -110,7 +177,7 @@ capture_x11() {
 mode=${1:-area}
 action=${2:-copy-save}
 case "$mode" in
-	area|window|screen) ;;
+	area|window|output|screen) ;;
 	-h|--help) usage; exit 0 ;;
 	*) usage >&2; exit 2 ;;
 esac
